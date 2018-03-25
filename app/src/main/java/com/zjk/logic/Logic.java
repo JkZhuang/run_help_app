@@ -7,4 +7,5 @@ package com.zjk.logic;
  */
 
 public interface Logic {
+
 }
