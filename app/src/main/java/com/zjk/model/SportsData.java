@@ -7,7 +7,7 @@ public class SportsData {
 
 	private int sDId;
 	private int uId; // UserInfo外键
-	private int type; // 0-行走；1-跑步；2-骑行
+	private int type; // 0-行走；1-跑步；2-骑行；3-轮滑
 	private long usedTime; // 花费时间
 	private Date startTime; // 开始时间
 	private Date endTime; // 结束时间

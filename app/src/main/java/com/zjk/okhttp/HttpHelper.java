@@ -1,6 +1,9 @@
 package com.zjk.okhttp;
 
-import android.util.Log;
+import com.zjk.param.Param;
+import com.zjk.result.Result;
+import com.zjk.util.DebugUtil;
+import com.zjk.util.GsonUtil;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -12,94 +15,117 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-
 /**
  * Created by TZH on 2016/7/25.
  */
 public class HttpHelper {
 
+    private static final String TAG = "HttpHelper";
+
+    private static final String METHOD_PUT = "PUT";
+    private static final String METHOD_DELETE = "DELETE";
+    private static final String METHOD_POST = "POST";
+    private static final String METHOD_GET = "GET";
+
+    private static final int HTTP_TIMEOUT = 15 * 1000;
+
+    private static HttpHelper instance;
+
+    private final Object mHttpClientLock = new Object();
+    private OkHttpClient mHttpClient;
+
     private HttpHelper() {
-        //no instance
+        initHttpClient();
     }
 
-    private static final HttpHelper sInstance = new HttpHelper();
-
-    public static HttpHelper getInstance() {
-        return sInstance;
+    public static synchronized HttpHelper instance() {
+        if (instance == null) {
+            instance = new HttpHelper();
+        }
+        return instance;
     }
 
-    private final int TIMEOUT = 15 * 1000;
+    private OkHttpClient initHttpClient() {
+        synchronized (mHttpClientLock) {
+            if (mHttpClient == null) {
+                OkHttpClient.Builder builder = new OkHttpClient.Builder();
+                builder.connectTimeout(HTTP_TIMEOUT, TimeUnit.MILLISECONDS);
+                builder.readTimeout(HTTP_TIMEOUT, TimeUnit.MILLISECONDS);
+                builder.writeTimeout(HTTP_TIMEOUT, TimeUnit.MILLISECONDS);
+                mHttpClient = builder.build();
+            }
+            return mHttpClient;
+        }
+    }
 
-    private final OkHttpClient mOkHttpClient = new OkHttpClient();
-
-    public String postToServer(String url, String json) {
-        Log.d("request->", url + json);
-        mOkHttpClient.newBuilder().connectTimeout(TIMEOUT, TimeUnit.SECONDS).writeTimeout(TIMEOUT, TimeUnit.SECONDS)
-                .readTimeout(TIMEOUT, TimeUnit.SECONDS).build();
-//        String ip = SharedPreferencesUtils.getInstance().getServerIP();
-//        int port = SharedPreferencesUtils.getInstance().getServerPort();
-        String ip = "192.168.43.4";
-        int port = 8080;
-        String r = null;
+    public <P extends Param, R extends Result> R post(P param, Class<R> clazz) {
+        String targetUrl = DefList.url + param.page;
+        String json = GsonUtil.toJson(param);
+        DebugUtil.debug(TAG, "url->" + targetUrl + "; json->" + json);
+        String response;
         try {
-//            r = post("http://" + ip + ":" + port + url, json, Charset.defaultCharset());
-            String string = "http://192.168.43.4:8080/user/register";
-            r = post(string, json, Charset.defaultCharset());
+            response = toServer(targetUrl, json, Charset.defaultCharset(), METHOD_POST);
         } catch (IOException e) {
-            e.printStackTrace();
-            r = "{\"msg\":\"服务器有点问题，请稍后再试！\",\"retcode\":0}";
+            response = "{\"status\":0, \"errMsg\":\"服务器有点问题，请稍后重试！\"}";
         }
-        return r;
+        return GsonUtil.toObj(response, clazz);
     }
 
-    public String post(String urlSpec, String json, Charset charset) throws IOException {
-        String response = bytesToString(post(urlSpec, json), charset);
-        if (response != null) {
-            Log.d("response->", response);
-        } else {
-            Log.d("response->", "null");
+    public <P extends Param, R extends Result> R get(P param, Class<R> clazz) {
+        String targetUrl = DefList.url + param.page;
+        String json = GsonUtil.toJson(param);
+        DebugUtil.debug(TAG, "url->" + targetUrl + "; json->" + json);
+        String response;
+        try {
+            response = toServer(targetUrl, json, Charset.defaultCharset(), METHOD_GET);
+        } catch (IOException e) {
+            response = "{\"errMsg\":\"服务器有点问题，请稍后重试！\",\"status\":0}";
         }
+        return GsonUtil.toObj(response, clazz);
+    }
+
+    public <P extends Param, R extends Result> R put(P param, Class<R> clazz) {
+        String targetUrl = DefList.url + param.page;
+        String json = GsonUtil.toJson(param);
+        DebugUtil.debug(TAG, "url->" + targetUrl + "; json->" + json);
+        String response;
+        try {
+            response = toServer(targetUrl, json, Charset.defaultCharset(), METHOD_PUT);
+        } catch (IOException e) {
+            response = "{\"errMsg\":\"服务器有点问题，请稍后重试！\",\"status\":0}";
+        }
+        return GsonUtil.toObj(response, clazz);
+    }
+
+    public <P extends Param, R extends Result> R delete(P param, Class<R> clazz) {
+        String targetUrl = DefList.url + param.page;
+        String json = GsonUtil.toJson(param);
+        DebugUtil.debug(TAG, "url->" + targetUrl + "; json->" + json);
+        String response;
+        try {
+            response = toServer(targetUrl, json, Charset.defaultCharset(), METHOD_DELETE);
+        } catch (IOException e) {
+            response = "{\"errMsg\":\"服务器有点问题，请稍后重试！\",\"status\":0}";
+        }
+        return GsonUtil.toObj(response, clazz);
+    }
+
+    private String toServer(String url, String json, Charset charset, String method) throws IOException {
+        String response = bytesToString(toServer(url, json, method), charset);
+        if (response == null) {
+            response = "{\"status\":0, \"errMsg\":\"链接可能有点问题，请升级到最新版本！\"}";
+        }
+        DebugUtil.debug(TAG, "response->" + response);
         return response;
     }
 
-    public byte[] post(String urlSpec, String json) throws IOException {
-        RequestBody body = RequestBody.create(MediaType.parse("application/json"), json);
+    private byte[] toServer(String url, String json, String method) throws IOException {
+        RequestBody body = RequestBody.create(MediaType.parse(DefList.CONTENT_TYPE), json);
         Request request = new Request.Builder()
-                .url(urlSpec)
-                .post(body)
+                .url(url)
+                .method(method, body)
                 .build();
-        Response response = mOkHttpClient.newCall(request).execute();
-        if (response.isSuccessful()) {
-            return response.body().bytes();
-        } else {
-            return null;
-        }
-    }
-
-    public String doGetFromServer(String url) throws IOException {
-        Log.d("request->", url);
-//        String ip = SharedPreferencesUtils.getInstance().getServerIP();
-//        int port = SharedPreferencesUtils.getInstance().getServerPort();
-        String ip = "192.168.43.4";
-        int port = 8080;
-        return doGet("http://" + ip + ":" + port + url, Charset.defaultCharset());
-    }
-
-    public String doGet(String urlSpec, Charset charset) throws IOException {
-        String s = bytesToString(doGet(urlSpec), charset);
-        if (s != null) {
-            Log.d("response->", s);
-        } else {
-            Log.d("response->", "null");
-        }
-        return s;
-    }
-
-    public byte[] doGet(String urlSpec) throws IOException {
-        Request request = new Request.Builder()
-                .url(urlSpec)
-                .build();
-        Response response = mOkHttpClient.newCall(request).execute();
+        Response response = mHttpClient.newCall(request).execute();
         if (response.isSuccessful()) {
             return response.body().bytes();
         } else {
