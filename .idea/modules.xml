@@ -3,10 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://D:\project\bishe\run_help_app\app\app.iml" filepath="D:\project\bishe\run_help_app\app\app.iml" />
       <module fileurl="file://D:\project\bishe\run_help_app\run_help.iml" filepath="D:\project\bishe\run_help_app\run_help.iml" />
       <module fileurl="file://$PROJECT_DIR$/run_help_app.iml" filepath="$PROJECT_DIR$/run_help_app.iml" />
-      <module fileurl="file://D:\project\bishe\run_help_app\run_help_app.iml" filepath="D:\project\bishe\run_help_app\run_help_app.iml" />
     </modules>
   </component>
 </project>

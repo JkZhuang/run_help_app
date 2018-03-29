@@ -5,4 +5,58 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <string name="sports">运动</string>
+    <string name="diet">饮食</string>
+    <string name="dynamic">动态</string>
+    <string name="me">我</string>
+
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="phone">电话号码</string>
+    <string name="password">密码</string>
+
+    <string name="planning">规划</string>
+    <string name="walk">散步</string>
+    <string name="run">跑步</string>
+    <string name="riding">骑行</string>
+    
+    <string name="total_kilometers">总公里数</string>
+    <string name="kilometers">公里</string>
+    
+    <string name="start">开始</string>
+    <string name="next_step">下一步</string>
+    <string name="nick_name">昵称</string>
+    <string name="height">身高</string>
+    <string name="weight">体重</string>
+    <string name="birthday">生日</string>
+    <string name="gender">性别</string>
+    <string name="urgent_phone">紧急联系人</string>
+    
+    <string name="gps_word">GPS定位中…</string>
+    <string name="gps_no_signal">GPS无信号…</string>
+    <string name="calculate_by_pedometer">用计步器计算中</string>
+    
+    <string name="speed">速度</string>
+    <string name="used_time">用时</string>
+    <string name="energy">能量</string>
+    <string name="carry_on">继续</string>
+    <string name="pause">暂停</string>
+    <string name="end">结束</string>
+
+    <string name="featured">精选</string>
+    <string name="follow">关注</string>
+    <string name="recommend">推荐</string>
+    <string name="sports_achievement">运动成就</string>
+    <string name="personal_data">个人资料</string>
+    <string name="setting">设置</string>
+    <string name="setting_permission">权限设置</string>
+    <string name="cache">缓存</string>
+    <string name="about">关于</string>
+    <string name="feedback">意见反馈</string>
+    <string name="version">版本</string>
+    <string name="backstage_protected">后台保护</string>
+    <string name="avoid_sleeping">防止睡眠</string>
+    
+
 </resources>
