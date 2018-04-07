@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_urgent_phone_tip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:textColor="@color/theme_color"
+        android:textSize="14sp"
+        android:text="@string/urgent_phone_tips"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginEnd="40dp"/>
+
+    <EditText
+        android:id="@+id/et_urgent_phone"
+        android:layout_marginTop="20dp"
+        style="@style/RegisterTextStyle"
+        android:inputType="phone"
+        android:hint="@string/input_urgent_phone"/>
+
+    <TextView
+        android:id="@+id/tv_register"
+        android:layout_marginTop="40dp"
+        android:text="@string/register"
+        style="@style/ButtonStyle" />
+
+</LinearLayout>

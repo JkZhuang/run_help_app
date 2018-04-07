@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_register_step2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.zjk.common.ui.ShapedImageView
+        android:id="@+id/iv_head_photo"
+        style="@style/HeadPhotoStyle"
+        android:src="@drawable/camera"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp" />
+
+    <EditText
+        android:id="@+id/et_nick_name"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/iv_head_photo"
+        android:hint="@string/input_nickname"
+        style="@style/RegisterTextStyle" />
+
+    <EditText
+        android:id="@+id/et_height"
+        android:layout_below="@+id/et_nick_name"
+        android:layout_width="120dp"
+        android:layout_marginTop="10dp"
+        android:hint="@string/input_height"
+        style="@style/RegisterTextStyle"/>
+
+    <EditText
+        android:id="@+id/et_weight"
+        android:layout_below="@+id/et_nick_name"
+        android:layout_width="120dp"
+        android:layout_marginTop="10dp"
+        style="@style/RegisterTextStyle"
+        android:hint="@string/input_weight"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/tv_birthday"
+        android:layout_below="@+id/et_height"
+        android:layout_width="120dp"
+        android:layout_marginTop="10dp"
+        android:hint="@string/input_birthday"
+        android:gravity="center_vertical"
+        style="@style/RegisterTextStyle"/>
+
+    <TextView
+        android:id="@+id/tv_gender"
+        android:layout_below="@+id/et_weight"
+        android:layout_width="120dp"
+        android:layout_marginTop="10dp"
+        style="@style/RegisterTextStyle"
+        android:gravity="center_vertical"
+        android:hint="@string/input_gender"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/tv_next2"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/tv_gender"
+        android:text="@string/next_step"
+        style="@style/ButtonStyle" />
+
+</RelativeLayout>

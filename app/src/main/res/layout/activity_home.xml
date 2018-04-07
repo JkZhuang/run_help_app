@@ -30,7 +30,7 @@
 
         <TextView
             android:id="@+id/tv_sports"
-            style="@style/home_tab_item_style"
+            style="@style/HomeTabItemStyle"
             android:text="@string/sports"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tv_diet"
@@ -40,7 +40,7 @@
 
         <TextView
             android:id="@+id/tv_diet"
-            style="@style/home_tab_item_style"
+            style="@style/HomeTabItemStyle"
             android:text="@string/diet"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tv_dynamic"
@@ -50,7 +50,7 @@
 
         <TextView
             android:id="@+id/tv_dynamic"
-            style="@style/home_tab_item_style"
+            style="@style/HomeTabItemStyle"
             android:text="@string/dynamic"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tv_me"
@@ -61,7 +61,7 @@
 
         <TextView
             android:id="@+id/tv_me"
-            style="@style/home_tab_item_style"
+            style="@style/HomeTabItemStyle"
             android:text="@string/me"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

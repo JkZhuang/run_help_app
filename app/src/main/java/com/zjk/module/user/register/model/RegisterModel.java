@@ -1,6 +1,9 @@
 package com.zjk.module.user.register.model;
 
+import com.zjk.model.UserInfo;
 import com.zjk.module.user.register.bean.RegisterBean;
+
+import java.util.Date;
 
 /**
  * author : ZhuangJinKun
@@ -10,23 +13,56 @@ import com.zjk.module.user.register.bean.RegisterBean;
 
 public class RegisterModel implements IRegisterModel {
 
-    @Override
-    public void setID(int id) {
+    private RegisterBean registerBean;
+    private UserInfo userInfo;
 
+    public RegisterModel() {
+        userInfo = new UserInfo();
+        registerBean = new RegisterBean(userInfo);
     }
 
     @Override
-    public void setFirstName(String firstName) {
-
+    public void setPhone(String phone) {
+        userInfo.setPhone(phone);
     }
 
     @Override
-    public void setLastName(String lastName) {
-
+    public void setPassword(String password) {
+        userInfo.setPassword(password);
     }
 
     @Override
-    public RegisterBean load(int id) {
-        return null;
+    public void setHeadPhoto(String url) {
+        userInfo.setHeadUrl(url);
+    }
+
+    @Override
+    public void setNickName(String nickName) {
+        userInfo.setUserName(nickName);
+    }
+
+    @Override
+    public void setHeight(int height) {
+        userInfo.setHeight(height);
+    }
+
+    @Override
+    public void setWeight(int weight) {
+        userInfo.setWeight(weight);
+    }
+
+    @Override
+    public void setBirthday(Date date) {
+        userInfo.setBirthday(date);
+    }
+
+    @Override
+    public void setGender(int gender) {
+        userInfo.setGender(gender);
+    }
+
+    @Override
+    public void setUrgentPhone(String urgentPhone) {
+        userInfo.setUrgentPhone(urgentPhone);
     }
 }

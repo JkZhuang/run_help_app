@@ -1,5 +1,7 @@
 package com.zjk.module.user.register.view;
 
+import java.util.Date;
+
 /**
  * author : ZhuangJinKun
  * e-mail : zhuangjinkun@bigo.sg
@@ -8,13 +10,21 @@ package com.zjk.module.user.register.view;
 
 public interface IRegisterView {
 
-    int getID();
+    String getPhone();
 
-    String getFristName();
+    String getPassword();
 
-    String getLastName();
+    String getHeadPhotoUrl();
 
-    void setFirstName(String firstName);
+    String getNickName();
 
-    void setLastName(String lastName);
+    int getHeight();
+
+    int getWeight();
+
+    Date getBirthday();
+
+    int getGender();
+
+    String getUrgentPhone();
 }

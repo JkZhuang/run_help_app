@@ -2,6 +2,8 @@ package com.zjk.module.user.register.model;
 
 import com.zjk.module.user.register.bean.RegisterBean;
 
+import java.util.Date;
+
 /**
  * author : ZhuangJinKun
  * e-mail : zhuangjinkun@bigo.sg
@@ -10,11 +12,21 @@ import com.zjk.module.user.register.bean.RegisterBean;
 
 public interface IRegisterModel {
 
-    void setID(int id);
+    void setPhone(String phone);
 
-    void setFirstName(String firstName);
+    void setPassword(String password);
 
-    void setLastName(String lastName);
+    void setHeadPhoto(String url);
 
-    RegisterBean load(int id);
+    void setNickName(String nickName);
+
+    void setHeight(int height);
+
+    void setWeight(int weight);
+
+    void setBirthday(Date date);
+
+    void setGender(int gender);
+
+    void setUrgentPhone(String urgentPhone);
 }

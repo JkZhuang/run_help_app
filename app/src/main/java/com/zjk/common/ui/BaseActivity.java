@@ -20,7 +20,9 @@ import java.lang.reflect.Method;
  * time   : 2018/03/28
  */
 
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private static final String TAG = "BaseActivity";
 
     private boolean isFinish = false;
 
@@ -31,6 +33,12 @@ public class BaseActivity extends AppCompatActivity {
         DisplayUtils.setStatusBarFontDark(getWindow(), useDarkMode());
 //        setMiUIStatusBar(useDarkMode());
     }
+
+    protected abstract void findWidget();
+
+    protected abstract void setListener();
+
+    protected abstract void init();
 
     protected boolean isFinish() {
         return isFinish;
@@ -53,7 +61,11 @@ public class BaseActivity extends AppCompatActivity {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
     }
 
-    protected void setMiUIStatusBar(boolean darkMode) { //适配小米状态栏
+    /**
+     * 适配小米状态栏
+     * @param darkMode
+     */
+    protected void setMiUIStatusBar(boolean darkMode) {
         Window window = getWindow();
         if (window != null) {
             Class clazz = window.getClass();
@@ -64,10 +76,10 @@ public class BaseActivity extends AppCompatActivity {
                 darkModeFlag = field.getInt(layoutParams);
                 Method extraFlagField = clazz.getMethod("setExtraFlags", int.class, int.class);
                 if (darkMode) {
-                    extraFlagField.invoke(window, darkModeFlag, darkModeFlag);//状态栏透明且黑色字体
+                    extraFlagField.invoke(window, darkModeFlag, darkModeFlag); // 状态栏透明且黑色字体
                     window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
                 } else {
-                    extraFlagField.invoke(window, 0, darkModeFlag);//清除黑色字体
+                    extraFlagField.invoke(window, 0, darkModeFlag); // 清除黑色字体
                 }
             } catch (Exception e) {
 
