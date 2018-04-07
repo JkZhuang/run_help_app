@@ -15,6 +15,14 @@ import com.zjk.run_help.R;
 
 public class MeFragment extends BaseFragment {
 
+    public static MeFragment newInstance() {
+        return new MeFragment();
+    }
+
+    public MeFragment() {
+
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

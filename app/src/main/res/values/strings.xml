@@ -76,5 +76,18 @@
     <string name="male">男</string>
     <string name="female">女</string>
     <string name="photo_need_read_permission">读取照片需要权限，请到设置里进行设置</string>
+    
+    <string name="error_phone_format">手机号格式错误</string>
+    <string name="error_password_confirm">两次输入的密码不一致</string>
+    <string name="error_password_format">密码位数至少为六位</string>
+    <string name="error_nick_name">昵称不能为空</string>
+    <string name="error_height">身高输入不合法</string>
+    <string name="error_weight">体重输入不合法</string>
+    <string name="error_birthday">请选择生日</string>
+    <string name="error_gender">请选择性别</string>
+    <string name="error_urgent_phone">紧急联系人联系方式格式有误</string>
+
+    <string name="register_success">注册成功，现在去登录？</string>
+    <string name="register_fail">注册失败，请稍后重试</string>
 
 </resources>

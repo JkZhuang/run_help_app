@@ -35,6 +35,14 @@ public class SportsFragment extends BaseFragment {
     private BaseFragment[] mFragmentArray;
     private String[] mTitles;
 
+    public static SportsFragment newInstance() {
+        return new SportsFragment();
+    }
+
+    public SportsFragment() {
+
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

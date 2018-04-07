@@ -15,6 +15,14 @@ import com.zjk.run_help.R;
 
 public class DynamicFragment extends BaseFragment {
 
+    public static DynamicFragment newInstance() {
+        return new DynamicFragment();
+    }
+
+    public DynamicFragment() {
+
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

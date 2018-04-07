@@ -65,10 +65,10 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected void init() {
         mFragmentArray = new BaseFragment[HOME_TAB_COUNT];
-        mFragmentArray[0] = new SportsFragment();
-        mFragmentArray[1] = new DietFragment();
-        mFragmentArray[2] = new DynamicFragment();
-        mFragmentArray[3] = new MeFragment();
+        mFragmentArray[0] = SportsFragment.newInstance();
+        mFragmentArray[1] = DietFragment.newInstance();
+        mFragmentArray[2] = DynamicFragment.newInstance();
+        mFragmentArray[3] = MeFragment.newInstance();
         mFragmentAdapter = new MyFragmentPageAdapter<>(this, getSupportFragmentManager(), mFragmentArray, new String[HOME_TAB_COUNT]);
         mViewPager.setAdapter(mFragmentAdapter);
         mViewPager.setOffscreenPageLimit(HOME_TAB_COUNT);
