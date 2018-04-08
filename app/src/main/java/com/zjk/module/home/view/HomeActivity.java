@@ -1,5 +1,6 @@
 package com.zjk.module.home.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -8,10 +9,10 @@ import com.zjk.common.ui.BaseActivity;
 import com.zjk.common.ui.BaseFragment;
 import com.zjk.common.ui.MyFragmentPageAdapter;
 import com.zjk.common.ui.NoScrollViewPager;
-import com.zjk.module.home.fragment.DietFragment;
-import com.zjk.module.home.fragment.DynamicFragment;
-import com.zjk.module.home.fragment.MeFragment;
-import com.zjk.module.home.fragment.SportsFragment;
+import com.zjk.module.home.fragment.diet.view.DietFragment;
+import com.zjk.module.home.fragment.dynamic.view.DynamicFragment;
+import com.zjk.module.home.fragment.me.view.MeFragment;
+import com.zjk.module.home.fragment.sports.view.SportsFragment;
 import com.zjk.run_help.R;
 
 /**
@@ -34,6 +35,11 @@ public class HomeActivity extends BaseActivity {
 
     private MyFragmentPageAdapter<BaseFragment> mFragmentAdapter;
     private BaseFragment[] mFragmentArray;
+
+    public static void start(BaseActivity activity) {
+        Intent intent = new Intent(activity, HomeActivity.class);
+        activity.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

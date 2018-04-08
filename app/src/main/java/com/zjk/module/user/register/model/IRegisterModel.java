@@ -1,8 +1,7 @@
 package com.zjk.module.user.register.model;
 
-import com.zjk.module.user.register.bean.RegisterBean;
-
-import java.util.Date;
+import com.zjk.model.UserInfo;
+import com.zjk.result.Result;
 
 /**
  * author : ZhuangJinKun
@@ -12,21 +11,12 @@ import java.util.Date;
 
 public interface IRegisterModel {
 
-    void setPhone(String phone);
+    void register(UserInfo userInfo, OnRegisterListener listener);
 
-    void setPassword(String password);
+    interface OnRegisterListener {
 
-    void setHeadPhoto(String url);
+        void onRegisterSuccess(boolean onUIThread);
 
-    void setNickName(String nickName);
-
-    void setHeight(int height);
-
-    void setWeight(int weight);
-
-    void setBirthday(Date date);
-
-    void setGender(int gender);
-
-    void setUrgentPhone(String urgentPhone);
+        void onRegisterFail(boolean onUIThread, Result result);
+    }
 }

@@ -1,18 +1,10 @@
 package com.zjk.module.user.register.view;
 
-import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -22,7 +14,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
@@ -31,21 +22,26 @@ import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.zjk.common.chooselocalpicture.ui.ChooseLocalPictureActivity;
+import com.zjk.common.sp.SpEditor;
+import com.zjk.common.sp.SpFileName;
+import com.zjk.common.sp.SpKey;
 import com.zjk.common.ui.BaseActivity;
 import com.zjk.common.ui.MyPageAdapter;
+import com.zjk.common.ui.NoScrollViewPager;
 import com.zjk.common.ui.ShapedImageView;
+import com.zjk.model.UserInfo;
+import com.zjk.module.user.login.view.LoginActivity;
+import com.zjk.module.user.register.model.RegisterModelImpl;
 import com.zjk.module.user.register.present.RegisterPresenter;
+import com.zjk.result.Result;
 import com.zjk.run_help.R;
-import com.zjk.util.BrandUtil;
-import com.zjk.util.DebugUtil;
-import com.zjk.util.GsonUtil;
-import com.zjk.util.ImageUtil;
+import com.zjk.util.ContactUtil;
+import com.zjk.util.DateUtil;
+import com.zjk.util.ToastUtil;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 /**
  * author : ZhuangJinKun
@@ -58,10 +54,11 @@ public class RegisterActivity extends BaseActivity implements IRegisterView {
     private static final String TAG = "RegisterActivity";
 
     private static final int REGISTER_STEP_COUNT = 3;
+    private static final int FOR_HEAD_PICTURE = 0;
 
     private ConstraintLayout mClContainer;
     private Toolbar mToolBar;
-    private ViewPager mViewPager;
+    private NoScrollViewPager mViewPager;
     private View[] mViewArray;
     private MyPageAdapter mAdapter;
 
@@ -89,6 +86,11 @@ public class RegisterActivity extends BaseActivity implements IRegisterView {
     private ArrayList<String> genderItems = new ArrayList<>();
     private ArrayList<String> photoFileNameList = new ArrayList<>();
 
+    public static void start(Context context) {
+        Intent intent = new Intent(context, RegisterActivity.class);
+        context.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,7 +100,8 @@ public class RegisterActivity extends BaseActivity implements IRegisterView {
         setListener();
         init();
 
-        mPresenter = new RegisterPresenter(this);
+        mPresenter = new RegisterPresenter(this, new RegisterModelImpl());
+        mPresenter.start();
     }
 
     private void selectBirthday() {
@@ -111,7 +114,7 @@ public class RegisterActivity extends BaseActivity implements IRegisterView {
         TimePickerView pvTime = new TimePickerBuilder(RegisterActivity.this, new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {
-                Toast.makeText(RegisterActivity.this, getTime(date), Toast.LENGTH_SHORT).show();
+                mTVBirthday.setText(DateUtil.dateToString(date));
             }
         })
                 .setDate(selectedDate)
@@ -150,17 +153,11 @@ public class RegisterActivity extends BaseActivity implements IRegisterView {
         pvOptions.show();
     }
 
-    private String getTime(Date date) {//可根据需要自行截取数据显示
-        DebugUtil.debug(TAG, "choice date millis: " + date.getTime());
-        SimpleDateFormat format = new SimpleDateFormat(GsonUtil.TIME_FORMAT);
-        return format.format(date);
-    }
-
     @Override
     protected void findWidget() {
         mClContainer = (ConstraintLayout) findViewById(R.id.cl_container);
         mToolBar = (Toolbar) findViewById(R.id.toolbar);
-        mViewPager = (ViewPager) findViewById(R.id.vp_register);
+        mViewPager = (NoScrollViewPager) findViewById(R.id.vp_register);
 
         mLlStep1 = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.view_register_step_1, mClContainer, false);
         mEtPhone = (EditText) mLlStep1.findViewById(R.id.et_phone);
@@ -206,81 +203,165 @@ public class RegisterActivity extends BaseActivity implements IRegisterView {
         genderItems.add(getResources().getString(R.string.female));
     }
 
+    public void switchContent(int pageIndex) {
+        mViewPager.setCurrentItem(pageIndex, false);
+    }
+
+    private void checkStep1() {
+        if (!ContactUtil.checkMobile(mEtPhone.getText().toString().trim())) {
+            ToastUtil.shortShow(RegisterActivity.this, R.string.error_phone_format);
+            return;
+        }
+        if (mEtPassword.getText().toString().trim().length() < 6) {
+            ToastUtil.shortShow(RegisterActivity.this, R.string.error_password_format);
+            return;
+        }
+        if (!mEtPassword.getText().toString().trim().equals(mEtConfirmPassword.getText().toString().trim())) {
+            ToastUtil.shortShow(RegisterActivity.this, R.string.error_password_confirm);
+            return;
+        }
+        switchContent(1);
+    }
+
+    private void checkStep2() {
+        // 头像
+
+        if (TextUtils.isEmpty(mEtNickName.getText().toString().trim())) {
+            ToastUtil.shortShow(RegisterActivity.this, R.string.error_nick_name);
+            return;
+        }
+        if (TextUtils.isEmpty(mEtHeight.getText().toString().trim())) {
+            ToastUtil.shortShow(RegisterActivity.this, R.string.error_height);
+            return;
+        }
+        if (TextUtils.isEmpty(mEtWeight.getText().toString().trim())) {
+            ToastUtil.shortShow(RegisterActivity.this, R.string.error_weight);
+            return;
+        }
+        if (TextUtils.isEmpty(mTVBirthday.getText().toString().trim())) {
+            ToastUtil.shortShow(RegisterActivity.this, R.string.error_birthday);
+            return;
+        }
+        switchContent(2);
+    }
+
+    private void register() {
+        if (!ContactUtil.checkMobile(mEtUrgentPhoto.getText().toString().trim())) {
+            ToastUtil.shortShow(RegisterActivity.this, R.string.error_urgent_phone);
+            return;
+        }
+
+        UserInfo userInfo = new UserInfo();
+        userInfo.setPhone(mEtPhone.getText().toString().trim());
+        userInfo.setPassword(mEtPassword.getText().toString().trim());
+        userInfo.setUserName(mEtNickName.getText().toString().trim());
+        userInfo.setHeight(Integer.valueOf(mEtHeight.getText().toString().trim()));
+        userInfo.setWeight(Integer.valueOf(mEtWeight.getText().toString().trim()));
+        userInfo.setBirthday(DateUtil.stringToDate(mTVBirthday.getText().toString().trim()));
+        String gender = mTVGender.getText().toString().trim();
+        userInfo.setGender((TextUtils.isEmpty(gender) ? 2 : (gender.equals(getResources().getString(R.string.male)) ? 0 : 1)));
+        userInfo.setUrgentPhone(mEtUrgentPhoto.getText().toString().trim());
+        mPresenter.doRegister(userInfo);
+    }
+
+    private void showRegisterSucDialog() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder
+                .setPositiveButton(R.string.sure, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                        SpEditor.putAndApply(SpFileName.SP_USER, SpKey.USER_PHONE, mEtPhone.getText().toString().trim());
+                        SpEditor.putAndApply(SpFileName.SP_USER, SpKey.USER_PASSWORD, mEtPassword.getText().toString().trim());
+                        finish();
+                    }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .setMessage(R.string.register_success);
+        alertDialogBuilder.show();
+    }
+
+    private void showHasRegisteredDialog() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder
+                .setPositiveButton(R.string.sure, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                        finish();
+                    }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .setMessage(R.string.register_has);
+        alertDialogBuilder.show();
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_next1:
-
+                checkStep1();
                 break;
             case R.id.tv_next2:
-
+                checkStep2();
                 break;
             case R.id.tv_register:
-
+                register();
                 break;
             case R.id.iv_head_photo:
-                startActivity(new Intent(RegisterActivity.this, ChooseLocalPictureActivity.class));
+                hideKeyboard(mIvHeadPhoto);
+                ChooseLocalPictureActivity.start(RegisterActivity.this, FOR_HEAD_PICTURE);
                 break;
             case R.id.tv_birthday:
+                hideKeyboard(mTVBirthday);
                 selectBirthday();
                 break;
             case R.id.tv_gender:
+                hideKeyboard(mTVGender);
                 selectGender();
                 break;
-//            case R.id.saveButton:
-//                mUserPresenter.saveUser(getID(), getFristName(),
-//                        getLastName());
-//                break;
-//            case R.id.loadButton:
-//                mUserPresenter.loadUser(getID());
-//                break;
-//            default:
-//                break;
         }
     }
 
     @Override
-    public String getPhone() {
-        return mEtPhone.getText().toString().trim();
+    public void showProgress() {
+        showLoadingDialog(R.string.register_ing);
     }
 
     @Override
-    public String getPassword() {
-        return mEtPassword.getText().toString().trim();
+    public void hideProgress() {
+        dismissLoadingDialog();
     }
 
     @Override
-    public String getHeadPhotoUrl() {
-        return "";
+    public void registerFail(boolean onUIThread, Result result) {
+        if (result.status == 2 && onUIThread) {
+            showHasRegisteredDialog();
+        } else if (onUIThread) {
+            ToastUtil.shortShow(RegisterActivity.this, result.errMsg);
+        }
     }
 
     @Override
-    public String getNickName() {
-        return mEtNickName.getText().toString().trim();
+    public void registerSuccess(boolean onUIThread) {
+        if (onUIThread) {
+            showRegisterSucDialog();
+        }
     }
 
     @Override
-    public int getHeight() {
-        return Integer.valueOf(mEtHeight.getText().toString().trim());
-    }
-
-    @Override
-    public int getWeight() {
-        return Integer.valueOf(mEtWeight.getText().toString().trim());
-    }
-
-    @Override
-    public Date getBirthday() {
-        return null;
-    }
-
-    @Override
-    public int getGender() {
-        return 0;
-    }
-
-    @Override
-    public String getUrgentPhone() {
-        return mEtUrgentPhoto.getText().toString().trim();
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.destroy();
     }
 }

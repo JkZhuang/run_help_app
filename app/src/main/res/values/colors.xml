@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#00DDFF</color>
+    <color name="colorPrimaryDark">#00DDDD</color>
     <color name="colorAccent">#00DDCC</color>
     <color name="theme_color">#584f60</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="transparent">#00000000</color>
     <color name="home_tab_text_color">#999999</color>
+    <color name="background_color">#ebebeb</color>
+    <color name="view_bg_press_state">#99f8f8f8</color>
+    //时间、地点、输入框提示等次要信息颜色
+    <color name="color_list_divider">#e9e9ea</color>
+
+    <color name="color_86222222">#86222222</color>
 
 </resources>

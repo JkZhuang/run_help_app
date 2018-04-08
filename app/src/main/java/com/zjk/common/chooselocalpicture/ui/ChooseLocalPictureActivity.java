@@ -44,6 +44,11 @@ public class ChooseLocalPictureActivity extends BaseActivity {
     private ChooserPictureAdapter mAdapter;
     private ArrayList<String> photoFileNameList = new ArrayList<>();
 
+    public static void start(BaseActivity activity, int req) {
+        Intent intent = new Intent(activity, ChooseLocalPictureActivity.class);
+        activity.startActivityForResult(intent, req);
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -1,15 +1,21 @@
 package com.zjk.common.ui;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import com.zjk.common.util.DisplayUtils;
+import com.zjk.common.util.Utils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -24,14 +30,16 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     private static final String TAG = "BaseActivity";
 
-    private boolean isFinish = false;
+    protected Handler mHandler = new Handler(Looper.getMainLooper());
+    private LoadingDialog mLoadingDialog;
+
+    private boolean isFinished = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         DisplayUtils.setStatusBarFontDark(getWindow(), useDarkMode());
-//        setMiUIStatusBar(useDarkMode());
     }
 
     protected abstract void findWidget();
@@ -39,10 +47,6 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     protected abstract void setListener();
 
     protected abstract void init();
-
-    protected boolean isFinish() {
-        return isFinish;
-    }
 
     protected void setupActionBar(Toolbar toolbar) {
         setSupportActionBar(toolbar);
@@ -63,6 +67,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     /**
      * 适配小米状态栏
+     *
      * @param darkMode
      */
     protected void setMiUIStatusBar(boolean darkMode) {
@@ -91,6 +96,77 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         return true;
     }
 
+    public void hideKeyboard(View view) {
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
+    public static void showKeyboard(final EditText edit) {
+        if (edit == null) return;
+        edit.post(new Runnable() {
+            @Override
+            public void run() {
+                edit.requestFocus();
+                InputMethodManager imm = (InputMethodManager) edit.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (imm != null)
+                    imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+            }
+        });
+    }
+
+    protected void showLoadingDialog(final int msgResId) {
+        if (Utils.isMainThread()) {
+            _showProgress(msgResId);
+        } else {
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    _showProgress(msgResId);
+                }
+            });
+        }
+    }
+
+    private void _showProgress(int msgResId) {
+        if (isFinished()) {
+            return;
+        }
+        try {
+            dialogInstance().setCancelable(false);
+            dialogInstance().setText(String.valueOf(getText(msgResId)));
+            dialogInstance().show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private LoadingDialog dialogInstance() {
+        if (mLoadingDialog == null) {
+            mLoadingDialog = new LoadingDialog(this);
+            mLoadingDialog.setCanceledOnTouchOutside(false);
+        }
+
+        return mLoadingDialog;
+    }
+
+    protected void dismissLoadingDialog() {
+        if (isFinished()) {
+            return;
+        }
+        if (mLoadingDialog != null) {
+            if (mLoadingDialog.isShowing()) {
+                mLoadingDialog.dismiss();
+            }
+            mLoadingDialog = null;
+        }
+    }
+
+    public boolean isFinished() {
+        return isFinished;
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -114,12 +190,12 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     @Override
     public void finish() {
         super.finish();
-        isFinish = true;
+        isFinished = true;
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        isFinish = true;
+        isFinished = true;
     }
 }

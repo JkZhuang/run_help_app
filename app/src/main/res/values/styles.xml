@@ -33,7 +33,7 @@
     <style name="LightToolbar_ActionBar" parent="ThemeOverlay.AppCompat.ActionBar">
         <item name="android:homeAsUpIndicator">@drawable/ic_action_back</item>
     </style>
-    
+
     <style name="HomeTabItemStyle">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">0dp</item>
@@ -112,6 +112,53 @@
         <item name="android:layout_height">80dp</item>
         <item name="android:layout_gravity">center_horizontal</item>
 
+    </style>
+
+    <style name="LoadingDialogStyle" parent="android:Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item><!--设置dialog的背景-->
+        <item name="android:windowFrame">@null</item><!--Dialog的windowFrame框为无-->
+        <item name="android:windowNoTitle">true</item><!--是否显示title-->
+        <item name="android:windowIsFloating">true</item><!--是否浮现在activity之上-->
+        <item name="android:windowIsTranslucent">true</item><!--是否半透明-->
+        <item name="android:windowContentOverlay">@null</item><!--是否半透明-->
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog
+        </item><!-- 对话框是否有遮盖 -->
+        <item name="android:backgroundDimEnabled">false</item><!--背景是否模糊显示-->
+        <item name="android:backgroundDimAmount">0.6</item><!--背景的灰度-->
+    </style>
+
+    <style name="DividerViewStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/color_list_divider</item>
+    </style>
+
+    <style name="ItemRelativeStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="ItemTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:textColor">@color/theme_color</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="ItemImageStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_marginRight">20dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:src">@drawable/arrow_right_theme</item>
+        <item name="android:layout_alignParentEnd">true</item>
     </style>
 
 </resources>

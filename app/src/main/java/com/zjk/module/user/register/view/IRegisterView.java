@@ -1,6 +1,8 @@
 package com.zjk.module.user.register.view;
 
-import java.util.Date;
+import com.zjk.common.ui.BaseView;
+import com.zjk.module.user.register.present.RegisterPresenter;
+import com.zjk.result.Result;
 
 /**
  * author : ZhuangJinKun
@@ -8,23 +10,13 @@ import java.util.Date;
  * time   : 2018/03/28
  */
 
-public interface IRegisterView {
+public interface IRegisterView extends BaseView<RegisterPresenter> {
 
-    String getPhone();
+    void showProgress();
 
-    String getPassword();
+    void hideProgress();
 
-    String getHeadPhotoUrl();
+    void registerFail(boolean onUIThread, Result result);
 
-    String getNickName();
-
-    int getHeight();
-
-    int getWeight();
-
-    Date getBirthday();
-
-    int getGender();
-
-    String getUrgentPhone();
+    void registerSuccess(boolean onUIThread);
 }

@@ -88,6 +88,13 @@
     <string name="error_urgent_phone">紧急联系人联系方式格式有误</string>
 
     <string name="register_success">注册成功，现在去登录？</string>
+    <string name="register_has">您所输入的账号已注册，直接去登录？</string>
     <string name="register_fail">注册失败，请稍后重试</string>
+    <string name="register_ing">注册中…</string>
+
+    <string name="login_ing">登录中…</string>
+    <string name="login_success">登录成功</string>
+
+    <string name="dynamic_count">条动态</string>
 
 </resources>
