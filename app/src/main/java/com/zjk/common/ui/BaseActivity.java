@@ -39,7 +39,8 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        DisplayUtils.setStatusBarFontDark(getWindow(), useDarkMode());
+//        DisplayUtils.setStatusBarFontDark(getWindow(), useDarkMode());
+        setMiUIStatusBar(useDarkMode());
     }
 
     protected abstract void findWidget();

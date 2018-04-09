@@ -13,7 +13,9 @@
     <color name="view_bg_press_state">#99f8f8f8</color>
     //时间、地点、输入框提示等次要信息颜色
     <color name="color_list_divider">#e9e9ea</color>
+    <color name="window_bg">#f8f8f8</color>
 
     <color name="color_86222222">#86222222</color>
+    <color name="color_999999">#999999</color>
 
 </resources>
