@@ -1,0 +1,15 @@
+//说明
+//本文件用来放第三方引用库，版本库等，各个Module里面的build.gradle只需要引用本文件里面定义的即可
+ext{
+
+    //版本号
+    version = [
+            androidSupportLibVersion    : "26.0.2"
+    ]
+
+    dependencies = [
+            //android support library
+            "android-support-v4"                : "com.android.support:support-v4:${version["androidSupportLibVersion"]}",
+    ]
+
+}

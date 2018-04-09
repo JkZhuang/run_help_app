@@ -32,6 +32,7 @@
             android:id="@+id/tv_sports"
             style="@style/HomeTabItemStyle"
             android:text="@string/sports"
+            android:textColor="@color/colorAccent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tv_diet"
             app:layout_constraintHorizontal_weight="1"

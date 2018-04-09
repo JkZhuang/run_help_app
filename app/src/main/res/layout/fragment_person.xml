@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/rl_head_photo"
+                style="@style/ItemRelativeStyle"
+                android:layout_height="80dp">
+
+                <TextView
+                    style="@style/ItemTextStyle"
+                    android:text="@string/head_photo" />
+
+                <ImageView
+                    android:id="@+id/iv_head_photo"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:src="@drawable/camera" />
+
+            </RelativeLayout>
+
+            <View style="@style/DividerViewStyle" />
+
+            <RelativeLayout
+                android:id="@+id/rl_phone"
+                style="@style/ItemRelativeStyle">
+
+                <TextView
+                    style="@style/ItemTextStyle"
+                    android:text="@string/phone" />
+
+                <EditText
+                    android:id="@+id/et_phone"
+                    style="@style/ItemEditTextStyle"
+                    android:inputType="phone" />
+
+            </RelativeLayout>
+
+            <View style="@style/DividerViewStyle" />
+
+            <RelativeLayout
+                android:id="@+id/rl_password"
+                style="@style/ItemRelativeStyle">
+
+                <TextView
+                    style="@style/ItemTextStyle"
+                    android:text="@string/password" />
+
+                <EditText
+                    android:id="@+id/et_password"
+                    style="@style/ItemEditTextStyle"
+                    android:inputType="textPassword" />
+
+            </RelativeLayout>
+
+            <View style="@style/DividerViewStyle"
+                android:layout_height="20dp"
+                android:background="@color/background_color"/>
+
+            <RelativeLayout
+                android:id="@+id/rl_nick_name"
+                style="@style/ItemRelativeStyle">
+
+                <TextView
+                    style="@style/ItemTextStyle"
+                    android:text="@string/nick_name" />
+
+                <EditText
+                    android:id="@+id/et_nick_name"
+                    style="@style/ItemEditTextStyle" />
+
+            </RelativeLayout>
+
+            <View style="@style/DividerViewStyle" />
+
+            <RelativeLayout
+                android:id="@+id/rl_height"
+                style="@style/ItemRelativeStyle">
+
+                <TextView
+                    style="@style/ItemTextStyle"
+                    android:text="@string/height" />
+
+                <EditText
+                    android:id="@+id/et_height"
+                    style="@style/ItemEditTextStyle"
+                    android:inputType="number" />
+
+            </RelativeLayout>
+
+            <View style="@style/DividerViewStyle" />
+
+            <RelativeLayout
+                android:id="@+id/rl_weight"
+                style="@style/ItemRelativeStyle">
+
+                <TextView
+                    style="@style/ItemTextStyle"
+                    android:text="@string/weight" />
+
+                <EditText
+                    android:id="@+id/et_weight"
+                    style="@style/ItemEditTextStyle"
+                    android:inputType="number"  />
+
+            </RelativeLayout>
+
+            <View style="@style/DividerViewStyle" />
+
+            <RelativeLayout
+                android:id="@+id/rl_birthday"
+                style="@style/ItemRelativeStyle">
+
+                <TextView
+                    style="@style/ItemTextStyle"
+                    android:text="@string/birthday" />
+
+                <TextView
+                    android:id="@+id/tv_birthday"
+                    style="@style/ItemEditTextStyle"  />
+
+            </RelativeLayout>
+
+            <View style="@style/DividerViewStyle" />
+
+            <RelativeLayout
+                android:id="@+id/rl_gender"
+                style="@style/ItemRelativeStyle">
+
+                <TextView
+                    style="@style/ItemTextStyle"
+                    android:text="@string/gender" />
+
+                <TextView
+                    android:id="@+id/tv_gender"
+                    style="@style/ItemEditTextStyle"  />
+
+            </RelativeLayout>
+
+            <View style="@style/DividerViewStyle"
+                android:layout_height="20dp"
+                android:background="@color/background_color"/>
+
+            <RelativeLayout
+                android:id="@+id/rl_urgent_phone"
+                style="@style/ItemRelativeStyle">
+
+                <TextView
+                    style="@style/ItemTextStyle"
+                    android:text="@string/urgent_phone" />
+
+                <EditText
+                    android:id="@+id/et_urgent_phone"
+                    style="@style/ItemEditTextStyle"
+                    android:inputType="phone"  />
+
+            </RelativeLayout>
+
+            <View style="@style/DividerViewStyle"
+                android:layout_height="40dp"
+                android:background="@color/background_color"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="50dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"
+        app:srcCompat="@drawable/ic_edit"/>
+
+</android.support.design.widget.CoordinatorLayout>
+

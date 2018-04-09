@@ -62,7 +62,9 @@ public class ChooserPictureAdapter extends RecyclerView.Adapter {
 
         public void bindView(final int position) {
             File file = new File(photoFileNameList.get(position));
-            Glide.with(mContext).load(file).into(mIvPicture);
+            Glide.with(mContext)
+                    .load(file)
+                    .into(mIvPicture);
             mIvPicture.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

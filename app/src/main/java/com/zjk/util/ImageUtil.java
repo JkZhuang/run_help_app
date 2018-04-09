@@ -37,6 +37,7 @@ public class ImageUtil {
     }
 
     public ArrayList<String> getImageFileNameList() {
+        imageFileNameList.clear();
         Cursor cursor = mContext.getContentResolver().query(
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null, null, null, null);
         assert cursor != null;

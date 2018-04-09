@@ -5,14 +5,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.zjk.common.app.App;
 import com.zjk.common.ui.BaseActivity;
 import com.zjk.common.ui.BaseFragment;
 import com.zjk.common.ui.MyFragmentPageAdapter;
 import com.zjk.common.ui.NoScrollViewPager;
+import com.zjk.logic.LogicHandler;
+import com.zjk.logic.LogicImpl;
+import com.zjk.model.UserInfo;
 import com.zjk.module.home.fragment.diet.view.DietFragment;
 import com.zjk.module.home.fragment.dynamic.view.DynamicFragment;
 import com.zjk.module.home.fragment.me.view.MeFragment;
 import com.zjk.module.home.fragment.sports.view.SportsFragment;
+import com.zjk.param.LoginParam;
+import com.zjk.result.LoginResult;
 import com.zjk.run_help.R;
 
 /**
@@ -21,17 +27,14 @@ import com.zjk.run_help.R;
  * time   : 2018/03/29
  */
 
-public class HomeActivity extends BaseActivity {
+public class HomeActivity extends BaseActivity implements BaseFragment.IProgress {
 
     private static final String TAG = "HomeActivity";
 
     private static final int HOME_TAB_COUNT = 4;
 
     private NoScrollViewPager mViewPager;
-    private TextView mTvSports;
-    private TextView mTvDiet;
-    private TextView mTvDynamic;
-    private TextView mTvMe;
+    private TextView[] mTvTabs = new TextView[HOME_TAB_COUNT];
 
     private MyFragmentPageAdapter<BaseFragment> mFragmentAdapter;
     private BaseFragment[] mFragmentArray;
@@ -49,23 +52,41 @@ public class HomeActivity extends BaseActivity {
         findWidget();
         setListener();
         init();
+
+        test();
+    }
+
+    private void test() {
+        LoginParam param = new LoginParam();
+        UserInfo userInfo = new UserInfo();
+        userInfo.setPhone("18813295244");
+        userInfo.setPassword("123456");
+        param.userInfo = userInfo;
+        param.page = "/user/login";
+        LogicImpl.getInstance().login(param, new LogicHandler<LoginResult>() {
+            @Override
+            public void onResult(LoginResult result, boolean onUIThread) {
+                if (result.isOk() && onUIThread) {
+                    App.instance().setUserInfo(result.userInfo);
+                }
+            }
+        });
     }
 
     @Override
     protected void findWidget() {
         mViewPager = (NoScrollViewPager) findViewById(R.id.tab_pager);
-        mTvSports = (TextView) findViewById(R.id.tv_sports);
-        mTvDiet = (TextView) findViewById(R.id.tv_diet);
-        mTvDynamic = (TextView) findViewById(R.id.tv_dynamic);
-        mTvMe = (TextView) findViewById(R.id.tv_me);
+        mTvTabs[0] = (TextView) findViewById(R.id.tv_sports);
+        mTvTabs[1] = (TextView) findViewById(R.id.tv_diet);
+        mTvTabs[2] = (TextView) findViewById(R.id.tv_dynamic);
+        mTvTabs[3] = (TextView) findViewById(R.id.tv_me);
     }
 
     @Override
     protected void setListener() {
-        mTvSports.setOnClickListener(this);
-        mTvDiet.setOnClickListener(this);
-        mTvDynamic.setOnClickListener(this);
-        mTvMe.setOnClickListener(this);
+        for (int i = 0; i < HOME_TAB_COUNT; i++) {
+            mTvTabs[i].setOnClickListener(this);
+        }
     }
 
     @Override
@@ -82,6 +103,13 @@ public class HomeActivity extends BaseActivity {
 
     public void switchContent(int pageIndex) {
         mViewPager.setCurrentItem(pageIndex, false);
+        for (int i = 0; i < HOME_TAB_COUNT; i++) {
+            if (i == pageIndex) {
+                mTvTabs[i].setTextColor(getResources().getColor(R.color.colorAccent));
+            } else {
+                mTvTabs[i].setTextColor(getResources().getColor(R.color.home_tab_text_color));
+            }
+        }
     }
 
     @Override
@@ -100,5 +128,15 @@ public class HomeActivity extends BaseActivity {
                 switchContent(3);
                 break;
         }
+    }
+
+    @Override
+    public void showLoadingProgress(int msgResId) {
+        showLoadingDialog(msgResId);
+    }
+
+    @Override
+    public void dismissLoadingProgress() {
+        dismissLoadingDialog();
     }
 }
