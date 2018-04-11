@@ -3,6 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingTop="@dimen/common_margin"
+    android:paddingBottom="@dimen/common_margin"
     android:minHeight="100dp">
 
     <TextView
@@ -23,8 +25,8 @@
         android:id="@+id/tv_start_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/theme_color"
-        android:textSize="10sp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/tv_tips"
         app:layout_constraintLeft_toLeftOf="@+id/tv_type"
         app:layout_constraintStart_toStartOf="@+id/tv_type"
@@ -36,8 +38,8 @@
         android:layout_height="wrap_content"
         android:maxWidth="300dp"
         android:text="@string/suggest_tips"
-        android:textColor="@color/theme_color"
-        android:textSize="10sp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp"
         android:layout_marginEnd="100dp"
         android:layout_marginRight="100dp"
         app:layout_constraintBottom_toTopOf="parent"
@@ -51,8 +53,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginStart="20dp"
-        android:textColor="@color/theme_color"
-        android:textSize="14sp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/tv_type"
         app:layout_constraintLeft_toRightOf="@+id/tv_type"
         app:layout_constraintStart_toEndOf="@+id/tv_type" />

@@ -7,6 +7,7 @@ public class ForumInfo {
 
 	private int fId;
 	private int uId; // UserInfo外键
+	private String headPhotoUrl;
 	private String userName;
 	private String content;
 	private String photoUrl;
@@ -39,6 +40,14 @@ public class ForumInfo {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	public String getHeadPhotoUrl() {
+		return headPhotoUrl;
+	}
+
+	public void setHeadPhotoUrl(String headPhotoUrl) {
+		this.headPhotoUrl = headPhotoUrl;
 	}
 
 	public String getContent() {
@@ -86,6 +95,7 @@ public class ForumInfo {
 		return "ForumInfo{" +
 				"fId=" + fId +
 				", uId=" + uId +
+				", headPhotoUrl='" + headPhotoUrl + '\'' +
 				", userName='" + userName + '\'' +
 				", content='" + content + '\'' +
 				", photoUrl='" + photoUrl + '\'' +

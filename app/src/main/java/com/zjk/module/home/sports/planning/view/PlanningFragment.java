@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +12,7 @@ import android.view.ViewGroup;
 import com.zjk.common.app.App;
 import com.zjk.common.ui.BaseFragment;
 import com.zjk.common.ui.ListItemDividerDecoration;
+import com.zjk.common.ui.refresh.MaterialRefreshLayout;
 import com.zjk.common.util.DeviceUtils;
 import com.zjk.model.SportsSuggestion;
 import com.zjk.module.home.sports.planning.adapter.SportsPlanningAdapter;
@@ -48,8 +48,7 @@ public class PlanningFragment extends BaseFragment implements ISportsPlanningVie
         init();
         mPresenter = new SportsPlanningPresenter(this, new SportsPlanningModelImpl());
         mPresenter.start();
-//        mPresenter.getSportsSuggestion(App.instance().getUserInfo().getuId());
-        mPresenter.getSportsSuggestion(1);
+        mPresenter.getSportsSuggestion(App.instance().getUserInfo().getuId());
         return mView;
     }
 
@@ -66,10 +65,12 @@ public class PlanningFragment extends BaseFragment implements ISportsPlanningVie
 
     @Override
     protected void init() {
+        MaterialRefreshLayout m;
+        mSrlListContainer.setEnabled(false);
         mAdapter = new SportsPlanningAdapter(getContext());
         mRvSportsPlanning.setLayoutManager(new GridLayoutManager(getContext(), 1));
         mRvSportsPlanning.addItemDecoration(new ListItemDividerDecoration(1,
-                RecyclerView.VERTICAL, 0xffcccccc, true,
+                RecyclerView.VERTICAL, getContext().getResources().getColor(R.color.divider_color), true,
                 (int) DeviceUtils.dipToPixels(10), 0, (int) DeviceUtils.dipToPixels(10), 0));
         mRvSportsPlanning.setAdapter(mAdapter);
     }
