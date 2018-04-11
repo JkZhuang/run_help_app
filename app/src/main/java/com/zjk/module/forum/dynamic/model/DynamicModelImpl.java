@@ -1,4 +1,4 @@
-package com.zjk.module.home.fragment.dynamic.model;
+package com.zjk.module.forum.dynamic.model;
 
 import com.zjk.logic.LogicHandler;
 import com.zjk.logic.LogicImpl;

@@ -1,4 +1,4 @@
-package com.zjk.module.home.fragment.dynamic.adapter;
+package com.zjk.module.forum.dynamic.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.zjk.model.CommentForumInfo;
+import com.zjk.model.ForumInfo;
+import com.zjk.module.forum.dynamic.present.DynamicPresenter;
 import com.zjk.run_help.R;
 
 import java.util.List;
@@ -23,10 +25,14 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private static final String TAG = "CommentAdapter";
 
     private Context mContext;
+    private ForumInfo mForumInfo;
     private List<CommentForumInfo> data;
+    private DynamicPresenter mPresenter;
 
-    public CommentAdapter(Context context) {
+    public CommentAdapter(Context context, ForumInfo forumInfo, DynamicPresenter presenter) {
         this.mContext = context;
+        this.mForumInfo = forumInfo;
+        this.mPresenter = presenter;
     }
 
     public void setData(List<CommentForumInfo> data) {
@@ -60,9 +66,16 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
 
         public void bindData(int position) {
-            CommentForumInfo info = data.get(position);
-            String text = info.getUserName() + ": " + info.getContent();
+            final CommentForumInfo info = data.get(position);
+            String text = info.getUserName() + mContext.getResources().getString(R.string.reply) +
+                    info.gettUserName() + ": " + info.getContent();
             mTvComment.setText(text);
+            mTvComment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mPresenter.showCommentWidget(mForumInfo, info);
+                }
+            });
         }
     }
 }

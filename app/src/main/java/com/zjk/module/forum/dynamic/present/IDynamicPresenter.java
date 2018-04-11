@@ -1,4 +1,4 @@
-package com.zjk.module.home.fragment.dynamic.present;
+package com.zjk.module.forum.dynamic.present;
 
 import com.zjk.common.presenter.BasePresenter;
 import com.zjk.model.CommentForumInfo;
@@ -20,4 +20,10 @@ public interface IDynamicPresenter extends BasePresenter {
     void likeForum(LikeForumInfo likeForumInfo);
 
     void getForum(int uId, int lastFId);
+
+    void showCommentWidget(ForumInfo forumInfo, CommentForumInfo commentForumInfo);
+
+    void hideCommentWidget();
+
+    String getCommentText();
 }

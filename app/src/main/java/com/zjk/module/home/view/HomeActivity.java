@@ -13,8 +13,8 @@ import com.zjk.common.ui.NoScrollViewPager;
 import com.zjk.logic.LogicHandler;
 import com.zjk.logic.LogicImpl;
 import com.zjk.model.UserInfo;
+import com.zjk.module.forum.dynamic.view.DynamicActivity;
 import com.zjk.module.home.fragment.diet.view.DietFragment;
-import com.zjk.module.home.fragment.dynamic.view.DynamicFragment;
 import com.zjk.module.home.fragment.me.view.MeFragment;
 import com.zjk.module.home.fragment.sports.view.SportsFragment;
 import com.zjk.param.LoginParam;
@@ -53,7 +53,7 @@ public class HomeActivity extends BaseActivity implements BaseFragment.IProgress
         setListener();
         init();
 
-        test();
+//        test();
     }
 
     private void test() {
@@ -91,18 +91,20 @@ public class HomeActivity extends BaseActivity implements BaseFragment.IProgress
 
     @Override
     protected void init() {
-        mFragmentArray = new BaseFragment[HOME_TAB_COUNT];
+        mFragmentArray = new BaseFragment[HOME_TAB_COUNT - 1];
         mFragmentArray[0] = SportsFragment.newInstance();
         mFragmentArray[1] = DietFragment.newInstance();
-        mFragmentArray[2] = DynamicFragment.newInstance();
-        mFragmentArray[3] = MeFragment.newInstance();
-        mFragmentAdapter = new MyFragmentPageAdapter<>(this, getSupportFragmentManager(), mFragmentArray, new String[HOME_TAB_COUNT]);
+        mFragmentArray[2] = MeFragment.newInstance();
+        mFragmentAdapter = new MyFragmentPageAdapter<>(this, getSupportFragmentManager(), mFragmentArray, new String[HOME_TAB_COUNT - 1]);
         mViewPager.setAdapter(mFragmentAdapter);
-        mViewPager.setOffscreenPageLimit(HOME_TAB_COUNT);
+        mViewPager.setOffscreenPageLimit(HOME_TAB_COUNT - 1);
     }
 
     public void switchContent(int pageIndex) {
         mViewPager.setCurrentItem(pageIndex, false);
+        if (pageIndex == 2) {
+            pageIndex = 3;
+        }
         for (int i = 0; i < HOME_TAB_COUNT; i++) {
             if (i == pageIndex) {
                 mTvTabs[i].setTextColor(getResources().getColor(R.color.colorAccent));
@@ -122,10 +124,10 @@ public class HomeActivity extends BaseActivity implements BaseFragment.IProgress
                 switchContent(1);
                 break;
             case R.id.tv_dynamic:
-                switchContent(2);
+                DynamicActivity.start(this);
                 break;
             case R.id.tv_me:
-                switchContent(3);
+                switchContent(2);
                 break;
         }
     }

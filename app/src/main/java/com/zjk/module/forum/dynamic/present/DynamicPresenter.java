@@ -1,10 +1,10 @@
-package com.zjk.module.home.fragment.dynamic.present;
+package com.zjk.module.forum.dynamic.present;
 
 import com.zjk.model.CommentForumInfo;
 import com.zjk.model.ForumInfo;
 import com.zjk.model.LikeForumInfo;
-import com.zjk.module.home.fragment.dynamic.model.IDynamicModel;
-import com.zjk.module.home.fragment.dynamic.view.IDynamicView;
+import com.zjk.module.forum.dynamic.model.IDynamicModel;
+import com.zjk.module.forum.dynamic.view.IDynamicView;
 import com.zjk.result.Result;
 import com.zjk.run_help.R;
 
@@ -58,6 +58,21 @@ public class DynamicPresenter implements IDynamicPresenter, IDynamicModel.GetFor
     public void getForum(int uId, int lastFId) {
         mView.showProgress(R.string.get_forum_ing);
         mModel.getForum(uId, lastFId, this);
+    }
+
+    @Override
+    public void showCommentWidget(ForumInfo forumInfo, CommentForumInfo commentForumInfo) {
+        mView.showCommentWidget(forumInfo, commentForumInfo);
+    }
+
+    @Override
+    public void hideCommentWidget() {
+        mView.hideCommentWidget();
+    }
+
+    @Override
+    public String getCommentText() {
+        return mView.getCommentText();
     }
 
     @Override

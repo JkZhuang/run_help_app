@@ -1,4 +1,4 @@
-package com.zjk.module.home.fragment.dynamic.adapter;
+package com.zjk.module.forum.dynamic.adapter;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
@@ -16,14 +16,13 @@ import com.bumptech.glide.Glide;
 import com.zjk.common.app.App;
 import com.zjk.model.ForumInfo;
 import com.zjk.model.LikeForumInfo;
-import com.zjk.module.home.fragment.dynamic.present.DynamicPresenter;
+import com.zjk.module.forum.dynamic.present.DynamicPresenter;
 import com.zjk.run_help.R;
 import com.zjk.util.DateUtil;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
 
 /**
  * author : ZhuangJinKun
@@ -172,6 +171,7 @@ public class DynamicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 mIvContent.setVisibility(View.VISIBLE);
                 Glide.with(mContext)
                         .load(info.getPhotoUrl())
+                        .placeholder(R.drawable.a1)
                         .into(mIvContent);
             } else {
                 mIvContent.setVisibility(View.GONE);
@@ -187,6 +187,12 @@ public class DynamicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 @Override
                 public void onClick(View v) {
                     mPresenter.likeForum(createLikeForum(info));
+                }
+            });
+            mIvComment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mPresenter.showCommentWidget(info, null);
                 }
             });
 
@@ -207,7 +213,7 @@ public class DynamicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             if (info.getcFList() == null || info.getcFList().size() == 0) {
                 mRvComment.setVisibility(View.GONE);
             } else {
-                mCommentAdapter = new CommentAdapter(mContext);
+                mCommentAdapter = new CommentAdapter(mContext, info, mPresenter);
                 mCommentAdapter.setData(info.getcFList());
                 mRvComment.setLayoutManager(new LinearLayoutManager(mContext));
                 mRvComment.setAdapter(mCommentAdapter);

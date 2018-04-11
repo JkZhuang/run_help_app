@@ -44,16 +44,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_content_text"
-            android:layout_marginTop="@dimen/common_margin"
-            android:scaleType="matrix"
-            android:src="@drawable/ic_like_normal" />
+            android:layout_marginTop="@dimen/small_margin"
+            android:src="@drawable/a1"/>
 
         <TextView
             android:id="@+id/tv_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/iv_content_image"
-            android:layout_marginTop="@dimen/big_margin"
+            android:layout_marginTop="@dimen/common_margin"
             android:textColor="@color/color_999999"
             android:textSize="12sp" />
 
@@ -66,7 +65,7 @@
             android:layout_below="@id/iv_content_image"
             android:layout_marginEnd="@dimen/small_margin"
             android:layout_marginRight="@dimen/small_margin"
-            android:layout_marginTop="@dimen/big_margin"
+            android:layout_marginTop="@dimen/common_margin"
             android:src="@drawable/ic_chat" />
 
         <ImageView
@@ -76,7 +75,7 @@
             android:layout_below="@id/iv_content_image"
             android:layout_marginEnd="@dimen/common_margin"
             android:layout_marginRight="@dimen/common_margin"
-            android:layout_marginTop="@dimen/big_margin"
+            android:layout_marginTop="@dimen/common_margin"
             android:layout_toLeftOf="@id/iv_chat"
             android:layout_toStartOf="@id/iv_chat"
             android:src="@drawable/ic_like_normal" />

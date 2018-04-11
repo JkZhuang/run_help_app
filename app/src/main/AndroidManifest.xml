@@ -46,13 +46,20 @@
             android:windowSoftInputMode="adjustResize"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <!--<activity android:name="com.zjk.module.home.view.HomeActivity"
+        <activity android:name="com.zjk.module.forum.dynamic.view.DynamicActivity"
+            android:label="@string/dynamic"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"
-            android:theme="@style/AppTheme.NoActionBar" />-->
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity android:name="com.zjk.module.user.information.view.PersonalActivity"
             android:label="@string/personal_data"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name="com.zjk.module.forum.publishforum.view.PublishForumActivity"
+            android:label="@string/publish_forum"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize"
             android:theme="@style/AppTheme.NoActionBar" />

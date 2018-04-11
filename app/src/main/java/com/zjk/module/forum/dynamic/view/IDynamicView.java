@@ -1,8 +1,9 @@
-package com.zjk.module.home.fragment.dynamic.view;
+package com.zjk.module.forum.dynamic.view;
 
 import com.zjk.common.ui.BaseView;
+import com.zjk.model.CommentForumInfo;
 import com.zjk.model.ForumInfo;
-import com.zjk.module.home.fragment.dynamic.present.DynamicPresenter;
+import com.zjk.module.forum.dynamic.present.DynamicPresenter;
 import com.zjk.result.Result;
 
 import java.util.List;
@@ -34,4 +35,10 @@ public interface IDynamicView extends BaseView<DynamicPresenter> {
     void getForumSuccess(boolean isOnUIThread, List<ForumInfo> forumInfos);
 
     void getForumFail(boolean isOnUIThread, Result result);
+
+    void showCommentWidget(ForumInfo forumInfo, CommentForumInfo commentForumInfo);
+
+    void hideCommentWidget();
+
+    String getCommentText();
 }

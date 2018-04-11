@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_comment_container"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:visibility="gone"
+    tools:visibility="visible"
+    android:background="@drawable/bg_btn_border_small">
+
+    <TextView
+        android:id="@+id/tv_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/common_margin"
+        android:paddingEnd="@dimen/common_margin"
+        android:paddingTop="@dimen/small_margin"
+        android:paddingBottom="@dimen/small_margin"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/common_margin"
+        android:layout_marginRight="@dimen/common_margin"
+        android:text="@string/send"
+        android:textSize="14sp"
+        android:textColor="@color/white"
+        android:background="@drawable/bg_btn_shape_small"/>
+
+    <View
+        android:id="@+id/view_divider"
+        android:layout_width="0.5dp"
+        android:layout_height="match_parent"
+        android:background="@color/background_color"
+        android:layout_marginRight="@dimen/common_margin"
+        android:layout_marginEnd="@dimen/common_margin"
+        android:layout_toLeftOf="@id/tv_send"
+        android:layout_toStartOf="@id/tv_send" />
+
+    <EditText
+        android:id="@+id/et_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/common_margin"
+        android:layout_marginLeft="@dimen/common_margin"
+        android:layout_marginRight="@dimen/common_margin"
+        android:layout_marginEnd="@dimen/common_margin"
+        android:layout_toLeftOf="@id/view_divider"
+        android:layout_toStartOf="@id/view_divider"
+        android:layout_centerVertical="true"
+        android:hint="@string/please_input_your_comment"
+        android:background="@null"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textSize="14sp"
+        android:textColor="@color/colorPrimary"/>
+
+</RelativeLayout>
