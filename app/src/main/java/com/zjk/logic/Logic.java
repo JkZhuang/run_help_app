@@ -46,6 +46,8 @@ public interface Logic {
 
     void changeUserInfo(ChangeUserInfoParam param, LogicHandler<ChangeUserInfoResult> handler);
 
+    void changeUserInfoWithoutHead(ChangeUserInfoParam param, LogicHandler<ChangeUserInfoResult> handler);
+
     void uploadSportsData(UploadSportsDataParam param, LogicHandler<UpdateFallThresholdResult> handler);
 
     void getUserSportsData(GetUserSportsDataParam param, LogicHandler<GetUserSportsDataResult> handler);

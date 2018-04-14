@@ -1,5 +1,6 @@
 package com.zjk.module.user.login.model;
 
+import com.zjk.common.mvp.mode.IModel;
 import com.zjk.model.UserInfo;
 import com.zjk.result.Result;
 
@@ -9,7 +10,7 @@ import com.zjk.result.Result;
  * time   : 2018/04/08
  */
 
-public interface ILoginModel {
+public interface ILoginModel extends IModel {
 
     void login(UserInfo userInfo, OnLoginListener listener);
 

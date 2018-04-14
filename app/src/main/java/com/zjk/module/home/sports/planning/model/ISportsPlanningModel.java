@@ -1,5 +1,6 @@
 package com.zjk.module.home.sports.planning.model;
 
+import com.zjk.common.mvp.mode.IModel;
 import com.zjk.model.SportsSuggestion;
 import com.zjk.result.Result;
 
@@ -11,7 +12,7 @@ import java.util.List;
  * time   : 2018/04/09
  */
 
-public interface ISportsPlanningModel {
+public interface ISportsPlanningModel extends IModel {
 
     void getSportsSuggestion(int uId, GetSportsSuggestionListener listener);
 

@@ -1,5 +1,6 @@
 package com.zjk.module.forum.dynamic.model;
 
+import com.zjk.common.mvp.mode.IModel;
 import com.zjk.model.CommentForumInfo;
 import com.zjk.model.ForumInfo;
 import com.zjk.model.LikeForumInfo;
@@ -13,7 +14,7 @@ import java.util.List;
  * time   : 2018/04/10
  */
 
-public interface IDynamicModel {
+public interface IDynamicModel extends IModel {
 
     void publishForum(ForumInfo forumInfo, PublishForumListener listener);
 

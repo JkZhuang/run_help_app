@@ -1,10 +1,12 @@
 package com.zjk.module.forum.dynamic.model;
 
+import com.zjk.common.mvp.mode.BaseModel;
 import com.zjk.logic.LogicHandler;
 import com.zjk.logic.LogicImpl;
 import com.zjk.model.CommentForumInfo;
 import com.zjk.model.ForumInfo;
 import com.zjk.model.LikeForumInfo;
+import com.zjk.module.forum.dynamic.present.IDynamicPresenter;
 import com.zjk.param.CommentForumParam;
 import com.zjk.param.GetForumParam;
 import com.zjk.param.LikeForumParam;
@@ -20,10 +22,10 @@ import com.zjk.result.PublishForumResult;
  * time   : 2018/04/10
  */
 
-public class DynamicModelImpl implements IDynamicModel {
+public class DynamicModelImpl extends BaseModel<IDynamicPresenter> implements IDynamicModel {
 
-    public DynamicModelImpl() {
-
+    public DynamicModelImpl(IDynamicPresenter presenter) {
+        this.mPresenter = presenter;
     }
 
     @Override

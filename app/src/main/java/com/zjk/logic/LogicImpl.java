@@ -101,7 +101,12 @@ public class LogicImpl implements Logic {
 
     @Override
     public void changeUserInfo(ChangeUserInfoParam param, LogicHandler<ChangeUserInfoResult> handler) {
-        getUploadResult(param, handler, ChangeUserInfoResult.class, param.userInfo.getHeadUrl());
+        getUploadResult(param, handler, ChangeUserInfoResult.class, param.path);
+    }
+
+    @Override
+    public void changeUserInfoWithoutHead(ChangeUserInfoParam param, LogicHandler<ChangeUserInfoResult> handler) {
+        getResult(param, handler, ChangeUserInfoResult.class);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.zjk.module.forum.dynamic.present;
 
-import com.zjk.common.presenter.BasePresenter;
+import com.zjk.common.mvp.presenter.BasePresenter;
 import com.zjk.model.CommentForumInfo;
 import com.zjk.model.ForumInfo;
 import com.zjk.model.LikeForumInfo;

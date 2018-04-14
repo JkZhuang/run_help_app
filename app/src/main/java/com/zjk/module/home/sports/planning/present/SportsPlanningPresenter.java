@@ -1,7 +1,11 @@
 package com.zjk.module.home.sports.planning.present;
 
+import android.support.annotation.Nullable;
+
+import com.zjk.common.mvp.presenter.BasePresenterImpl;
 import com.zjk.model.SportsSuggestion;
 import com.zjk.module.home.sports.planning.model.ISportsPlanningModel;
+import com.zjk.module.home.sports.planning.model.SportsPlanningModelImpl;
 import com.zjk.module.home.sports.planning.view.ISportsPlanningView;
 import com.zjk.result.Result;
 import com.zjk.run_help.R;
@@ -14,42 +18,37 @@ import java.util.List;
  * time   : 2018/04/09
  */
 
-public class SportsPlanningPresenter implements ISportsPlanningPresenter,
+public class SportsPlanningPresenter extends BasePresenterImpl<ISportsPlanningView, ISportsPlanningModel> implements ISportsPlanningPresenter,
         ISportsPlanningModel.GetSportsSuggestionListener {
 
-    private ISportsPlanningModel mModel;
-    private ISportsPlanningView mView;
-
-    public SportsPlanningPresenter(ISportsPlanningView view, ISportsPlanningModel model) {
-        this.mView = view;
-        this.mModel = model;
-    }
-
-    @Override
-    public void start() {
-
-    }
-
-    @Override
-    public void destroy() {
-
+    public SportsPlanningPresenter(@Nullable ISportsPlanningView view) {
+        super(view);
+        mModel = new SportsPlanningModelImpl(this);
     }
 
     @Override
     public void getSportsSuggestion(int uId) {
-        mView.showProgress(R.string.get_sports_planning_suggestion_ing);
-        mModel.getSportsSuggestion(uId, this);
+        if (mView != null) {
+            mView.showProgress(R.string.get_sports_planning_suggestion_ing);
+        }
+        if (mModel != null) {
+            mModel.getSportsSuggestion(uId, this);
+        }
     }
 
     @Override
     public void getSportsSuggestionSuccess(boolean isOnUIThread, List<SportsSuggestion> data) {
-        mView.hideProgress();
-        mView.getSportsSuggestionSuccess(isOnUIThread, data);
+        if (mView != null) {
+            mView.hideProgress();
+            mView.getSportsSuggestionSuccess(isOnUIThread, data);
+        }
     }
 
     @Override
     public void getSportsSuggestionFail(boolean isOnUIThread, Result result) {
-        mView.hideProgress();
-        mView.getSportsSuggestionFail(isOnUIThread, result);
+        if (mView != null) {
+            mView.hideProgress();
+            mView.getSportsSuggestionFail(isOnUIThread, result);
+        }
     }
 }

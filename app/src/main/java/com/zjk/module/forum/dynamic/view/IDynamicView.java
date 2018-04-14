@@ -1,9 +1,8 @@
 package com.zjk.module.forum.dynamic.view;
 
-import com.zjk.common.ui.BaseView;
+import com.zjk.common.mvp.view.BaseView;
 import com.zjk.model.CommentForumInfo;
 import com.zjk.model.ForumInfo;
-import com.zjk.module.forum.dynamic.present.DynamicPresenter;
 import com.zjk.result.Result;
 
 import java.util.List;
@@ -14,7 +13,7 @@ import java.util.List;
  * time   : 2018/04/10
  */
 
-public interface IDynamicView extends BaseView<DynamicPresenter> {
+public interface IDynamicView extends BaseView {
 
     void showProgress(int msgId);
 

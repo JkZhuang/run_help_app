@@ -1,7 +1,11 @@
 package com.zjk.module.user.register.present;
 
+import android.support.annotation.Nullable;
+
+import com.zjk.common.mvp.presenter.BasePresenterImpl;
 import com.zjk.model.UserInfo;
 import com.zjk.module.user.register.model.IRegisterModel;
+import com.zjk.module.user.register.model.RegisterModelImpl;
 import com.zjk.module.user.register.view.IRegisterView;
 import com.zjk.result.Result;
 
@@ -11,41 +15,37 @@ import com.zjk.result.Result;
  * time   : 2018/03/28
  */
 
-public class RegisterPresenter implements IRegisterPresenter, IRegisterModel.OnRegisterListener {
+public class RegisterPresenter extends BasePresenterImpl<IRegisterView, IRegisterModel>
+        implements IRegisterPresenter, IRegisterModel.OnRegisterListener {
 
-    private IRegisterView mView;
-    private IRegisterModel mModel;
-
-    public RegisterPresenter(IRegisterView view, IRegisterModel model) {
-        mView = view;
-        mModel = model;
-    }
-
-    @Override
-    public void start() {
-
-    }
-
-    @Override
-    public void destroy() {
-
+    public RegisterPresenter(@Nullable IRegisterView view) {
+        super(view);
+        mModel = new RegisterModelImpl(this);
     }
 
     @Override
     public void doRegister(UserInfo userInfo) {
-        mView.showProgress();
-        mModel.register(userInfo, this);
+        if (mView != null) {
+            mView.showProgress();
+        }
+        if (mModel != null) {
+            mModel.register(userInfo, this);
+        }
     }
 
     @Override
     public void onRegisterSuccess(boolean onUIThread) {
-        mView.hideProgress();
-        mView.registerSuccess(onUIThread);
+        if (mView != null) {
+            mView.hideProgress();
+            mView.registerSuccess(onUIThread);
+        }
     }
 
     @Override
     public void onRegisterFail(boolean onUIThread, Result result) {
-        mView.hideProgress();
-        mView.registerFail(onUIThread, result);
+        if (mView != null) {
+            mView.hideProgress();
+            mView.registerFail(onUIThread, result);
+        }
     }
 }

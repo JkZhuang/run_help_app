@@ -1,8 +1,10 @@
 package com.zjk.module.forum.publishforum.model;
 
+import com.zjk.common.mvp.mode.BaseModel;
 import com.zjk.logic.LogicHandler;
 import com.zjk.logic.LogicImpl;
 import com.zjk.model.ForumInfo;
+import com.zjk.module.forum.publishforum.present.IPublishForumPresenter;
 import com.zjk.param.PublishForumParam;
 import com.zjk.result.PublishForumResult;
 
@@ -12,10 +14,10 @@ import com.zjk.result.PublishForumResult;
  * time   : 2018/04/11
  */
 
-public class PublishForumModelImpl implements IPublishForumModel {
+public class PublishForumModelImpl extends BaseModel<IPublishForumPresenter> implements IPublishForumModel {
 
-    public PublishForumModelImpl() {
-
+    public PublishForumModelImpl(IPublishForumPresenter presenter) {
+        this.mPresenter = presenter;
     }
 
     @Override

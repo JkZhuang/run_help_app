@@ -11,15 +11,19 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.zjk.common.mvp.presenter.BasePresenter;
 import com.zjk.model.UserInfo;
 
 /**
  * Created by pandengzhe on 2018/3/31.
  */
 
-public abstract class BaseFragment extends Fragment implements View.OnClickListener {
+public abstract class BaseFragment<T extends BasePresenter> extends Fragment implements View.OnClickListener {
 
     protected BaseActivity mActivity;
+
+    @Nullable
+    protected T mPresenter;
 
     public BaseFragment() {
 
@@ -36,7 +40,26 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        if (mPresenter != null) {
+            mPresenter.onCreate();
+        }
         return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mPresenter != null) {
+            mPresenter.onResume();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mPresenter != null) {
+            mPresenter.onDestroy();
+        }
     }
 
     public void hideKeyboard(View view) {

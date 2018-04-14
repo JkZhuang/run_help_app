@@ -18,6 +18,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.zjk.common.app.App;
+import com.zjk.common.mvp.presenter.BasePresenter;
+import com.zjk.common.mvp.view.BaseView;
 import com.zjk.common.util.DisplayUtils;
 import com.zjk.common.util.Utils;
 import com.zjk.model.UserInfo;
@@ -34,7 +36,8 @@ import java.lang.reflect.Method;
  * time   : 2018/03/28
  */
 
-public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener {
+public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity
+        implements BaseView, View.OnClickListener {
 
     private static final String TAG = "BaseActivity";
 
@@ -42,6 +45,8 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     private LoadingDialog mLoadingDialog;
     private AlertDialog.Builder mAlertDialogBuilder;
 
+    @Nullable
+    protected T mPresenter;
     private boolean isFinished = false;
 
     public Handler getHandler() {
@@ -51,9 +56,48 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-//        DisplayUtils.setStatusBarFontDark(getWindow(), useDarkMode());
         setMiUIStatusBar(useDarkMode());
+        if (mPresenter != null) {
+            mPresenter.onCreate();
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mPresenter != null) {
+            mPresenter.onResume();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        isFinished = true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        isFinished = true;
+        if (mPresenter != null) {
+            mPresenter.onDestroy();
+        }
     }
 
     protected abstract void findWidget();
@@ -207,37 +251,5 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     public boolean isFinished() {
         return isFinished;
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
-    @Override
-    public void finish() {
-        super.finish();
-        isFinished = true;
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        isFinished = true;
     }
 }

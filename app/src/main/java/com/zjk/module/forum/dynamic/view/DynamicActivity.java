@@ -24,6 +24,7 @@ import com.zjk.model.ForumInfo;
 import com.zjk.module.forum.dynamic.adapter.DynamicAdapter;
 import com.zjk.module.forum.dynamic.model.DynamicModelImpl;
 import com.zjk.module.forum.dynamic.present.DynamicPresenter;
+import com.zjk.module.forum.dynamic.present.IDynamicPresenter;
 import com.zjk.module.forum.publishforum.view.PublishForumActivity;
 import com.zjk.result.Result;
 import com.zjk.run_help.R;
@@ -37,7 +38,7 @@ import java.util.List;
  * Created by pandengzhe on 2018/3/31.
  */
 
-public class DynamicActivity extends BaseActivity implements IDynamicView, ResizeLayout.OnResizeListener {
+public class DynamicActivity extends BaseActivity<IDynamicPresenter> implements IDynamicView, ResizeLayout.OnResizeListener {
 
     private static final String TAG = "DynamicActivity";
 
@@ -96,8 +97,7 @@ public class DynamicActivity extends BaseActivity implements IDynamicView, Resiz
     @Override
     protected void init() {
         setupActionBar(mToolbar);
-        mPresenter = new DynamicPresenter(this, new DynamicModelImpl());
-        mPresenter.start();
+        mPresenter = new DynamicPresenter(this);
         mAdapter = new DynamicAdapter(this, mPresenter);
         mRvDynamic.setLayoutManager(new LinearLayoutManager(this));
         mRvDynamic.addItemDecoration(new ListItemDividerDecoration(1,
@@ -251,7 +251,6 @@ public class DynamicActivity extends BaseActivity implements IDynamicView, Resiz
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mPresenter.destroy();
     }
 
     @Override

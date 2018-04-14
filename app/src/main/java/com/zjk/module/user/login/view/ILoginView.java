@@ -1,5 +1,6 @@
 package com.zjk.module.user.login.view;
 
+import com.zjk.common.mvp.view.BaseView;
 import com.zjk.model.UserInfo;
 import com.zjk.result.Result;
 
@@ -9,7 +10,7 @@ import com.zjk.result.Result;
  * time   : 2018/04/08
  */
 
-public interface ILoginView {
+public interface ILoginView extends BaseView {
 
     void showProgress();
 

@@ -1,7 +1,9 @@
 package com.zjk.module.home.sports.planning.model;
 
+import com.zjk.common.mvp.mode.BaseModel;
 import com.zjk.logic.LogicHandler;
 import com.zjk.logic.LogicImpl;
+import com.zjk.module.home.sports.planning.present.ISportsPlanningPresenter;
 import com.zjk.param.GetSportsSuggestionParam;
 import com.zjk.result.GetSportsSuggestionResult;
 
@@ -11,10 +13,10 @@ import com.zjk.result.GetSportsSuggestionResult;
  * time   : 2018/04/09
  */
 
-public class SportsPlanningModelImpl implements ISportsPlanningModel {
+public class SportsPlanningModelImpl extends BaseModel<ISportsPlanningPresenter> implements ISportsPlanningModel {
 
-    public SportsPlanningModelImpl() {
-
+    public SportsPlanningModelImpl(ISportsPlanningPresenter presenter) {
+        this.mPresenter = presenter;
     }
 
     @Override

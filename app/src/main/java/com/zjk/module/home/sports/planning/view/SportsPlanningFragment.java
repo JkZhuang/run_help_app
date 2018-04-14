@@ -16,7 +16,7 @@ import com.zjk.common.ui.refresh.MaterialRefreshListener;
 import com.zjk.common.util.DeviceUtils;
 import com.zjk.model.SportsSuggestion;
 import com.zjk.module.home.sports.planning.adapter.SportsPlanningAdapter;
-import com.zjk.module.home.sports.planning.model.SportsPlanningModelImpl;
+import com.zjk.module.home.sports.planning.present.ISportsPlanningPresenter;
 import com.zjk.module.home.sports.planning.present.SportsPlanningPresenter;
 import com.zjk.result.Result;
 import com.zjk.run_help.R;
@@ -29,9 +29,9 @@ import java.util.List;
  * Created by pandengzhe on 2018/3/31.
  */
 
-public class PlanningFragment extends BaseFragment implements ISportsPlanningView {
+public class SportsPlanningFragment extends BaseFragment<ISportsPlanningPresenter> implements ISportsPlanningView {
 
-    private static final String TAG = "PlanningFragment";
+    private static final String TAG = "SportsPlanningFragment";
 
     private View mView;
     private MaterialRefreshLayout mMrlListContainer;
@@ -40,13 +40,13 @@ public class PlanningFragment extends BaseFragment implements ISportsPlanningVie
     private SportsPlanningAdapter mAdapter;
     private SportsPlanningPresenter mPresenter;
 
-    public static PlanningFragment newInstance(BaseActivity activity) {
-        PlanningFragment fragment = new PlanningFragment();
+    public static SportsPlanningFragment newInstance(BaseActivity activity) {
+        SportsPlanningFragment fragment = new SportsPlanningFragment();
         fragment.setActivity(activity);
         return fragment;
     }
 
-    public PlanningFragment() {
+    public SportsPlanningFragment() {
 
     }
 
@@ -57,8 +57,7 @@ public class PlanningFragment extends BaseFragment implements ISportsPlanningVie
         findWidget();
         setListener();
         init();
-        mPresenter = new SportsPlanningPresenter(this, new SportsPlanningModelImpl());
-        mPresenter.start();
+        mPresenter = new SportsPlanningPresenter(this);
         return mView;
     }
 
@@ -114,7 +113,6 @@ public class PlanningFragment extends BaseFragment implements ISportsPlanningVie
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mPresenter.destroy();
     }
 
     @Override

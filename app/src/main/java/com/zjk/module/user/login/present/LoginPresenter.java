@@ -1,7 +1,11 @@
 package com.zjk.module.user.login.present;
 
+import android.support.annotation.Nullable;
+
+import com.zjk.common.mvp.presenter.BasePresenterImpl;
 import com.zjk.model.UserInfo;
 import com.zjk.module.user.login.model.ILoginModel;
+import com.zjk.module.user.login.model.LoginModelImpl;
 import com.zjk.module.user.login.view.ILoginView;
 import com.zjk.result.Result;
 
@@ -11,41 +15,36 @@ import com.zjk.result.Result;
  * time   : 2018/04/08
  */
 
-public class LoginPresenter implements ILoginPresenter, ILoginModel.OnLoginListener {
+public class LoginPresenter extends BasePresenterImpl<ILoginView, ILoginModel> implements ILoginPresenter, ILoginModel.OnLoginListener {
 
-    private ILoginModel mModel;
-    private ILoginView mView;
-
-    public LoginPresenter(ILoginModel iLoginModel, ILoginView iLoginView) {
-        this.mModel = iLoginModel;
-        this.mView = iLoginView;
-    }
-
-    @Override
-    public void start() {
-
-    }
-
-    @Override
-    public void destroy() {
-
+    public LoginPresenter(@Nullable ILoginView view) {
+        super(view);
+        mModel = new LoginModelImpl(this);
     }
 
     @Override
     public void doLogin(UserInfo userInfo) {
-        mView.showProgress();
-        mModel.login(userInfo, this);
+        if (mView != null) {
+            mView.showProgress();
+        }
+        if (mModel != null) {
+            mModel.login(userInfo, this);
+        }
     }
 
     @Override
     public void onLoginSuccess(boolean onUIThread, UserInfo userInfo) {
-        mView.hideProgress();
-        mView.loginSuccess(onUIThread, userInfo);
+        if (mView != null) {
+            mView.hideProgress();
+            mView.loginSuccess(onUIThread, userInfo);
+        }
     }
 
     @Override
     public void onLoginFail(boolean onUIThread, Result result) {
-        mView.hideProgress();
-        mView.loginFail(onUIThread, result);
+        if (mView != null) {
+            mView.hideProgress();
+            mView.loginFail(onUIThread, result);
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.zjk.module.forum.publishforum.model;
 
+import com.zjk.common.mvp.mode.IModel;
 import com.zjk.model.ForumInfo;
 import com.zjk.result.Result;
 
@@ -9,7 +10,7 @@ import com.zjk.result.Result;
  * time   : 2018/04/11
  */
 
-public interface IPublishForumModel {
+public interface IPublishForumModel extends IModel {
 
     void publish(ForumInfo forumInfo, PublishForumListener listener);
 

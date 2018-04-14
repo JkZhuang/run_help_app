@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.zjk.common.ui.BaseActivity;
 import com.zjk.common.ui.BaseFragment;
 import com.zjk.common.ui.MyFragmentPageAdapter;
-import com.zjk.module.home.sports.planning.view.PlanningFragment;
+import com.zjk.module.home.sports.planning.view.SportsPlanningFragment;
 import com.zjk.module.home.sports.riding.view.RidingFragment;
 import com.zjk.module.home.sports.running.view.RunningFragment;
 import com.zjk.module.home.sports.search.view.SearchFragment;
@@ -70,7 +70,7 @@ public class SportsFragment extends BaseFragment {
     @Override
     protected void init() {
         mFragmentArray = new BaseFragment[SPORTS_TAB_COUNT];
-        mFragmentArray[0] = PlanningFragment.newInstance(mActivity);
+        mFragmentArray[0] = SportsPlanningFragment.newInstance(mActivity);
         mFragmentArray[1] = WalkFragment.newInstance(mActivity);
         mFragmentArray[2] = RunningFragment.newInstance(mActivity);
         mFragmentArray[3] = RidingFragment.newInstance(mActivity);

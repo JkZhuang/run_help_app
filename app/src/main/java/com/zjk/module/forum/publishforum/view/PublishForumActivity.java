@@ -17,6 +17,7 @@ import com.zjk.common.ui.BaseActivity;
 import com.zjk.model.ForumInfo;
 import com.zjk.model.UserInfo;
 import com.zjk.module.forum.publishforum.model.PublishForumModelImpl;
+import com.zjk.module.forum.publishforum.present.IPublishForumPresenter;
 import com.zjk.module.forum.publishforum.present.PublishForumPresenter;
 import com.zjk.module.user.register.view.RegisterActivity;
 import com.zjk.okhttp.DefList;
@@ -34,7 +35,7 @@ import java.util.Date;
  * time   : 2018/04/11
  */
 
-public class PublishForumActivity extends BaseActivity implements IPublishForumView {
+public class PublishForumActivity extends BaseActivity<IPublishForumPresenter> implements IPublishForumView {
 
     private static final String TAG = "PublishActivity";
 
@@ -63,8 +64,7 @@ public class PublishForumActivity extends BaseActivity implements IPublishForumV
         setListener();
         init();
 
-        mPresenter = new PublishForumPresenter(this, new PublishForumModelImpl());
-        mPresenter.start();
+        mPresenter = new PublishForumPresenter(this);
     }
 
     @Override
@@ -164,6 +164,5 @@ public class PublishForumActivity extends BaseActivity implements IPublishForumV
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mPresenter.destroy();
     }
 }

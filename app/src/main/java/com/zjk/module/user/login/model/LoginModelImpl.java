@@ -1,9 +1,10 @@
 package com.zjk.module.user.login.model;
 
-import com.zjk.logic.Logic;
+import com.zjk.common.mvp.mode.BaseModel;
 import com.zjk.logic.LogicHandler;
 import com.zjk.logic.LogicImpl;
 import com.zjk.model.UserInfo;
+import com.zjk.module.user.login.present.ILoginPresenter;
 import com.zjk.param.LoginParam;
 import com.zjk.result.LoginResult;
 
@@ -13,10 +14,10 @@ import com.zjk.result.LoginResult;
  * time   : 2018/04/08
  */
 
-public class LoginModelImpl implements ILoginModel {
+public class LoginModelImpl extends BaseModel<ILoginPresenter> implements ILoginModel {
 
-    public LoginModelImpl() {
-
+    public LoginModelImpl(ILoginPresenter presenter) {
+        this.mPresenter = presenter;
     }
 
     @Override

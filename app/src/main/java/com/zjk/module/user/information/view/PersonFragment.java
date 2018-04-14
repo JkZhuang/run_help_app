@@ -21,11 +21,16 @@ import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.bumptech.glide.Glide;
 import com.zjk.common.app.App;
+import com.zjk.common.sp.SpEditor;
+import com.zjk.common.sp.SpFileName;
+import com.zjk.common.sp.SpKey;
 import com.zjk.common.ui.BaseActivity;
 import com.zjk.common.ui.BaseFragment;
 import com.zjk.model.UserInfo;
 import com.zjk.module.user.information.model.PersonModelImpl;
+import com.zjk.module.user.information.present.IPersonPresenter;
 import com.zjk.module.user.information.present.PersonPresenter;
+import com.zjk.okhttp.DefList;
 import com.zjk.result.Result;
 import com.zjk.run_help.R;
 import com.zjk.util.CommonsUtil;
@@ -46,7 +51,7 @@ import static com.zjk.module.user.register.view.RegisterActivity.KEY_IMAGE;
  * time   : 2018/04/09
  */
 
-public class PersonFragment extends BaseFragment implements IPersonView {
+public class PersonFragment extends BaseFragment<IPersonPresenter> implements IPersonView {
 
     private static final String TAG = "PersonFragment";
 
@@ -74,6 +79,7 @@ public class PersonFragment extends BaseFragment implements IPersonView {
     private UserInfo userInfo = new UserInfo();
     private ArrayList<String> genderItems = new ArrayList<>();
     private boolean isEdit = false;
+    private String imagePath = DefList.EMPTY;
 
     public static PersonFragment newInstance(BaseActivity activity) {
         PersonFragment fragment = new PersonFragment();
@@ -92,8 +98,7 @@ public class PersonFragment extends BaseFragment implements IPersonView {
         findWidget();
         setListener();
         init();
-        mPresenter = new PersonPresenter(this, new PersonModelImpl());
-        mPresenter.start();
+        mPresenter = new PersonPresenter(this);
         return mView;
     }
 
@@ -187,7 +192,7 @@ public class PersonFragment extends BaseFragment implements IPersonView {
         String gender = mTvGender.getText().toString().trim();
         userInfo.setGender(CommonsUtil.genderToInt(getContext(), gender));
         userInfo.setUrgentPhone(mEtUrgentPhone.getText().toString().trim());
-        mPresenter.doChangeInfo(userInfo);
+        mPresenter.doChangeInfo(userInfo, imagePath);
     }
 
     private void changeEditTextState() {
@@ -269,7 +274,6 @@ public class PersonFragment extends BaseFragment implements IPersonView {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mPresenter.destroy();
     }
 
     @Override
@@ -320,6 +324,8 @@ public class PersonFragment extends BaseFragment implements IPersonView {
     @Override
     public void changeInfoSuccess(boolean onUIThread, boolean bool) {
         if (onUIThread && bool) {
+            SpEditor.putAndApply(SpFileName.SP_USER, SpKey.USER_PHONE, userInfo.getPhone());
+            SpEditor.putAndApply(SpFileName.SP_USER, SpKey.USER_PASSWORD, userInfo.getPassword());
             changeEditTextState();
             ToastUtil.shortShow(getContext(), R.string.change_info_success);
             mPresenter.getUpdateInfo(userInfo);
@@ -347,8 +353,7 @@ public class PersonFragment extends BaseFragment implements IPersonView {
     protected void onFragmentResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case CHANGE_INFO_REQUEST:
-                String imagePath = data.getStringExtra(KEY_IMAGE);
-                userInfo.setHeadUrl(imagePath);
+                imagePath = data.getStringExtra(KEY_IMAGE);
 
                 File file = new File(imagePath);
                 Glide.with(this)

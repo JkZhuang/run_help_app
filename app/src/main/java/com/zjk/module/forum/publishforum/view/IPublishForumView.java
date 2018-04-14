@@ -1,7 +1,6 @@
 package com.zjk.module.forum.publishforum.view;
 
-import com.zjk.common.ui.BaseView;
-import com.zjk.module.forum.publishforum.present.IPublishForumPresenter;
+import com.zjk.common.mvp.view.BaseView;
 import com.zjk.result.Result;
 
 /**
@@ -10,7 +9,7 @@ import com.zjk.result.Result;
  * time   : 2018/04/11
  */
 
-public interface IPublishForumView extends BaseView<IPublishForumPresenter> {
+public interface IPublishForumView extends BaseView {
 
     void showProgress(int msgId);
 

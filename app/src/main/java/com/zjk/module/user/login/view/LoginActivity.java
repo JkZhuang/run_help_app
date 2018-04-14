@@ -3,7 +3,6 @@ package com.zjk.module.user.login.view;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
@@ -18,9 +17,8 @@ import com.zjk.common.sp.SpKey;
 import com.zjk.common.ui.BaseActivity;
 import com.zjk.model.UserInfo;
 import com.zjk.module.home.view.HomeActivity;
-import com.zjk.module.user.login.model.LoginModelImpl;
+import com.zjk.module.user.login.present.ILoginPresenter;
 import com.zjk.module.user.login.present.LoginPresenter;
-import com.zjk.module.user.register.view.IRegisterView;
 import com.zjk.module.user.register.view.RegisterActivity;
 import com.zjk.result.Result;
 import com.zjk.run_help.R;
@@ -31,7 +29,7 @@ import com.zjk.util.ToastUtil;
  * Created by pandengzhe on 2018/4/1.
  */
 
-public class LoginActivity extends BaseActivity implements ILoginView {
+public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILoginView {
 
     private static final String TAG = "LoginActivity";
 
@@ -56,8 +54,7 @@ public class LoginActivity extends BaseActivity implements ILoginView {
         findWidget();
         setListener();
         init();
-        mPresenter = new LoginPresenter(new LoginModelImpl(), this);
-        mPresenter.start();
+        mPresenter = new LoginPresenter(this);
     }
 
     @Override
@@ -142,6 +139,5 @@ public class LoginActivity extends BaseActivity implements ILoginView {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mPresenter.destroy();
     }
 }

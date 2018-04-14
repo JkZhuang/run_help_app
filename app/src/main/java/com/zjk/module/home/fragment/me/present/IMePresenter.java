@@ -1,6 +1,6 @@
 package com.zjk.module.home.fragment.me.present;
 
-import com.zjk.common.presenter.BasePresenter;
+import com.zjk.common.mvp.presenter.BasePresenter;
 
 /**
  * author : ZhuangJinKun

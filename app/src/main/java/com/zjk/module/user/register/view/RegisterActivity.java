@@ -33,6 +33,7 @@ import com.zjk.common.ui.ShapedImageView;
 import com.zjk.model.UserInfo;
 import com.zjk.module.user.login.view.LoginActivity;
 import com.zjk.module.user.register.model.RegisterModelImpl;
+import com.zjk.module.user.register.present.IRegisterPresenter;
 import com.zjk.module.user.register.present.RegisterPresenter;
 import com.zjk.okhttp.DefList;
 import com.zjk.result.Result;
@@ -53,7 +54,7 @@ import java.util.Date;
  * time   : 2018/03/28
  */
 
-public class RegisterActivity extends BaseActivity implements IRegisterView {
+public class RegisterActivity extends BaseActivity<IRegisterPresenter> implements IRegisterView {
 
     private static final String TAG = "RegisterActivity";
 
@@ -107,8 +108,7 @@ public class RegisterActivity extends BaseActivity implements IRegisterView {
         setListener();
         init();
 
-        mPresenter = new RegisterPresenter(this, new RegisterModelImpl());
-        mPresenter.start();
+        mPresenter = new RegisterPresenter(this);
     }
 
     private void selectBirthday() {
@@ -370,7 +370,6 @@ public class RegisterActivity extends BaseActivity implements IRegisterView {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mPresenter.destroy();
     }
 
     @Override

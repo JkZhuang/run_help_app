@@ -1,5 +1,7 @@
 package com.zjk.module.user.register.model;
 
+import com.zjk.common.mvp.mode.BaseModel;
+import com.zjk.common.mvp.mode.IModel;
 import com.zjk.model.UserInfo;
 import com.zjk.result.Result;
 
@@ -9,7 +11,7 @@ import com.zjk.result.Result;
  * time   : 2018/03/28
  */
 
-public interface IRegisterModel {
+public interface IRegisterModel extends IModel {
 
     void register(UserInfo userInfo, OnRegisterListener listener);
 

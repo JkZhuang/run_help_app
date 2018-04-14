@@ -14,6 +14,8 @@ import com.zjk.common.app.App;
 import com.zjk.common.ui.BaseActivity;
 import com.zjk.common.ui.BaseFragment;
 import com.zjk.common.ui.ShapedImageView;
+import com.zjk.module.home.fragment.me.present.IMePresenter;
+import com.zjk.module.home.fragment.me.present.MePresenter;
 import com.zjk.module.user.information.view.PersonalActivity;
 import com.zjk.run_help.R;
 import com.zjk.util.CommonsUtil;
@@ -22,7 +24,7 @@ import com.zjk.util.CommonsUtil;
  * Created by pandengzhe on 2018/3/31.
  */
 
-public class MeFragment extends BaseFragment {
+public class MeFragment extends BaseFragment<IMePresenter> implements IMeView {
 
     private static final String TAG = "MeFragment";
 
@@ -41,7 +43,7 @@ public class MeFragment extends BaseFragment {
     }
 
     public MeFragment() {
-
+        mPresenter = new MePresenter(this);
     }
 
     @Nullable

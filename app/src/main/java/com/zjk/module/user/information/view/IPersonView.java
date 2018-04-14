@@ -1,8 +1,7 @@
 package com.zjk.module.user.information.view;
 
-import com.zjk.common.ui.BaseView;
+import com.zjk.common.mvp.view.BaseView;
 import com.zjk.model.UserInfo;
-import com.zjk.module.user.information.present.PersonPresenter;
 import com.zjk.result.Result;
 
 /**
@@ -11,7 +10,7 @@ import com.zjk.result.Result;
  * time   : 2018/04/09
  */
 
-public interface IPersonView extends BaseView<PersonPresenter> {
+public interface IPersonView extends BaseView {
 
     void showProgress(int msgId);
 

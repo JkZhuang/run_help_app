@@ -1,6 +1,6 @@
 package com.zjk.module.forum.publishforum.present;
 
-import com.zjk.common.presenter.BasePresenter;
+import com.zjk.common.mvp.presenter.BasePresenter;
 import com.zjk.model.ForumInfo;
 
 /**

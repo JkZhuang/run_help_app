@@ -1,8 +1,10 @@
 package com.zjk.module.user.register.model;
 
+import com.zjk.common.mvp.mode.BaseModel;
 import com.zjk.logic.LogicHandler;
 import com.zjk.logic.LogicImpl;
 import com.zjk.model.UserInfo;
+import com.zjk.module.user.register.present.IRegisterPresenter;
 import com.zjk.param.RegisteredParam;
 import com.zjk.result.RegisteredResult;
 
@@ -12,10 +14,10 @@ import com.zjk.result.RegisteredResult;
  * time   : 2018/03/28
  */
 
-public class RegisterModelImpl implements IRegisterModel {
+public class RegisterModelImpl extends BaseModel<IRegisterPresenter> implements IRegisterModel {
 
-    public RegisterModelImpl() {
-
+    public RegisterModelImpl(IRegisterPresenter presenter) {
+        this.mPresenter = presenter;
     }
 
     @Override

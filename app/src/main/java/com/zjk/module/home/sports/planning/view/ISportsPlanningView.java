@@ -1,8 +1,7 @@
 package com.zjk.module.home.sports.planning.view;
 
-import com.zjk.common.ui.BaseView;
+import com.zjk.common.mvp.view.BaseView;
 import com.zjk.model.SportsSuggestion;
-import com.zjk.module.home.sports.planning.present.SportsPlanningPresenter;
 import com.zjk.result.Result;
 
 import java.util.List;
@@ -13,7 +12,7 @@ import java.util.List;
  * time   : 2018/04/09
  */
 
-public interface ISportsPlanningView extends BaseView<SportsPlanningPresenter> {
+public interface ISportsPlanningView extends BaseView {
 
     void showProgress(int msgId);
 
