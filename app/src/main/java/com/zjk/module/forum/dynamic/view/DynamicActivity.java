@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.zjk.common.app.App;
 import com.zjk.common.layout.ResizeLayout;
 import com.zjk.common.ui.BaseActivity;
 import com.zjk.common.ui.ListItemDividerDecoration;
@@ -99,7 +98,6 @@ public class DynamicActivity extends BaseActivity implements IDynamicView, Resiz
         setupActionBar(mToolbar);
         mPresenter = new DynamicPresenter(this, new DynamicModelImpl());
         mPresenter.start();
-        mPresenter.getForum(App.instance().getUserInfo().getuId(), 0);
         mAdapter = new DynamicAdapter(this, mPresenter);
         mRvDynamic.setLayoutManager(new LinearLayoutManager(this));
         mRvDynamic.addItemDecoration(new ListItemDividerDecoration(1,
@@ -108,13 +106,18 @@ public class DynamicActivity extends BaseActivity implements IDynamicView, Resiz
         mRvDynamic.setNestedScrollingEnabled(false);
         mRvDynamic.setAdapter(mAdapter);
 
-//        mMrlDynamicContainer.setRefreshEnable(false);
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mMrlDynamicContainer.autoRefresh();
+            }
+        }, 100);
         mMrlDynamicContainer.setMaterialRefreshListener(new MaterialRefreshListener() {
             @Override
             public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
                 if (mPresenter != null) {
                     DebugUtil.debug(TAG, "onRefresh");
-                    mPresenter.getForum(App.instance().getUserInfo().getuId(), 0);
+                    mPresenter.getForum(getUserInfo().getuId(), 0);
                 }
             }
 
@@ -162,7 +165,7 @@ public class DynamicActivity extends BaseActivity implements IDynamicView, Resiz
     @Override
     public void commentForumSuccess(boolean isOnUIThread, boolean bool) {
         if (isOnUIThread && bool) {
-            mPresenter.getForum(App.instance().getUserInfo().getuId(), 0);
+            mPresenter.getForum(getUserInfo().getuId(), 0);
         }
     }
 
@@ -176,7 +179,7 @@ public class DynamicActivity extends BaseActivity implements IDynamicView, Resiz
     @Override
     public void likeForumSuccess(boolean isOnUIThread, boolean bool) {
         if (isOnUIThread && bool) {
-            mPresenter.getForum(App.instance().getUserInfo().getuId(), 0);
+            mPresenter.getForum(getUserInfo().getuId(), 0);
         }
     }
 
@@ -219,8 +222,8 @@ public class DynamicActivity extends BaseActivity implements IDynamicView, Resiz
         }
         CommentForumInfo commentForumInfo = new CommentForumInfo();
         commentForumInfo.setfId(mForumInfo.getfId());
-        commentForumInfo.setuId(App.instance().getUserInfo().getuId());
-        commentForumInfo.setUserName(App.instance().getUserInfo().getUserName());
+        commentForumInfo.setuId(getUserInfo().getuId());
+        commentForumInfo.setUserName(getUserInfo().getUserName());
         if (mCommentForumInfo != null) {
             commentForumInfo.settUId(mCommentForumInfo.getuId());
             commentForumInfo.settUserName(mCommentForumInfo.getUserName());
@@ -254,5 +257,22 @@ public class DynamicActivity extends BaseActivity implements IDynamicView, Resiz
     @Override
     public void onResize(int w, int h, int oldw, int oldh) {
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != RESULT_OK) {
+            return;
+        }
+        switch (requestCode) {
+            case REQUEST_PUBLISH_FORUM:
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mMrlDynamicContainer.autoRefresh();
+                    }
+                }, 100);
+                break;
+        }
     }
 }

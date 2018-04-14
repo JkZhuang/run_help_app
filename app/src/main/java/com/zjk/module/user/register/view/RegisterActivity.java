@@ -21,6 +21,7 @@ import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bigkoo.pickerview.view.TimePickerView;
+import com.bumptech.glide.Glide;
 import com.zjk.common.chooselocalpicture.ui.ChooseLocalPictureActivity;
 import com.zjk.common.sp.SpEditor;
 import com.zjk.common.sp.SpFileName;
@@ -33,12 +34,15 @@ import com.zjk.model.UserInfo;
 import com.zjk.module.user.login.view.LoginActivity;
 import com.zjk.module.user.register.model.RegisterModelImpl;
 import com.zjk.module.user.register.present.RegisterPresenter;
+import com.zjk.okhttp.DefList;
 import com.zjk.result.Result;
 import com.zjk.run_help.R;
 import com.zjk.util.ContactUtil;
 import com.zjk.util.DateUtil;
+import com.zjk.util.DebugUtil;
 import com.zjk.util.ToastUtil;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -55,6 +59,8 @@ public class RegisterActivity extends BaseActivity implements IRegisterView {
 
     private static final int REGISTER_STEP_COUNT = 3;
     private static final int FOR_HEAD_PICTURE = 0;
+
+    public static final String KEY_IMAGE = "key_image";
 
     private ConstraintLayout mClContainer;
     private Toolbar mToolBar;
@@ -85,6 +91,7 @@ public class RegisterActivity extends BaseActivity implements IRegisterView {
 
     private ArrayList<String> genderItems = new ArrayList<>();
     private ArrayList<String> photoFileNameList = new ArrayList<>();
+    private String imagePath = DefList.EMPTY;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, RegisterActivity.class);
@@ -255,6 +262,7 @@ public class RegisterActivity extends BaseActivity implements IRegisterView {
         userInfo.setPhone(mEtPhone.getText().toString().trim());
         userInfo.setPassword(mEtPassword.getText().toString().trim());
         userInfo.setUserName(mEtNickName.getText().toString().trim());
+        userInfo.setHeadUrl(imagePath);
         userInfo.setHeight(Integer.valueOf(mEtHeight.getText().toString().trim()));
         userInfo.setWeight(Integer.valueOf(mEtWeight.getText().toString().trim()));
         userInfo.setBirthday(DateUtil.stringToDate(mTVBirthday.getText().toString().trim()));
@@ -363,5 +371,22 @@ public class RegisterActivity extends BaseActivity implements IRegisterView {
     protected void onDestroy() {
         super.onDestroy();
         mPresenter.destroy();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != RESULT_OK) {
+            return;
+        }
+        if (requestCode == FOR_HEAD_PICTURE) {
+            imagePath = data.getStringExtra(KEY_IMAGE);
+            File file = new File(imagePath);
+            Glide.with(this)
+                    .load(file)
+                    .placeholder(R.drawable.head_photo_default)
+                    .into(mIvHeadPhoto);
+
+            DebugUtil.debug(TAG, imagePath);
+        }
     }
 }

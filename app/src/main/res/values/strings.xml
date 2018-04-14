@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">run_help</string>
+    <string name="app_name">运动助手</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -26,7 +26,7 @@
     <string name="input_birthday">生日…</string>
     <string name="input_gender">性别…</string>
     <string name="input_urgent_phone">紧急联系手机号…</string>
-    <string name="choose_head_photo">选择头像</string>
+    <string name="choose_head_photo">选择图片</string>
 
     <string name="planning">规划</string>
     <string name="walk">散步</string>
@@ -66,7 +66,7 @@
     <string name="recommend">推荐</string>
     <string name="sports_achievement">运动成就</string>
     <string name="personal_data">个人资料</string>
-    <string name="publish_forum">发表论坛</string>
+    <string name="publish_forum">发布论坛</string>
     <string name="setting">设置</string>
     <string name="setting_permission">权限设置</string>
     <string name="cache">缓存</string>
@@ -127,9 +127,9 @@
     <string name="get_forum_ing">获取动态中…</string>
     <string name="get_forum_success">获取动态成功</string>
     <string name="get_forum_fail">获取动态失败，请稍后重试</string>
-    <string name="publish_forum_ing">发表动态中…</string>
-    <string name="publish_forum_success">发表动态成功</string>
-    <string name="publish_forum_fail">发表动态失败，请稍后重试</string>
+    <string name="publish_forum_ing">发布动态中…</string>
+    <string name="publish_forum_success">发布动态成功</string>
+    <string name="publish_forum_fail">发布动态失败，请稍后重试</string>
     <string name="comment_forum_ing">评论动态中…</string>
     <string name="comment_forum_success">评论动态成功</string>
     <string name="comment_forum_fail">评论动态失败，请稍后重试</string>
@@ -139,6 +139,7 @@
     <string name="reply">回复</string>
 
     <string name="hint_publish_forum">你想跟大家说点什么呢…</string>
+    <string name="info_outdated">登录过时，请重新登录</string>
 
     <integer-array name="material_colors">
         <item>@color/material_black</item>

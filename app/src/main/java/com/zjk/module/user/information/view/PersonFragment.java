@@ -1,5 +1,6 @@
 package com.zjk.module.user.information.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -20,6 +21,7 @@ import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.bumptech.glide.Glide;
 import com.zjk.common.app.App;
+import com.zjk.common.ui.BaseActivity;
 import com.zjk.common.ui.BaseFragment;
 import com.zjk.model.UserInfo;
 import com.zjk.module.user.information.model.PersonModelImpl;
@@ -31,9 +33,12 @@ import com.zjk.util.ContactUtil;
 import com.zjk.util.DateUtil;
 import com.zjk.util.ToastUtil;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+
+import static com.zjk.module.user.register.view.RegisterActivity.KEY_IMAGE;
 
 /**
  * author : ZhuangJinKun
@@ -66,12 +71,14 @@ public class PersonFragment extends BaseFragment implements IPersonView {
     private FloatingActionButton mFabEdit;
 
     private PersonPresenter mPresenter;
-    private UserInfo userInfo;
+    private UserInfo userInfo = new UserInfo();
     private ArrayList<String> genderItems = new ArrayList<>();
     private boolean isEdit = false;
 
-    public static PersonFragment newInstance() {
-        return new PersonFragment();
+    public static PersonFragment newInstance(BaseActivity activity) {
+        PersonFragment fragment = new PersonFragment();
+        fragment.setActivity(activity);
+        return fragment;
     }
 
     public PersonFragment() {
@@ -117,9 +124,10 @@ public class PersonFragment extends BaseFragment implements IPersonView {
 
     @Override
     protected void init() {
-        userInfo = App.instance().getUserInfo();
+        userInfo = getUserInfo();
         Glide.with(getContext())
-                .load(userInfo.getHeadUrl())
+                .load(CommonsUtil.getImageUrl(userInfo.getHeadUrl()))
+                .placeholder(R.drawable.head_photo_default)
                 .into(mIvHeadPhoto);
         mEtPhone.setText(userInfo.getPhone());
         mEtPassword.setText(userInfo.getPassword());
@@ -169,8 +177,7 @@ public class PersonFragment extends BaseFragment implements IPersonView {
             return;
         }
 
-        userInfo = new UserInfo();
-        userInfo.setuId(App.instance().getUserInfo().getuId());
+        userInfo.setuId(getUserInfo().getuId());
         userInfo.setPhone(mEtPhone.getText().toString().trim());
         userInfo.setPassword(mEtPassword.getText().toString().trim());
         userInfo.setUserName(mEtNickName.getText().toString().trim());
@@ -333,6 +340,22 @@ public class PersonFragment extends BaseFragment implements IPersonView {
         if (onUIThread) {
             App.instance().setUserInfo(userInfo);
             ToastUtil.shortShow(getContext(), R.string.get_update_info_success);
+        }
+    }
+
+    @Override
+    protected void onFragmentResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case CHANGE_INFO_REQUEST:
+                String imagePath = data.getStringExtra(KEY_IMAGE);
+                userInfo.setHeadUrl(imagePath);
+
+                File file = new File(imagePath);
+                Glide.with(this)
+                        .load(file)
+                        .placeholder(R.drawable.head_photo_default)
+                        .into(mIvHeadPhoto);
+                break;
         }
     }
 }

@@ -1,12 +1,15 @@
 package com.zjk.common.ui;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -14,8 +17,13 @@ import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.zjk.common.app.App;
 import com.zjk.common.util.DisplayUtils;
 import com.zjk.common.util.Utils;
+import com.zjk.model.UserInfo;
+import com.zjk.module.user.login.view.LoginActivity;
+import com.zjk.module.user.register.view.RegisterActivity;
+import com.zjk.run_help.R;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -32,8 +40,13 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     protected Handler mHandler = new Handler(Looper.getMainLooper());
     private LoadingDialog mLoadingDialog;
+    private AlertDialog.Builder mAlertDialogBuilder;
 
     private boolean isFinished = false;
+
+    public Handler getHandler() {
+        return mHandler;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -168,6 +181,28 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
             }
             mLoadingDialog = null;
         }
+    }
+
+    protected void showAlertDialog(int resId) {
+        mAlertDialogBuilder = new AlertDialog.Builder(this);
+        mAlertDialogBuilder
+                .setPositiveButton(R.string.sure, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        LoginActivity.start(BaseActivity.this);
+                        finish();
+                    }
+                })
+                .setMessage(resId);
+        mAlertDialogBuilder.show();
+    }
+
+    public UserInfo getUserInfo() {
+        UserInfo userInfo = App.instance().getUserInfo();
+        if (userInfo.getuId() <= 0) {
+            showAlertDialog(R.string.info_outdated);
+        }
+        return userInfo;
     }
 
     public boolean isFinished() {

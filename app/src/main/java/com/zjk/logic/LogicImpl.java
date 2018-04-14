@@ -18,6 +18,7 @@ import com.zjk.param.PublishForumParam;
 import com.zjk.param.RegisteredParam;
 import com.zjk.param.SetFeedbackParam;
 import com.zjk.param.UpdateFallThresholdParam;
+import com.zjk.param.UploadImageParam;
 import com.zjk.param.UploadSportsDataParam;
 import com.zjk.result.ChangeUserInfoResult;
 import com.zjk.result.CommentForumResult;
@@ -34,6 +35,7 @@ import com.zjk.result.RegisteredResult;
 import com.zjk.result.Result;
 import com.zjk.result.SetFeedbackResult;
 import com.zjk.result.UpdateFallThresholdResult;
+import com.zjk.result.UploadImageResult;
 import com.zjk.task.GetResultTask;
 import com.zjk.util.CommonsUtil;
 
@@ -89,7 +91,7 @@ public class LogicImpl implements Logic {
 
     @Override
     public void register(RegisteredParam param, LogicHandler<RegisteredResult> handler) {
-        getResult(param, handler, RegisteredResult.class);
+        getUploadResult(param, handler, RegisteredResult.class, param.userInfo.getHeadUrl());
     }
 
     @Override
@@ -99,7 +101,7 @@ public class LogicImpl implements Logic {
 
     @Override
     public void changeUserInfo(ChangeUserInfoParam param, LogicHandler<ChangeUserInfoResult> handler) {
-        getResult(param, handler, ChangeUserInfoResult.class);
+        getUploadResult(param, handler, ChangeUserInfoResult.class, param.userInfo.getHeadUrl());
     }
 
     @Override
@@ -134,7 +136,7 @@ public class LogicImpl implements Logic {
 
     @Override
     public void publishForum(PublishForumParam param, LogicHandler<PublishForumResult> handler) {
-        getResult(param, handler, PublishForumResult.class);
+        getUploadResult(param, handler, PublishForumResult.class, param.forumInfo.getPhotoUrl());
     }
 
     @Override
@@ -160,5 +162,28 @@ public class LogicImpl implements Logic {
     @Override
     public void getFeedback(GetFeedbackParam param, LogicHandler<GetFeedbackResult> handler) {
         getResult(param, handler, GetFeedbackResult.class);
+    }
+
+    @Override
+    public void uploadImage(UploadImageParam param, LogicHandler<UploadImageResult> handler) {
+        getUploadResult(param, handler, UploadImageResult.class, param.path);
+    }
+
+    private <P extends Param, R extends Result> void getUploadResult(final P param, final LogicHandler<R> handler, final Class<R> clazz, final String path) {
+        @SuppressLint("StaticFieldLeak")
+        GetResultTask<R> task = new GetResultTask<R>() {
+            @Override
+                public R onBackground() {
+                R result = HttpHelper.instance().postFile(param, clazz, path);
+                handler.onResult(result, false);
+                return result;
+            }
+
+            @Override
+            public void onExecute(R result) {
+                handler.onResult(result, true);
+            }
+        };
+        task.executeOnExecutor(executor);
     }
 }

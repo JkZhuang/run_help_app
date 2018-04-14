@@ -1,5 +1,6 @@
 package com.zjk.module.home.sports.riding.view;
 
+import com.zjk.common.ui.BaseActivity;
 import com.zjk.module.home.sports.BaseSportsFragment;
 
 /**
@@ -8,5 +9,15 @@ import com.zjk.module.home.sports.BaseSportsFragment;
 
 public class RidingFragment extends BaseSportsFragment {
 
+    private static final String TAG = "RidingFragment";
 
+    public static RidingFragment newInstance(BaseActivity activity) {
+        RidingFragment fragment = new RidingFragment();
+        fragment.setActivity(activity);
+        return fragment;
+    }
+
+    public RidingFragment() {
+
+    }
 }

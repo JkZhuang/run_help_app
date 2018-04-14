@@ -14,6 +14,7 @@ import com.zjk.param.PublishForumParam;
 import com.zjk.param.RegisteredParam;
 import com.zjk.param.SetFeedbackParam;
 import com.zjk.param.UpdateFallThresholdParam;
+import com.zjk.param.UploadImageParam;
 import com.zjk.param.UploadSportsDataParam;
 import com.zjk.result.ChangeUserInfoResult;
 import com.zjk.result.CommentForumResult;
@@ -29,6 +30,7 @@ import com.zjk.result.PublishForumResult;
 import com.zjk.result.RegisteredResult;
 import com.zjk.result.SetFeedbackResult;
 import com.zjk.result.UpdateFallThresholdResult;
+import com.zjk.result.UploadImageResult;
 
 /**
  * author : ZhuangJinKun
@@ -67,4 +69,6 @@ public interface Logic {
     void setFeedback(SetFeedbackParam param, LogicHandler<SetFeedbackResult> handler);
 
     void getFeedback(GetFeedbackParam param, LogicHandler<GetFeedbackResult> handler);
+
+    void uploadImage(UploadImageParam param, LogicHandler<UploadImageResult> handler);
 }

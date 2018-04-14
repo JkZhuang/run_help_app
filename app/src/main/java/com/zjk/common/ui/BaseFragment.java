@@ -1,6 +1,7 @@
 package com.zjk.common.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+
+import com.zjk.model.UserInfo;
 
 /**
  * Created by pandengzhe on 2018/3/31.
@@ -20,6 +23,10 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
 
     public BaseFragment() {
 
+    }
+
+    protected void setActivity(BaseActivity activity) {
+        this.mActivity = activity;
     }
 
     public BaseFragment(BaseActivity activity) {
@@ -50,6 +57,20 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
                     imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
             }
         });
+    }
+
+    public UserInfo getUserInfo() {
+        return mActivity.getUserInfo();
+    }
+
+    /**
+     * resultCode在activity里判断
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    protected void onFragmentResult(int requestCode, int resultCode, Intent data) {
+
     }
 
     protected abstract void findWidget();

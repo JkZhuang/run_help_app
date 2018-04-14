@@ -27,8 +27,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation 'com.google.code.gson:gson:2.8.0'
-    compile 'com.squareup.okhttp3:okhttp:3.9.0'
+    compile 'com.squareup.okhttp3:okhttp:3.9.1'
     compile 'com.squareup.okio:okio:1.13.0'
     compile 'com.contrarywind:Android-PickerView:4.1.2'
     compile 'jp.wasabeef:glide-transformations:2.0.1'
+    compile 'com.squareup.okio:okio:1.13.0'
 }

@@ -54,7 +54,7 @@ public class PersonalActivity extends BaseActivity implements BaseFragment.IProg
     protected void init() {
         hideKeyboard(mToolbar);
         setupActionBar(mToolbar);
-        mPersonFragment = PersonFragment.newInstance();
+        mPersonFragment = PersonFragment.newInstance(this);
         getSupportFragmentManager().beginTransaction().add(R.id.fl_per_info_container, mPersonFragment).commit();
     }
 
@@ -77,5 +77,13 @@ public class PersonalActivity extends BaseActivity implements BaseFragment.IProg
     public void startActivityForResult(int req) {
         Intent intent = new Intent(PersonalActivity.this, ChooseLocalPictureActivity.class);
         startActivityForResult(intent, req);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != RESULT_OK) {
+            return;
+        }
+        mPersonFragment.onFragmentResult(requestCode, resultCode, data);
     }
 }

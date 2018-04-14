@@ -92,9 +92,9 @@ public class HomeActivity extends BaseActivity implements BaseFragment.IProgress
     @Override
     protected void init() {
         mFragmentArray = new BaseFragment[HOME_TAB_COUNT - 1];
-        mFragmentArray[0] = SportsFragment.newInstance();
-        mFragmentArray[1] = DietFragment.newInstance();
-        mFragmentArray[2] = MeFragment.newInstance();
+        mFragmentArray[0] = SportsFragment.newInstance(this);
+        mFragmentArray[1] = DietFragment.newInstance(this);
+        mFragmentArray[2] = MeFragment.newInstance(this);
         mFragmentAdapter = new MyFragmentPageAdapter<>(this, getSupportFragmentManager(), mFragmentArray, new String[HOME_TAB_COUNT - 1]);
         mViewPager.setAdapter(mFragmentAdapter);
         mViewPager.setOffscreenPageLimit(HOME_TAB_COUNT - 1);

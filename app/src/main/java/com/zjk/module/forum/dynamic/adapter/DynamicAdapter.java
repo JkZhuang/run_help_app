@@ -14,10 +14,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.zjk.common.app.App;
+import com.zjk.common.ui.BaseActivity;
 import com.zjk.model.ForumInfo;
 import com.zjk.model.LikeForumInfo;
 import com.zjk.module.forum.dynamic.present.DynamicPresenter;
 import com.zjk.run_help.R;
+import com.zjk.util.CommonsUtil;
 import com.zjk.util.DateUtil;
 
 import java.util.ArrayList;
@@ -34,11 +36,11 @@ public class DynamicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     private static final String TAG = "DynamicAdapter";
 
-    private Context mContext;
+    private BaseActivity mContext;
     private DynamicPresenter mPresenter;
     private List<ForumInfo> data;
 
-    public DynamicAdapter(Context context, DynamicPresenter presenter) {
+    public DynamicAdapter(BaseActivity context, DynamicPresenter presenter) {
         this.mContext = context;
         mPresenter = presenter;
         data = new ArrayList<>();
@@ -110,7 +112,7 @@ public class DynamicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         LikeForumInfo likeForumInfo;
         if (list != null) {
             for (LikeForumInfo lInfo : list) {
-                if (lInfo.getuId() == App.instance().getUserInfo().getuId()) {
+                if (lInfo.getuId() == mContext.getUserInfo().getuId()) {
                     likeForumInfo = lInfo;
                     return likeForumInfo;
                 }
@@ -163,22 +165,24 @@ public class DynamicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         public void bindData(int position) {
             final ForumInfo info = data.get(position);
             Glide.with(mContext)
-                    .load(info.getHeadPhotoUrl())
+                    .load(CommonsUtil.getImageUrl(info.getHeadPhotoUrl()))
+                    .placeholder(R.drawable.head_photo_default)
                     .into(mIvHeadPhoto);
             mTvNickName.setText(info.getUserName());
             mTvContent.setText(info.getContent());
             if (!TextUtils.isEmpty(info.getPhotoUrl())) {
                 mIvContent.setVisibility(View.VISIBLE);
                 Glide.with(mContext)
-                        .load(info.getPhotoUrl())
-                        .placeholder(R.drawable.a1)
+                        .load(CommonsUtil.getImageUrl(info.getPhotoUrl()))
+                        .asBitmap()
+                        .placeholder(R.drawable.photo_default)
                         .into(mIvContent);
             } else {
                 mIvContent.setVisibility(View.GONE);
             }
             mTvTime.setText(DateUtil.dateToString(info.getTime()));
 
-            if (checkHasLike(info.getlFList(), App.instance().getUserInfo().getuId())) {
+            if (checkHasLike(info.getlFList(), mContext.getUserInfo().getuId())) {
                 mIvLike.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_liked));
             } else {
                 mIvLike.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_like_normal));

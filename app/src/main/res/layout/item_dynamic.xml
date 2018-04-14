@@ -11,7 +11,8 @@
         android:layout_marginLeft="@dimen/common_margin"
         android:layout_marginStart="@dimen/common_margin"
         android:layout_marginTop="@dimen/common_margin"
-        android:src="@drawable/camera" />
+        android:src="@drawable/camera"
+        android:scaleType="fitXY"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -45,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_content_text"
             android:layout_marginTop="@dimen/small_margin"
-            android:src="@drawable/a1"/>
+            android:scaleType="fitStart"/>
 
         <TextView
             android:id="@+id/tv_time"

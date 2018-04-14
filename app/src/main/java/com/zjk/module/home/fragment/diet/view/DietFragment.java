@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.zjk.common.ui.BaseActivity;
 import com.zjk.common.ui.BaseFragment;
 import com.zjk.run_help.R;
 
@@ -15,8 +16,10 @@ import com.zjk.run_help.R;
 
 public class DietFragment extends BaseFragment {
 
-    public static DietFragment newInstance() {
-        return new DietFragment();
+    public static DietFragment newInstance(BaseActivity activity) {
+        DietFragment fragment = new DietFragment();
+        fragment.setActivity(activity);
+        return fragment;
     }
 
     public DietFragment() {

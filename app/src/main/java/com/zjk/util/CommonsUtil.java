@@ -3,6 +3,7 @@ package com.zjk.util;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.zjk.okhttp.DefList;
 import com.zjk.run_help.R;
 
 /**
@@ -46,5 +47,9 @@ public class CommonsUtil {
             return context.getResources().getString(R.string.roller_skating);
         }
         return context.getResources().getString(R.string.walk);
+    }
+
+    public static String getImageUrl(String url) {
+        return DefList.url + "/image/getImage?" + url;
     }
 }

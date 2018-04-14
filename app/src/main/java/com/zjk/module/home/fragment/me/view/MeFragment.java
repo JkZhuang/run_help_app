@@ -11,10 +11,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.zjk.common.app.App;
+import com.zjk.common.ui.BaseActivity;
 import com.zjk.common.ui.BaseFragment;
 import com.zjk.common.ui.ShapedImageView;
 import com.zjk.module.user.information.view.PersonalActivity;
 import com.zjk.run_help.R;
+import com.zjk.util.CommonsUtil;
 
 /**
  * Created by pandengzhe on 2018/3/31.
@@ -32,8 +34,10 @@ public class MeFragment extends BaseFragment {
     private RelativeLayout mRlSportsAchievement;
     private RelativeLayout mRlSetting;
 
-    public static MeFragment newInstance() {
-        return new MeFragment();
+    public static MeFragment newInstance(BaseActivity activity) {
+        MeFragment fragment = new MeFragment();
+        fragment.setActivity(activity);
+        return fragment;
     }
 
     public MeFragment() {
@@ -70,9 +74,10 @@ public class MeFragment extends BaseFragment {
     @Override
     protected void init() {
         Glide.with(getContext())
-                .load(App.instance().getUserInfo().getHeadUrl())
+                .load(CommonsUtil.getImageUrl(getUserInfo().getHeadUrl()))
+                .placeholder(R.drawable.head_photo_default)
                 .into(mIvHeadPhoto);
-        mTvNickName.setText(App.instance().getUserInfo().getUserName());
+        mTvNickName.setText(getUserInfo().getUserName());
 //        mTvDynamicCount.setText();
     }
 

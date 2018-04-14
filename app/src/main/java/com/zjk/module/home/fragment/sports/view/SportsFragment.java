@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.zjk.common.ui.BaseActivity;
 import com.zjk.common.ui.BaseFragment;
 import com.zjk.common.ui.MyFragmentPageAdapter;
 import com.zjk.module.home.sports.planning.view.PlanningFragment;
@@ -35,8 +36,10 @@ public class SportsFragment extends BaseFragment {
     private BaseFragment[] mFragmentArray;
     private String[] mTitles;
 
-    public static SportsFragment newInstance() {
-        return new SportsFragment();
+    public static SportsFragment newInstance(BaseActivity activity) {
+        SportsFragment fragment = new SportsFragment();
+        fragment.setActivity(activity);
+        return fragment;
     }
 
     public SportsFragment() {
@@ -67,11 +70,11 @@ public class SportsFragment extends BaseFragment {
     @Override
     protected void init() {
         mFragmentArray = new BaseFragment[SPORTS_TAB_COUNT];
-        mFragmentArray[0] = new PlanningFragment();
-        mFragmentArray[1] = new WalkFragment();
-        mFragmentArray[2] = new RunningFragment();
-        mFragmentArray[3] = new RidingFragment();
-        mFragmentArray[4] = new SearchFragment();
+        mFragmentArray[0] = PlanningFragment.newInstance(mActivity);
+        mFragmentArray[1] = WalkFragment.newInstance(mActivity);
+        mFragmentArray[2] = RunningFragment.newInstance(mActivity);
+        mFragmentArray[3] = RidingFragment.newInstance(mActivity);
+        mFragmentArray[4] = SearchFragment.newInstance(mActivity);
         mTitles = new String[SPORTS_TAB_COUNT];
         mTitles[0] = getContext().getString(R.string.planning);
         mTitles[1] = getContext().getString(R.string.walk);

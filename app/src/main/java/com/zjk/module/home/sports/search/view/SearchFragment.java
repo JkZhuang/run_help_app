@@ -2,6 +2,7 @@ package com.zjk.module.home.sports.search.view;
 
 import android.view.View;
 
+import com.zjk.common.ui.BaseActivity;
 import com.zjk.common.ui.BaseFragment;
 
 /**
@@ -11,6 +12,16 @@ import com.zjk.common.ui.BaseFragment;
 public class SearchFragment extends BaseFragment {
 
     private static  final String TAG = "SearchFragment";
+
+    public static SearchFragment newInstance(BaseActivity activity) {
+        SearchFragment fragment = new SearchFragment();
+        fragment.setActivity(activity);
+        return fragment;
+    }
+
+    public SearchFragment() {
+
+    }
 
     @Override
     protected void findWidget() {
