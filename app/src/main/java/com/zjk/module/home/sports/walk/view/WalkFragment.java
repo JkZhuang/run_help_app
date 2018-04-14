@@ -1,7 +1,7 @@
 package com.zjk.module.home.sports.walk.view;
 
 import com.zjk.common.ui.BaseActivity;
-import com.zjk.module.home.sports.BaseSportsFragment;
+import com.zjk.module.home.sports.base.view.BaseSportsFragment;
 
 /**
  * Created by pandengzhe on 2018/3/31.

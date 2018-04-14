@@ -1,4 +1,4 @@
-package com.zjk.module.home.sports;
+package com.zjk.module.home.sports.base.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
