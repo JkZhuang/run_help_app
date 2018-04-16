@@ -58,6 +58,12 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        init();
+    }
+
+    @Override
     protected void findWidget() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mTvPhone = (AutoCompleteTextView) findViewById(R.id.tv_phone);

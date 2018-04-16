@@ -120,8 +120,8 @@ public class DynamicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
         likeForumInfo = new LikeForumInfo();
         likeForumInfo.setfId(info.getfId());
-        likeForumInfo.setuId(info.getuId());
-        likeForumInfo.setUserName(info.getUserName());
+        likeForumInfo.setuId(mContext.getUserInfo().getuId());
+        likeForumInfo.setUserName(mContext.getUserInfo().getUserName());
         likeForumInfo.setTime(new Date());
         return likeForumInfo;
     }
