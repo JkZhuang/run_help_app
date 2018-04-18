@@ -1,6 +1,6 @@
 package com.zjk.module.forum.publishforum.present;
 
-import com.zjk.common.mvp.presenter.BasePresenter;
+import com.zjk.common.mvp.presenter.IBasePresenter;
 import com.zjk.model.ForumInfo;
 
 /**
@@ -9,7 +9,7 @@ import com.zjk.model.ForumInfo;
  * time   : 2018/04/11
  */
 
-public interface IPublishForumPresenter extends BasePresenter {
+public interface IPublishForumPresenter extends IBasePresenter {
 
     void publishForum(ForumInfo forumInfo);
 }

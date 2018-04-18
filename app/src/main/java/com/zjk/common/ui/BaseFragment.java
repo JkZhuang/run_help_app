@@ -11,14 +11,14 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-import com.zjk.common.mvp.presenter.BasePresenter;
+import com.zjk.common.mvp.presenter.IBasePresenter;
 import com.zjk.model.UserInfo;
 
 /**
  * Created by pandengzhe on 2018/3/31.
  */
 
-public abstract class BaseFragment<T extends BasePresenter> extends Fragment implements View.OnClickListener {
+public abstract class BaseFragment<T extends IBasePresenter> extends Fragment implements View.OnClickListener {
 
     protected BaseActivity mActivity;
 

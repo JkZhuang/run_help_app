@@ -1,6 +1,6 @@
 package com.zjk.module.forum.dynamic.present;
 
-import com.zjk.common.mvp.presenter.BasePresenter;
+import com.zjk.common.mvp.presenter.IBasePresenter;
 import com.zjk.model.CommentForumInfo;
 import com.zjk.model.ForumInfo;
 import com.zjk.model.LikeForumInfo;
@@ -11,7 +11,7 @@ import com.zjk.model.LikeForumInfo;
  * time   : 2018/04/10
  */
 
-public interface IDynamicPresenter extends BasePresenter {
+public interface IDynamicPresenter extends IBasePresenter {
 
     void publishForum(ForumInfo forumInfo);
 

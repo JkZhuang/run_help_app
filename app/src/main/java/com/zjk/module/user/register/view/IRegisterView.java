@@ -1,6 +1,6 @@
 package com.zjk.module.user.register.view;
 
-import com.zjk.common.mvp.view.BaseView;
+import com.zjk.common.mvp.view.IBaseView;
 import com.zjk.result.Result;
 
 /**
@@ -9,7 +9,7 @@ import com.zjk.result.Result;
  * time   : 2018/03/28
  */
 
-public interface IRegisterView extends BaseView {
+public interface IRegisterView extends IBaseView {
 
     void showProgress();
 

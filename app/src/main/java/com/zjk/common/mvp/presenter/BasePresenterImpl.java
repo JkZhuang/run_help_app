@@ -3,14 +3,14 @@ package com.zjk.common.mvp.presenter;
 import android.support.annotation.Nullable;
 
 import com.zjk.common.mvp.mode.IModel;
-import com.zjk.common.mvp.view.BaseView;
+import com.zjk.common.mvp.view.IBaseView;
 
 /**
  * Created by lianzhan on 2017/5/4.
  * 所有业务presenter 需要继承此类
  */
 
-public abstract class BasePresenterImpl<T extends BaseView, M extends IModel> implements BasePresenter {
+public abstract class BasePresenterImpl<T extends IBaseView, M extends IModel> implements IBasePresenter {
 
     @Nullable
     protected T mView;

@@ -1,6 +1,6 @@
 package com.zjk.common.mvp.presenter;
 
-public interface BasePresenter {
+public interface IBasePresenter {
 
     void onCreate();
 

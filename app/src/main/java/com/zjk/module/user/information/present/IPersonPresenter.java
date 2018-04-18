@@ -1,6 +1,6 @@
 package com.zjk.module.user.information.present;
 
-import com.zjk.common.mvp.presenter.BasePresenter;
+import com.zjk.common.mvp.presenter.IBasePresenter;
 import com.zjk.model.UserInfo;
 
 /**
@@ -9,7 +9,7 @@ import com.zjk.model.UserInfo;
  * time   : 2018/04/09
  */
 
-public interface IPersonPresenter extends BasePresenter {
+public interface IPersonPresenter extends IBasePresenter {
 
     void doChangeInfo(UserInfo userInfo, String path);
 

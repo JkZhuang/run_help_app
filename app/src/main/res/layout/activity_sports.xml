@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:id="@+id/rl_toolbar_container"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        app:layout_constraintBottom_toTopOf="@id/tv_distance"
+        app:layout_constraintTop_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/tv_title_sports_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="跑步中"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/big_margin"
+        android:text="0.00"
+        android:textColor="@color/black"
+        android:textSize="60sp"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rl_toolbar_container" />
+
+    <TextView
+        android:id="@+id/tv_distance_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/common_margin"
+        android:text="公里"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_distance"
+        app:layout_constraintLeft_toRightOf="@id/tv_distance" />
+
+    <RelativeLayout
+        android:id="@+id/rl_way_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/big_margin"
+        app:layout_constraintTop_toBottomOf="@id/tv_distance">
+
+        <View
+            android:id="@+id/view_divider_left"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/small_margin"
+            android:layout_marginLeft="@dimen/big_margin"
+            android:layout_marginRight="@dimen/small_margin"
+            android:layout_marginStart="@dimen/big_margin"
+            android:layout_toLeftOf="@id/tv_calculate_way"
+            android:layout_toStartOf="@id/tv_calculate_way"
+            android:background="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/tv_calculate_way"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="GPS计算中..."
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp" />
+
+        <View
+            android:id="@+id/view_divider_right"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/big_margin"
+            android:layout_marginLeft="@dimen/small_margin"
+            android:layout_marginRight="@dimen/big_margin"
+            android:layout_marginStart="@dimen/small_margin"
+            android:layout_toEndOf="@id/tv_calculate_way"
+            android:layout_toRightOf="@id/tv_calculate_way"
+            android:background="@color/colorPrimary" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_speed_container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/big_margin"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/rl_time_container"
+        app:layout_constraintTop_toBottomOf="@id/rl_way_container">
+
+        <TextView
+            android:id="@+id/tv_speed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="10"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/tv_speed_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_speed"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/small_margin"
+            android:text="分钟/公里"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_time_container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/big_margin"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintLeft_toRightOf="@id/rl_speed_container"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rl_way_container">
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="00:03:00"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/tv_time_util"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_time"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/small_margin"
+            android:text="用时"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp" />
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/view_divider_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="@dimen/big_margin"
+        android:background="@color/colorPrimary"
+        android:layout_marginLeft="@dimen/big_margin"
+        android:layout_marginRight="@dimen/big_margin"
+        app:layout_constraintTop_toBottomOf="@id/rl_time_container"/>
+
+    <TextView
+        android:id="@+id/tv_keep"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@drawable/bg_btn_keep"
+        android:gravity="center"
+        android:text="@string/carry_on"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/tv_end"
+        app:layout_constraintTop_toBottomOf="@id/view_divider_bottom" />
+
+    <TextView
+        android:id="@+id/tv_end"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@drawable/bg_btn_end"
+        android:gravity="center"
+        android:text="@string/end"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/tv_keep"
+        app:layout_constraintRight_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_divider_bottom" />
+
+    <TextView
+        android:id="@+id/tv_pause"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@drawable/bg_btn_pause"
+        android:gravity="center"
+        android:text="@string/pause"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_divider_bottom" />
+
+</android.support.constraint.ConstraintLayout>

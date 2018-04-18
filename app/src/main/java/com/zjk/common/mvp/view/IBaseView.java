@@ -1,5 +1,5 @@
 package com.zjk.common.mvp.view;
 
-public interface BaseView {
+public interface IBaseView {
 
 }

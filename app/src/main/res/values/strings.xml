@@ -141,6 +141,11 @@
     <string name="hint_publish_forum">你想跟大家说点什么呢…</string>
     <string name="info_outdated">登录过时，请重新登录</string>
 
+    <string name="sports_ing">运动中…</string>
+    <string name="notification_text">最大速度 : %1$s, 路程 : %2$s.</string>
+    <string name="notification_id" translatable="false">Speed_meter_is_an_id</string>
+    <string name="request_location_permission">为了能正常使用运动功能，应用需要开启定位权限，现在去开启？</string>
+
     <integer-array name="material_colors">
         <item>@color/material_black</item>
     </integer-array>

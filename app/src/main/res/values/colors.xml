@@ -15,9 +15,11 @@
     <color name="window_bg">#f8f8f8</color>
     <color name="divider_color">#ffcccccc</color>
     <color name="material_black">#FF25252f</color>
+    <color name="red">#ffff0000</color>
 
     <color name="color_86222222">#86222222</color>
     <color name="color_999999">#999999</color>
     <color name="color_ebebeb">#ebebeb</color>
+    <color name="color_ff5e5e">#ff5e5e</color>
 
 </resources>

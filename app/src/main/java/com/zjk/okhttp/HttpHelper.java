@@ -1,5 +1,7 @@
 package com.zjk.okhttp;
 
+import android.text.TextUtils;
+
 import com.zjk.param.Param;
 import com.zjk.result.Result;
 import com.zjk.util.DebugUtil;
@@ -176,6 +178,9 @@ public class HttpHelper {
     }
 
     private byte[] fileFormsToServer(String url, String json, String method, String path) throws IOException {
+        if (TextUtils.isEmpty(path)) {
+            return null;
+        }
         File file = new File(path);
         if (!file.exists()) {
             DebugUtil.debug(TAG, "路径错误！");

@@ -1,6 +1,6 @@
 package com.zjk.module.user.login.present;
 
-import com.zjk.common.mvp.presenter.BasePresenter;
+import com.zjk.common.mvp.presenter.IBasePresenter;
 import com.zjk.model.UserInfo;
 
 /**
@@ -9,7 +9,7 @@ import com.zjk.model.UserInfo;
  * time   : 2018/04/08
  */
 
-public interface ILoginPresenter extends BasePresenter {
+public interface ILoginPresenter extends IBasePresenter {
 
     void doLogin(UserInfo userInfo);
 }

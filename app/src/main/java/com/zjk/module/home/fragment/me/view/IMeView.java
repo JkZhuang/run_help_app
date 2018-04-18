@@ -1,6 +1,6 @@
 package com.zjk.module.home.fragment.me.view;
 
-import com.zjk.common.mvp.view.BaseView;
+import com.zjk.common.mvp.view.IBaseView;
 
 /**
  * author : ZhuangJinKun
@@ -8,6 +8,6 @@ import com.zjk.common.mvp.view.BaseView;
  * time   : 2018/04/09
  */
 
-public interface IMeView extends BaseView {
+public interface IMeView extends IBaseView {
 
 }

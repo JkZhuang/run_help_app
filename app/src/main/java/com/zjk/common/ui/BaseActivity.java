@@ -2,7 +2,6 @@ package com.zjk.common.ui;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,13 +17,11 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.zjk.common.app.App;
-import com.zjk.common.mvp.presenter.BasePresenter;
-import com.zjk.common.mvp.view.BaseView;
-import com.zjk.common.util.DisplayUtils;
+import com.zjk.common.mvp.presenter.IBasePresenter;
+import com.zjk.common.mvp.view.IBaseView;
 import com.zjk.common.util.Utils;
 import com.zjk.model.UserInfo;
 import com.zjk.module.user.login.view.LoginActivity;
-import com.zjk.module.user.register.view.RegisterActivity;
 import com.zjk.run_help.R;
 
 import java.lang.reflect.Field;
@@ -36,8 +33,8 @@ import java.lang.reflect.Method;
  * time   : 2018/03/28
  */
 
-public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity
-        implements BaseView, View.OnClickListener {
+public abstract class BaseActivity<T extends IBasePresenter> extends AppCompatActivity
+        implements IBaseView, View.OnClickListener {
 
     private static final String TAG = "BaseActivity";
 

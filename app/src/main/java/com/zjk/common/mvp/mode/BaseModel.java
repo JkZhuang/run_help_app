@@ -2,9 +2,9 @@ package com.zjk.common.mvp.mode;
 
 import android.support.annotation.Nullable;
 
-import com.zjk.common.mvp.presenter.BasePresenter;
+import com.zjk.common.mvp.presenter.IBasePresenter;
 
-public abstract class BaseModel<T extends BasePresenter> implements IModel {
+public abstract class BaseModel<T extends IBasePresenter> implements IModel {
 
     @Nullable
     protected T mPresenter;
