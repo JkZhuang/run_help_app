@@ -81,8 +81,6 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />-->
 
-        <service android:name="com.zjk.module.sports.gps.service.GpsServices" />
-
         <service android:name="com.zjk.module.sports.gps.service.GpsService" />
 
     </application>

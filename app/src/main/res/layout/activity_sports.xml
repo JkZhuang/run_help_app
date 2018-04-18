@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/rl_toolbar_container"
@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="跑步中"
+            android:text="@string/walk_ing"
             android:textColor="@color/colorPrimary"
             android:textSize="18sp" />
 
@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/big_margin"
-        android:text="0.00"
+        android:text="@string/zero"
         android:textColor="@color/black"
         android:textSize="60sp"
         app:layout_constraintLeft_toRightOf="parent"
@@ -40,7 +40,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/common_margin"
-        android:text="公里"
+        android:text="@string/kilometers"
         android:textColor="@color/colorPrimary"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@id/tv_distance"
@@ -71,7 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="GPS计算中..."
+            android:text="@string/gps_word"
             android:textColor="@color/colorPrimary"
             android:textSize="14sp" />
 
@@ -105,7 +105,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="10"
+            android:text="@string/zero"
             android:textColor="@color/black"
             android:textSize="24sp" />
 
@@ -116,7 +116,7 @@
             android:layout_below="@id/tv_speed"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/small_margin"
-            android:text="分钟/公里"
+            android:text="@string/speed_util"
             android:textColor="@color/colorPrimary"
             android:textSize="14sp" />
 
@@ -132,12 +132,12 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rl_way_container">
 
-        <TextView
-            android:id="@+id/tv_time"
+        <Chronometer
+            android:id="@+id/ct_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="00:03:00"
+            android:text="@string/started_time"
             android:textColor="@color/black"
             android:textSize="24sp" />
 
@@ -145,10 +145,10 @@
             android:id="@+id/tv_time_util"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_time"
+            android:layout_below="@id/ct_time"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/small_margin"
-            android:text="用时"
+            android:text="@string/used_time"
             android:textColor="@color/colorPrimary"
             android:textSize="14sp" />
 
@@ -158,11 +158,11 @@
         android:id="@+id/view_divider_bottom"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:layout_marginTop="@dimen/big_margin"
-        android:background="@color/colorPrimary"
         android:layout_marginLeft="@dimen/big_margin"
         android:layout_marginRight="@dimen/big_margin"
-        app:layout_constraintTop_toBottomOf="@id/rl_time_container"/>
+        android:layout_marginTop="@dimen/big_margin"
+        android:background="@color/colorPrimary"
+        app:layout_constraintTop_toBottomOf="@id/rl_time_container" />
 
     <TextView
         android:id="@+id/tv_keep"
@@ -174,11 +174,11 @@
         android:textColor="@color/white"
         android:textSize="18sp"
         android:visibility="gone"
-        tools:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="parent"
         app:layout_constraintRight_toLeftOf="@id/tv_end"
-        app:layout_constraintTop_toBottomOf="@id/view_divider_bottom" />
+        app:layout_constraintTop_toBottomOf="@id/view_divider_bottom"
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/tv_end"
@@ -190,11 +190,11 @@
         android:textColor="@color/white"
         android:textSize="18sp"
         android:visibility="gone"
-        tools:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/tv_keep"
         app:layout_constraintRight_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view_divider_bottom" />
+        app:layout_constraintTop_toBottomOf="@id/view_divider_bottom"
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/tv_pause"

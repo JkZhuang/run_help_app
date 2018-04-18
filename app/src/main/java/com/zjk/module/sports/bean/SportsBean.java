@@ -13,15 +13,17 @@ import java.util.ArrayList;
 
 public class SportsBean {
 
-    private boolean isStart;
-    private boolean isRunning;
+    private boolean isStart; // 是否第一次开始
+    private boolean isRunning; // 是否在运动
     private double curSpeed;
+    private boolean canLocationUsed; // 定位是否可用
     private SportsData sportsData;
 
     public SportsBean() {
         isStart = true;
         isRunning = false;
         curSpeed = 0d;
+        canLocationUsed = false;
         sportsData = new SportsData();
         sportsData.setrGDList(new ArrayList<SportsGranularityData>());
     }
@@ -48,6 +50,14 @@ public class SportsBean {
 
     public void setCurSpeed(double curSpeed) {
         this.curSpeed = curSpeed;
+    }
+
+    public boolean isCanLocationUsed() {
+        return canLocationUsed;
+    }
+
+    public void setCanLocationUsed(boolean canLocationUsed) {
+        this.canLocationUsed = canLocationUsed;
     }
 
     public SportsData getSportsData() {

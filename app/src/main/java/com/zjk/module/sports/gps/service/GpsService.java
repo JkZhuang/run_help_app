@@ -8,7 +8,6 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -33,7 +32,7 @@ import java.util.Date;
  * time   : 2018/04/16
  */
 
-public class GpsService extends Service implements LocationListener, GpsStatus.Listener {
+public class GpsService extends Service implements LocationListener {
 
     private static final String TAG = "GpsService";
 
@@ -56,7 +55,6 @@ public class GpsService extends Service implements LocationListener, GpsStatus.L
         initNotificationIntent();
         mLocationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            mLocationManager.addGpsStatusListener(this);
             mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, TIME_GPS_UPDATE, 0, this);
         }
     }
@@ -118,18 +116,12 @@ public class GpsService extends Service implements LocationListener, GpsStatus.L
             return;
         }
         mLocationManager.removeUpdates(this);
-        mLocationManager.removeGpsStatusListener(this);
         stopForeground(true);
     }
 
     @Override
-    public void onGpsStatusChanged(int event) {
-
-    }
-
-    @Override
     public void onLocationChanged(Location location) {
-        if (bean.isRunning()) {
+        if (bean.isRunning() && bean.isCanLocationUsed()) {
             double currentLat = location.getLatitude();
             double currentLon = location.getLongitude();
 
@@ -152,6 +144,9 @@ public class GpsService extends Service implements LocationListener, GpsStatus.L
 
             if (location.hasSpeed()) {
                 bean.setCurSpeed(location.getSpeed() * 3.6);
+                if (bean.getCurSpeed() > bean.getSportsData().getMaxSpeed()) {
+                    bean.getSportsData().setMaxSpeed(bean.getCurSpeed());
+                }
                 if (location.getSpeed() == 0) {
                     new isStillStopped().execute();
                 }

@@ -33,6 +33,10 @@
     <string name="run">跑步</string>
     <string name="riding">骑行</string>
     <string name="roller_skating">轮滑</string>
+    <string name="walk_ing">散步中…</string>
+    <string name="run_ing">跑步中…</string>
+    <string name="riding_ing">骑行中…</string>
+    <string name="roller_skating_ing">轮滑中…</string>
     <string name="search">搜索</string>
     <string name="in">在</string>
     <string name="sports_suggestion_tip">分钟有益身体健康哦</string>
@@ -51,6 +55,7 @@
     <string name="urgent_phone">紧急联系人</string>
 
     <string name="gps_word">GPS定位中…</string>
+    <string name="gps_calculate">GPS计算中…</string>
     <string name="gps_no_signal">GPS无信号…</string>
     <string name="calculate_by_pedometer">用计步器计算中</string>
 
@@ -145,6 +150,9 @@
     <string name="notification_text">最大速度 : %1$s, 路程 : %2$s.</string>
     <string name="notification_id" translatable="false">Speed_meter_is_an_id</string>
     <string name="request_location_permission">为了能正常使用运动功能，应用需要开启定位权限，现在去开启？</string>
+    <string name="started_time">00:00:00</string>
+    <string name="speed_util">分钟/公里</string>
+    <string name="zero">0</string>
 
     <integer-array name="material_colors">
         <item>@color/material_black</item>
