@@ -1,6 +1,7 @@
 package com.zjk.module.sports.presenter;
 
 import com.zjk.common.mvp.presenter.IBasePresenter;
+import com.zjk.model.SportsData;
 
 /**
  * author : ZhuangJinKun
@@ -9,4 +10,6 @@ import com.zjk.common.mvp.presenter.IBasePresenter;
  */
 
 public interface ISportsPresenter extends IBasePresenter {
+
+    void uploadSportsData(SportsData sportsData);
 }

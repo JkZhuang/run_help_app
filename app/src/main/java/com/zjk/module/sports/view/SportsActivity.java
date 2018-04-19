@@ -23,6 +23,8 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.text.SpannableString;
+import android.text.style.RelativeSizeSpan;
 import android.view.View;
 import android.widget.Chronometer;
 import android.widget.TextView;
@@ -33,6 +35,7 @@ import com.zjk.module.sports.bean.SportsBean;
 import com.zjk.module.sports.gps.service.GpsService;
 import com.zjk.module.sports.presenter.ISportsPresenter;
 import com.zjk.module.sports.presenter.SportsPresenter;
+import com.zjk.result.Result;
 import com.zjk.run_help.R;
 import com.zjk.util.DebugUtil;
 import com.zjk.util.ToastUtil;
@@ -61,6 +64,7 @@ public class SportsActivity extends BaseActivity<ISportsPresenter>
     private TextView mTvPause;
     private TextView mTvCarryOn;
     private TextView mTvEnd;
+    private SpannableString spannableString;
 
     private ServiceConnection mServiceConnection = null;
     private GpsService mGpsService;
@@ -364,21 +368,37 @@ public class SportsActivity extends BaseActivity<ISportsPresenter>
 
     private void pause() {
         mBean.setRunning(false);
+        updateUI(true);
     }
 
     private void carryOn() {
         mBean.setRunning(true);
+        updateUI(false);
     }
 
     private void stop() {
         mBean.setRunning(false);
+        if (mPresenter != null) {
+            mPresenter.uploadSportsData(mBean.getSportsData());
+        }
+    }
 
+    private void updateUI(boolean isPause) {
+        mTvPause.setVisibility(isPause ? View.GONE : View.VISIBLE);
+        mTvCarryOn.setVisibility(isPause ? View.VISIBLE : View.GONE);
+        mTvEnd.setVisibility(isPause ? View.VISIBLE : View.GONE);
     }
 
     @Override
     public void update() {
-        mTvDistance.setText(String.valueOf(mBean.getSportsData().getDistance()));
-        mTvSpeed.setText(String.valueOf(mBean.getCurSpeed()));
+        spannableString = new SpannableString(String.format("%.2f", mBean.getSportsData().getDistance()));
+        spannableString.setSpan(new RelativeSizeSpan(0.5f), spannableString.length() - 4, spannableString.length(), 0);
+        mTvDistance.setText(spannableString);
+
+        spannableString = new SpannableString(String.format("%.2f", mBean.getCurSpeed()));
+        spannableString.setSpan(new RelativeSizeSpan(0.5f), spannableString.length() - 4, spannableString.length(), 0);
+        mTvSpeed.setText(spannableString);
+
     }
 
     @Override
@@ -386,5 +406,29 @@ public class SportsActivity extends BaseActivity<ISportsPresenter>
         if (requestCode == REQUEST_PERMISSION_SETTING && resultCode == RESULT_OK) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, REQUEST_FOR_ACCESS_FINE_LOCATION);
         }
+    }
+
+    @Override
+    public void showProgress(int msgId) {
+        showLoadingDialog(msgId);
+    }
+
+    @Override
+    public void hideProgress() {
+        dismissLoadingDialog();
+    }
+
+    @Override
+    public void uploadSportsDataSuccess(boolean bool) {
+        if (bool) {
+            ToastUtil.shortShow(this, R.string.upload_sports_data_success);
+        } else {
+            ToastUtil.shortShow(this, R.string.upload_sports_data_fail);
+        }
+    }
+
+    @Override
+    public void uploadSportsDataFail(Result result) {
+        ToastUtil.shortShow(this, R.string.upload_sports_data_fail);
     }
 }

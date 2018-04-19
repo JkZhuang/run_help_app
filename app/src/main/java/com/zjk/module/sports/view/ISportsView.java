@@ -1,6 +1,7 @@
 package com.zjk.module.sports.view;
 
 import com.zjk.common.mvp.view.IBaseView;
+import com.zjk.result.Result;
 
 /**
  * author : ZhuangJinKun
@@ -9,4 +10,12 @@ import com.zjk.common.mvp.view.IBaseView;
  */
 
 public interface ISportsView extends IBaseView {
+
+    void showProgress(int msgId);
+
+    void hideProgress();
+
+    void uploadSportsDataSuccess(boolean bool);
+
+    void uploadSportsDataFail(Result result);
 }

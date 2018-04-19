@@ -75,7 +75,7 @@ public class GpsService extends Service implements LocationListener {
 
         if (hasData) {
             builder.setContentText(String.format(getString(R.string.notification_text),
-                    String.valueOf(bean.getSportsData().getMaxSpeed()),
+                    String.valueOf(bean.getCurSpeed()),
                     String.valueOf(bean.getSportsData().getDistance())));
         } else {
             builder.setContentText(String.format(getString(R.string.notification_text), '-', '-'));
@@ -136,7 +136,7 @@ public class GpsService extends Service implements LocationListener {
             double distance = mLastLocation.distanceTo(location);
 
             if (location.getAccuracy() < distance) {
-                bean.getSportsData().setDistance(distance);
+                bean.getSportsData().addDistance(distance);
 
                 lastLat = currentLat;
                 lastLon = currentLon;

@@ -74,6 +74,10 @@ public class SportsData {
 		this.distance = distance;
 	}
 
+	public void addDistance(double distance) {
+		this.distance += distance;
+	}
+
 	public double getMaxSpeed() {
 		return maxSpeed;
 	}
