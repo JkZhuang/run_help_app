@@ -15,21 +15,27 @@ import com.zjk.common.ui.refresh.MaterialRefreshLayout;
 import com.zjk.common.ui.refresh.MaterialRefreshListener;
 import com.zjk.common.util.DeviceUtils;
 import com.zjk.model.SportsSuggestion;
+import com.zjk.module.home.fragment.sports.listener.SwitchListener;
+import com.zjk.module.home.sports.base.view.BaseSportsFragment;
+import com.zjk.module.home.sports.planning.adapter.OnItemClickListener;
 import com.zjk.module.home.sports.planning.adapter.SportsPlanningAdapter;
 import com.zjk.module.home.sports.planning.present.ISportsPlanningPresenter;
 import com.zjk.module.home.sports.planning.present.SportsPlanningPresenter;
+import com.zjk.module.home.sports.walk.view.WalkFragment;
 import com.zjk.result.Result;
 import com.zjk.run_help.R;
 import com.zjk.util.DebugUtil;
 import com.zjk.util.ToastUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by pandengzhe on 2018/3/31.
  */
 
-public class SportsPlanningFragment extends BaseFragment<ISportsPlanningPresenter> implements ISportsPlanningView {
+public class SportsPlanningFragment extends BaseFragment<ISportsPlanningPresenter>
+        implements ISportsPlanningView, OnItemClickListener {
 
     private static final String TAG = "SportsPlanningFragment";
 
@@ -39,6 +45,8 @@ public class SportsPlanningFragment extends BaseFragment<ISportsPlanningPresente
 
     private SportsPlanningAdapter mAdapter;
     private SportsPlanningPresenter mPresenter;
+    private List<SportsSuggestion> mData = new ArrayList<>();
+    private SwitchListener listener;
 
     public static SportsPlanningFragment newInstance(BaseActivity activity) {
         SportsPlanningFragment fragment = new SportsPlanningFragment();
@@ -48,6 +56,10 @@ public class SportsPlanningFragment extends BaseFragment<ISportsPlanningPresente
 
     public SportsPlanningFragment() {
 
+    }
+
+    public void setSwitchListener(SwitchListener listener) {
+        this.listener = listener;
     }
 
     @Nullable
@@ -75,6 +87,7 @@ public class SportsPlanningFragment extends BaseFragment<ISportsPlanningPresente
     @Override
     protected void init() {
         mAdapter = new SportsPlanningAdapter(getContext());
+        mAdapter.setListener(this);
         mRvSportsPlanning.setLayoutManager(new GridLayoutManager(getContext(), 1));
         mRvSportsPlanning.addItemDecoration(new ListItemDividerDecoration(1,
                 RecyclerView.VERTICAL, getContext().getResources().getColor(R.color.divider_color), true,
@@ -98,9 +111,7 @@ public class SportsPlanningFragment extends BaseFragment<ISportsPlanningPresente
 
             @Override
             public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
-                if (mPresenter != null) {
 
-                }
             }
         });
     }
@@ -141,8 +152,23 @@ public class SportsPlanningFragment extends BaseFragment<ISportsPlanningPresente
     public void getSportsSuggestionSuccess(boolean onUIThread, List<SportsSuggestion> data) {
         if (onUIThread) {
             mMrlListContainer.finishRefreshing();
-            mAdapter.setData(data);
+            mData.clear();
+            mData.addAll(data);
+            mAdapter.setData(mData);
             ToastUtil.shortShow(getContext(), R.string.get_sports_planning_suggestion_success);
+        }
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        if (position >= mData.size()) {
+            return;
+        }
+        SportsSuggestion suggestion = mData.get(position);
+        Bundle args = new Bundle();
+        args.putDouble(BaseSportsFragment.KEY_DISTANCE, suggestion.getDistance());
+        if (listener != null) {
+            listener.switchFragment(suggestion.getType() + 1, args);
         }
     }
 }

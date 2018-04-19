@@ -29,7 +29,9 @@ import android.view.View;
 import android.widget.Chronometer;
 import android.widget.TextView;
 
+import com.zjk.common.data.DefSports;
 import com.zjk.common.ui.BaseActivity;
+import com.zjk.module.home.sports.base.view.BaseSportsFragment;
 import com.zjk.module.sports.UpdateSportsDataListener;
 import com.zjk.module.sports.bean.SportsBean;
 import com.zjk.module.sports.gps.service.GpsService;
@@ -51,8 +53,6 @@ public class SportsActivity extends BaseActivity<ISportsPresenter>
 
     private static final String TAG = "SportsActivity";
 
-    public static final String SPORTS_TYPE = "sports_type";
-
     private static final int REQUEST_FOR_ACCESS_FINE_LOCATION = 6;
     private static final int REQUEST_PERMISSION_SETTING = 101;
 
@@ -64,7 +64,6 @@ public class SportsActivity extends BaseActivity<ISportsPresenter>
     private TextView mTvPause;
     private TextView mTvCarryOn;
     private TextView mTvEnd;
-    private SpannableString spannableString;
 
     private ServiceConnection mServiceConnection = null;
     private GpsService mGpsService;
@@ -72,12 +71,7 @@ public class SportsActivity extends BaseActivity<ISportsPresenter>
 
     private SportsPresenter mPresenter;
     private SportsBean mBean;
-
-    public static void start(BaseActivity activity, int type) {
-        Intent intent = new Intent(activity, SportsActivity.class);
-        intent.putExtra(SPORTS_TYPE, type);
-        activity.startActivity(intent);
-    }
+    private double targetDistance;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -117,7 +111,11 @@ public class SportsActivity extends BaseActivity<ISportsPresenter>
         mPresenter = new SportsPresenter(this);
         mBean = new SportsBean();
         mBean.setRunning(true);
-        mBean.getSportsData().setType(getIntent().getIntExtra(SPORTS_TYPE, 0));
+        Bundle args = getIntent().getExtras();
+        if (args != null) {
+            mBean.getSportsData().setType(args.getInt(BaseSportsFragment.KEY_SPORTS_TYPE, 0));
+            targetDistance = args.getDouble(BaseSportsFragment.KEY_DISTANCE, 0.0d);
+        }
         initTitle();
         setUseTime();
         bindService();
@@ -127,16 +125,16 @@ public class SportsActivity extends BaseActivity<ISportsPresenter>
 
     private void initTitle() {
         switch (mBean.getSportsData().getType()) { // 0-行走；1-跑步；2-骑行；3-轮滑
-            case 0:
+            case DefSports.WALK:
                 mTvTitle.setText(R.string.walk_ing);
                 break;
-            case 1:
+            case DefSports.RUNNING:
                 mTvTitle.setText(R.string.run_ing);
                 break;
-            case 2:
+            case DefSports.RIDING:
                 mTvTitle.setText(R.string.riding_ing);
                 break;
-            case 3:
+            case DefSports.ROLLER_SKATING:
                 mTvTitle.setText(R.string.roller_skating_ing);
                 break;
         }
@@ -378,6 +376,10 @@ public class SportsActivity extends BaseActivity<ISportsPresenter>
 
     private void stop() {
         mBean.setRunning(false);
+        if (mBean.getSportsData().getrGDList() == null || mBean.getSportsData().getrGDList().size() < 10) {
+            ToastUtil.shortShow(this, getString(R.string.no_sports_data));
+            return;
+        }
         if (mPresenter != null) {
             mPresenter.uploadSportsData(mBean.getSportsData());
         }
@@ -391,14 +393,8 @@ public class SportsActivity extends BaseActivity<ISportsPresenter>
 
     @Override
     public void update() {
-        spannableString = new SpannableString(String.format("%.2f", mBean.getSportsData().getDistance()));
-        spannableString.setSpan(new RelativeSizeSpan(0.5f), spannableString.length() - 4, spannableString.length(), 0);
-        mTvDistance.setText(spannableString);
-
-        spannableString = new SpannableString(String.format("%.2f", mBean.getCurSpeed()));
-        spannableString.setSpan(new RelativeSizeSpan(0.5f), spannableString.length() - 4, spannableString.length(), 0);
-        mTvSpeed.setText(spannableString);
-
+        mTvDistance.setText(String.format("%.2f", mBean.getSportsData().getDistance()));
+        mTvSpeed.setText(String.format("%.2f", mBean.getCurSpeed()));
     }
 
     @Override

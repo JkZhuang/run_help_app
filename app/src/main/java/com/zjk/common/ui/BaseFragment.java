@@ -13,6 +13,8 @@ import android.widget.EditText;
 
 import com.zjk.common.mvp.presenter.IBasePresenter;
 import com.zjk.model.UserInfo;
+import com.zjk.module.home.sports.base.view.BaseSportsFragment;
+import com.zjk.util.DebugUtil;
 
 /**
  * Created by pandengzhe on 2018/3/31.
@@ -20,6 +22,7 @@ import com.zjk.model.UserInfo;
 
 public abstract class BaseFragment<T extends IBasePresenter> extends Fragment implements View.OnClickListener {
 
+    protected static final String TAG = "BaseFragment";
     protected BaseActivity mActivity;
 
     @Nullable
@@ -37,13 +40,38 @@ public abstract class BaseFragment<T extends IBasePresenter> extends Fragment im
         mActivity = activity;
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        DebugUtil.debug(TAG, "");
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        DebugUtil.debug(TAG, "");
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        DebugUtil.debug(TAG, "");
         if (mPresenter != null) {
             mPresenter.onCreate();
         }
         return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        DebugUtil.debug(TAG, "");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        DebugUtil.debug(TAG, "");
     }
 
     @Override
@@ -55,11 +83,39 @@ public abstract class BaseFragment<T extends IBasePresenter> extends Fragment im
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        DebugUtil.debug(TAG, "");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        DebugUtil.debug(TAG, "");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        DebugUtil.debug(TAG, "");
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         if (mPresenter != null) {
             mPresenter.onDestroy();
         }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        DebugUtil.debug(TAG, "");
+    }
+
+    public void setArgs(Bundle args) {
+
     }
 
     public void hideKeyboard(View view) {

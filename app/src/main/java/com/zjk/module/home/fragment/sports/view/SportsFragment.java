@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import com.zjk.common.ui.BaseActivity;
 import com.zjk.common.ui.BaseFragment;
 import com.zjk.common.ui.MyFragmentPageAdapter;
+import com.zjk.module.home.fragment.sports.listener.SwitchListener;
+import com.zjk.module.home.sports.RollerSkating.view.RollerSkatingFragment;
 import com.zjk.module.home.sports.planning.view.SportsPlanningFragment;
 import com.zjk.module.home.sports.riding.view.RidingFragment;
 import com.zjk.module.home.sports.running.view.RunningFragment;
@@ -22,11 +24,11 @@ import com.zjk.run_help.R;
  * Created by pandengzhe on 2018/3/31.
  */
 
-public class SportsFragment extends BaseFragment {
+public class SportsFragment extends BaseFragment implements SwitchListener {
 
     private static final String TAG = "SportsFragment";
 
-    private static final int SPORTS_TAB_COUNT = 5;
+    private static final int SPORTS_TAB_COUNT = 6;
 
     private View mView;
     private TabLayout mTlSports;
@@ -70,17 +72,21 @@ public class SportsFragment extends BaseFragment {
     @Override
     protected void init() {
         mFragmentArray = new BaseFragment[SPORTS_TAB_COUNT];
-        mFragmentArray[0] = SportsPlanningFragment.newInstance(mActivity);
+        SportsPlanningFragment fragment = SportsPlanningFragment.newInstance(mActivity);
+        fragment.setSwitchListener(this);
+        mFragmentArray[0] = fragment;
         mFragmentArray[1] = WalkFragment.newInstance(mActivity);
         mFragmentArray[2] = RunningFragment.newInstance(mActivity);
         mFragmentArray[3] = RidingFragment.newInstance(mActivity);
-        mFragmentArray[4] = SearchFragment.newInstance(mActivity);
+        mFragmentArray[4] = RollerSkatingFragment.newInstance(mActivity);
+        mFragmentArray[5] = SearchFragment.newInstance(mActivity);
         mTitles = new String[SPORTS_TAB_COUNT];
         mTitles[0] = getContext().getString(R.string.planning);
         mTitles[1] = getContext().getString(R.string.walk);
         mTitles[2] = getContext().getString(R.string.run);
         mTitles[3] = getContext().getString(R.string.riding);
-        mTitles[4] = getContext().getString(R.string.search);
+        mTitles[4] = getContext().getString(R.string.roller_skating);
+        mTitles[5] = getContext().getString(R.string.search);
         mAdapter = new MyFragmentPageAdapter<>(getContext(), getFragmentManager(), mFragmentArray, mTitles);
         mVpSports.setAdapter(mAdapter);
         mVpSports.setOffscreenPageLimit(SPORTS_TAB_COUNT);
@@ -91,5 +97,14 @@ public class SportsFragment extends BaseFragment {
     @Override
     public void onClick(View v) {
 
+    }
+
+    @Override
+    public void switchFragment(int index, Bundle bundle) {
+        if (index < 0 || index >= SPORTS_TAB_COUNT) {
+            return;
+        }
+        mFragmentArray[index].setArgs(bundle);
+        mVpSports.setCurrentItem(index);
     }
 }

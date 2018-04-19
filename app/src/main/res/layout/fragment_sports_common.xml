@@ -19,7 +19,7 @@
             android:layout_marginTop="40dp"
             android:textSize="12sp"
             android:textColor="@color/colorPrimary"
-            android:text="@string/total_kilometers"/>
+            android:text="@string/target_kilometers"/>
 
         <TextView
             android:id="@+id/tv_total_kilometers"
@@ -30,7 +30,7 @@
             android:layout_marginTop="0dp"
             android:textColor="@color/black"
             android:textSize="40sp"
-            android:text="0.0"/>
+            android:text="@string/zero"/>
 
         <TextView
             android:id="@+id/tv_sports_type"
@@ -40,10 +40,25 @@
             android:layout_below="@+id/tv_total_kilometers"
             android:layout_marginTop="2dp"
             android:textColor="@color/colorAccent"
-            android:textSize="22sp"
-            android:text="RUNNING"/>
+            android:textSize="22sp"/>
 
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_set_target"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:paddingLeft="@dimen/big_margin"
+        android:paddingStart="@dimen/big_margin"
+        android:paddingEnd="@dimen/big_margin"
+        android:paddingRight="@dimen/big_margin"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:layout_marginTop="60dp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp"
+        android:text="@string/set_target"
+        android:background="@drawable/bg_btn_shape_border"/>
 
     <TextView
         android:id="@+id/tv_begin"
@@ -53,12 +68,12 @@
         android:layout_marginStart="40dp"
         android:layout_marginRight="40dp"
         android:layout_marginEnd="40dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:background="@drawable/bg_btn_shape"
         android:textSize="18sp"
         android:textColor="@color/white"
-        android:text="开始跑步"
+        android:text="@string/start_walk"
         />
 
 </LinearLayout>

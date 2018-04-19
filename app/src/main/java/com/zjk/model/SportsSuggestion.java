@@ -4,11 +4,12 @@ import java.util.Date;
 
 public class SportsSuggestion {
 
-	public int sSId;
-	public int uId;  // UserInfo外键
-	public int type;
-	public Date startTime;
-	public long usedTime;
+	private int sSId;
+	private int uId;  // UserInfo外键
+	private int type;
+	private Date startTime;
+	private long usedTime;
+	private double distance; // 运动路程
 
 	public SportsSuggestion() {
 
@@ -54,6 +55,14 @@ public class SportsSuggestion {
 		this.usedTime = usedTime;
 	}
 
+	public double getDistance() {
+		return distance;
+	}
+
+	public void setDistance(double distance) {
+		this.distance = distance;
+	}
+
 	@Override
 	public String toString() {
 		return "SportsSuggestion{" +
@@ -62,6 +71,7 @@ public class SportsSuggestion {
 				", type=" + type +
 				", startTime=" + startTime +
 				", usedTime=" + usedTime +
+				", distance=" + distance +
 				'}';
 	}
 }

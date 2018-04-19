@@ -251,7 +251,7 @@ public class PersonFragment extends BaseFragment<IPersonPresenter> implements IP
 
     private void selectGender() {
         //条件选择器
-        OptionsPickerView pvOptions = new OptionsPickerBuilder(getContext(), new OnOptionsSelectListener() {
+        OptionsPickerView<String> pvOptions = new OptionsPickerBuilder(getContext(), new OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int option2, int options3, View v) {
                 //返回的分别是三个级别的选中位置
