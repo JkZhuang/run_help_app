@@ -42,6 +42,8 @@ import com.zjk.run_help.R;
 import com.zjk.util.DebugUtil;
 import com.zjk.util.ToastUtil;
 
+import java.util.Date;
+
 /**
  * author : ZhuangJinKun
  * e-mail : zhuangjinkun@bigo.sg
@@ -111,6 +113,7 @@ public class SportsActivity extends BaseActivity<ISportsPresenter>
         mPresenter = new SportsPresenter(this);
         mBean = new SportsBean();
         mBean.setRunning(true);
+        mBean.getSportsData().setuId(getUserInfo().getuId());
         Bundle args = getIntent().getExtras();
         if (args != null) {
             mBean.getSportsData().setType(args.getInt(BaseSportsFragment.KEY_SPORTS_TYPE, 0));
@@ -237,6 +240,7 @@ public class SportsActivity extends BaseActivity<ISportsPresenter>
                 public void onFirstFix(int ttffMillis) {
                     super.onFirstFix(ttffMillis);
                     if (mBean.isRunning()) {
+                        mBean.getSportsData().setStartTime(new Date());
                         mBean.setCanLocationUsed(true);
                         updateUIStatus(true);
                     }
@@ -300,15 +304,9 @@ public class SportsActivity extends BaseActivity<ISportsPresenter>
     private void updateUIStatus(boolean isLocationCanUsed) {
         if (isLocationCanUsed) {
             mTvCalculateType.setText(R.string.gps_calculate);
-            mTvPause.setVisibility(View.VISIBLE);
-            mTvCarryOn.setVisibility(View.GONE);
-            mTvEnd.setVisibility(View.GONE);
             mCtUseTime.start();
         } else {
             mTvCalculateType.setText(R.string.gps_no_signal);
-            mTvPause.setVisibility(View.GONE);
-            mTvCarryOn.setVisibility(View.VISIBLE);
-            mTvEnd.setVisibility(View.VISIBLE);
             mCtUseTime.stop();
         }
     }
@@ -380,6 +378,8 @@ public class SportsActivity extends BaseActivity<ISportsPresenter>
             ToastUtil.shortShow(this, getString(R.string.no_sports_data));
             return;
         }
+        mBean.getSportsData().setEndTime(new Date());
+        mBean.getSportsData().setUsedTime(Long.valueOf(String.valueOf(mCtUseTime.getContentDescription())));
         if (mPresenter != null) {
             mPresenter.uploadSportsData(mBean.getSportsData());
         }

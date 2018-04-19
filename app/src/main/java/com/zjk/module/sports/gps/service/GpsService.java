@@ -1,6 +1,7 @@
 package com.zjk.module.sports.gps.service;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -15,10 +16,13 @@ import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 
+import com.zjk.model.SportsGranularityData;
 import com.zjk.module.sports.UpdateSportsDataListener;
 import com.zjk.module.sports.bean.SportsBean;
 import com.zjk.module.sports.view.SportsActivity;
@@ -38,6 +42,9 @@ public class GpsService extends Service implements LocationListener {
 
     private static final int REQUEST_GPS = 0;
     private static final int TIME_GPS_UPDATE = 500;
+    private static final int ONE_MINUTE = 60 * 1000;
+
+    private Handler mHandler = new Handler(Looper.getMainLooper());
 
     private SportsBean bean;
     private UpdateSportsDataListener listener;
@@ -48,6 +55,18 @@ public class GpsService extends Service implements LocationListener {
 
     private double lastLon = 0; // 经度
     private double lastLat = 0; // 纬度
+
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            SportsGranularityData data = new SportsGranularityData();
+            data.setType(bean.getSportsData().getType());
+            data.setSpeed(bean.getCurSpeed());
+            data.setLatitude(lastLat);
+            data.setLongitude(lastLon);
+            bean.getSportsData().getrGDList().add(data);
+        }
+    };
 
     @Override
     public void onCreate() {
@@ -72,11 +91,10 @@ public class GpsService extends Service implements LocationListener {
                 .setContentTitle(getString(R.string.sports_ing))
                 .setSmallIcon(R.mipmap.ic_logo)
                 .setContentIntent(contentIntent);
-
         if (hasData) {
             builder.setContentText(String.format(getString(R.string.notification_text),
-                    String.valueOf(bean.getCurSpeed()),
-                    String.valueOf(bean.getSportsData().getDistance())));
+                    String.format("%.2f", bean.getCurSpeed()),
+                    String.format("%.2f", bean.getSportsData().getDistance())));
         } else {
             builder.setContentText(String.format(getString(R.string.notification_text), '-', '-'));
         }
@@ -122,6 +140,7 @@ public class GpsService extends Service implements LocationListener {
     @Override
     public void onLocationChanged(Location location) {
         if (bean.isRunning() && bean.isCanLocationUsed()) {
+            mHandler.postDelayed(runnable, ONE_MINUTE);
             double currentLat = location.getLatitude();
             double currentLon = location.getLongitude();
 
@@ -136,7 +155,7 @@ public class GpsService extends Service implements LocationListener {
             double distance = mLastLocation.distanceTo(location);
 
             if (location.getAccuracy() < distance) {
-                bean.getSportsData().addDistance(distance);
+                bean.getSportsData().addDistance(distance / 1000);
 
                 lastLat = currentLat;
                 lastLon = currentLon;
@@ -178,6 +197,7 @@ public class GpsService extends Service implements LocationListener {
         }
     }
 
+    @SuppressLint("StaticFieldLeak")
     class isStillStopped extends AsyncTask<Void, Integer, String> {
         int timer = 0;
 
@@ -189,9 +209,9 @@ public class GpsService extends Service implements LocationListener {
                     timer++;
                 }
             } catch (InterruptedException t) {
-                return ("The sleep operation failed");
+                return "The sleep operation failed";
             }
-            return ("return object when task is finished");
+            return "Task finish";
         }
 
         @Override

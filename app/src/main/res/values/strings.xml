@@ -152,7 +152,7 @@
     <string name="notification_id" translatable="false">Speed_meter_is_an_id</string>
     <string name="request_location_permission">为了能正常使用运动功能，应用需要开启定位权限，现在去开启？</string>
     <string name="started_time">00:00:00</string>
-    <string name="speed_util">分钟/公里</string>
+    <string name="speed_util">小时/公里</string>
     <string name="zero">0</string>
 
     <string name="upload_sports_data_ing">上传运动数据中…</string>
