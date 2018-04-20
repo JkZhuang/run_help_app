@@ -81,6 +81,11 @@
     <string name="version">版本</string>
     <string name="backstage_protected">后台保护</string>
     <string name="avoid_sleeping">防止睡眠</string>
+    <string name="sign_out">退出</string>
+    <string name="default_version">1.0.0</string>
+    <string name="send_feedback_ing">正在反馈中…</string>
+    <string name="send_feedback_success">反馈成功</string>
+    <string name="send_feedback_fail">反馈失败，请稍后重试</string>
 
     <string name="sure">确定</string>
     <string name="cancel">取消</string>
@@ -170,6 +175,16 @@
     <string name="start_ride">开始骑行</string>
     <string name="start_skating">开始滑行</string>
     <string name="no_sports_data">你还没有有效的运动数据，暂时不可以上传到服务器呢</string>
+
+    <string name="author">作者：攀登者</string>
+    <string name="email">邮箱：zhuangjinkun@bigo.sg</string>
+    <string name="blog">博客：https://www.jianshu.com/u/feee9c64aedf</string>
+    <string name="powered">powered by zhuangjinkun</string>
+
+    <string name="make_sure_sign_out">您确定退出当前应用吗？</string>
+    <string name="feedback_hint">您想吐槽点什么呢？</string>
+    <string name="contact">联系方式</string>
+    <string name="contact_error">联系人格式有误</string>
 
     <integer-array name="material_colors">
         <item>@color/material_black</item>

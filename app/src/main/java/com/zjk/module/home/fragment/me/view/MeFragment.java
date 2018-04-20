@@ -16,6 +16,7 @@ import com.zjk.common.ui.BaseFragment;
 import com.zjk.common.ui.ShapedImageView;
 import com.zjk.module.home.fragment.me.present.IMePresenter;
 import com.zjk.module.home.fragment.me.present.MePresenter;
+import com.zjk.module.setting.SettingActivity;
 import com.zjk.module.user.information.view.PersonalActivity;
 import com.zjk.run_help.R;
 import com.zjk.util.CommonsUtil;
@@ -93,7 +94,7 @@ public class MeFragment extends BaseFragment<IMePresenter> implements IMeView {
 
                 break;
             case R.id.rl_setting:
-
+                SettingActivity.start(getContext());
                 break;
         }
     }

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/LightToolbar"
+        android:elevation="2dp" />
+
+    <EditText
+        android:id="@+id/et_content"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:hint="@string/feedback_hint"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp"
+        android:background="@drawable/bg_btn_shape_border_small"
+        android:gravity="start"
+        android:padding="@dimen/common_margin"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="@dimen/big_margin"/>
+
+    <EditText
+        android:id="@+id/et_contact"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="@string/contact"
+        android:textColor="@color/colorPrimary"
+        android:textSize="14sp"
+        android:background="@drawable/bg_btn_shape_border_small"
+        android:gravity="start"
+        android:padding="@dimen/common_margin"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="@dimen/big_margin"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/big_margin"
+        android:layout_gravity="end|right"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        app:srcCompat="@drawable/ic_save"/>
+
+</LinearLayout>

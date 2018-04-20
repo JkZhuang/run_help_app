@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@id/toolbar"
+        style="@style/LightToolbar"
+        android:elevation="2dp" />
+
+    <TextView
+        android:id="@+id/tv_backstage_protected"
+        style="@style/ItemSettingTextViewStyle"
+        android:text="@string/backstage_protected" />
+
+    <View style="@style/DividerViewStyle" />
+
+    <TextView
+        android:id="@+id/tv_avoid_sleeping"
+        style="@style/ItemSettingTextViewStyle"
+        android:text="@string/avoid_sleeping" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_color" />
+
+</LinearLayout>

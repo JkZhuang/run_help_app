@@ -23,6 +23,7 @@ import com.zjk.common.util.Utils;
 import com.zjk.model.UserInfo;
 import com.zjk.module.user.login.view.LoginActivity;
 import com.zjk.run_help.R;
+import com.zjk.util.ActivityCollector;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -57,6 +58,7 @@ public abstract class BaseActivity<T extends IBasePresenter> extends AppCompatAc
         if (mPresenter != null) {
             mPresenter.onCreate();
         }
+        ActivityCollector.instance().add(this);
     }
 
     @Override
@@ -95,6 +97,7 @@ public abstract class BaseActivity<T extends IBasePresenter> extends AppCompatAc
         if (mPresenter != null) {
             mPresenter.onDestroy();
         }
+        ActivityCollector.instance().remove(this);
     }
 
     protected abstract void findWidget();

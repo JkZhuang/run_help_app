@@ -1,6 +1,8 @@
 package com.zjk.util;
 
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.text.TextUtils;
 
 import com.zjk.okhttp.DefList;
@@ -51,5 +53,16 @@ public class CommonsUtil {
 
     public static String getImageUrl(String url) {
         return DefList.url + "/image/getImage?" + url;
+    }
+
+    public static String getVersion(Context context) {
+        try {
+            PackageManager manager = context.getPackageManager();
+            PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
+            return info.versionName;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return context.getString(R.string.default_version);
+        }
     }
 }

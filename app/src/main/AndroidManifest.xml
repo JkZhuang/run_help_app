@@ -87,6 +87,31 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
 
+        <activity
+            android:name="com.zjk.module.setting.SettingActivity"
+            android:label="@string/setting"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
+        <activity android:name="com.zjk.module.setting.feedback.view.FeedbackActivity"
+            android:label="@string/feedback"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
+        <activity android:name="com.zjk.module.setting.permission.view.PermissionActivity"
+            android:label="@string/setting_permission"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
+        <activity android:name="com.zjk.module.setting.about.view.AboutActivity"
+            android:label="@string/about"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
         <service android:name="com.zjk.module.sports.gps.service.GpsService" />
 
     </application>
