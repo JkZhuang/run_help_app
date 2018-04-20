@@ -30,11 +30,12 @@
             android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="8dp"
+            android:drawablePadding="@dimen/small_margin"
             android:text="hello"
             android:textSize="18sp"
             android:textColor="@color/white"
-            app:layout_constraintTop_toTopOf="@+id/iv_head_photo"
-            app:layout_constraintLeft_toRightOf="@+id/iv_head_photo"/>
+            app:layout_constraintTop_toTopOf="@id/iv_head_photo"
+            app:layout_constraintLeft_toRightOf="@id/iv_head_photo"/>
 
         <TextView
             android:id="@+id/tv_dynamic_count"
@@ -46,8 +47,8 @@
             android:text="132"
             android:textSize="14sp"
             android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_head_photo"
-            app:layout_constraintLeft_toRightOf="@+id/iv_head_photo"/>
+            app:layout_constraintBottom_toBottomOf="@id/iv_head_photo"
+            app:layout_constraintLeft_toRightOf="@id/iv_head_photo"/>
 
         <TextView
             android:id="@+id/tv_dynamic_tip"
@@ -59,8 +60,8 @@
             android:text="@string/dynamic_count"
             android:textSize="14sp"
             android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_head_photo"
-            app:layout_constraintLeft_toRightOf="@+id/tv_dynamic_count" />
+            app:layout_constraintBottom_toBottomOf="@id/iv_head_photo"
+            app:layout_constraintLeft_toRightOf="@id/tv_dynamic_count" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -77,7 +78,7 @@
     <RelativeLayout
         android:id="@+id/rl_sports_achievement"
         style="@style/ItemRelativeStyle"
-        app:layout_constraintTop_toBottomOf="@+id/cl_info_container">
+        app:layout_constraintTop_toBottomOf="@id/cl_info_container">
 
         <TextView
             style="@style/ItemTextStyle"
@@ -91,12 +92,12 @@
     <View
         android:id="@+id/v_divider"
         style="@style/DividerViewStyle"
-        app:layout_constraintTop_toBottomOf="@+id/rl_sports_achievement"/>
+        app:layout_constraintTop_toBottomOf="@id/rl_sports_achievement"/>
 
     <RelativeLayout
         android:id="@+id/rl_setting"
         style="@style/ItemRelativeStyle"
-        app:layout_constraintTop_toBottomOf="@+id/v_divider">
+        app:layout_constraintTop_toBottomOf="@id/v_divider">
 
         <TextView
             style="@style/ItemTextStyle"
@@ -112,6 +113,6 @@
         android:layout_height="0dp"
         app:layout_constraintVertical_weight="1"
         android:background="@color/background_color"
-        app:layout_constraintTop_toBottomOf="@+id/rl_setting"/>
+        app:layout_constraintTop_toBottomOf="@id/rl_setting"/>
 
 </android.support.constraint.ConstraintLayout>

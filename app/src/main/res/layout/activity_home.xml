@@ -12,7 +12,7 @@
         android:id="@+id/tab_pager"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/cl_tab_item_container"
+        app:layout_constraintBottom_toTopOf="@id/cl_tab_item_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -34,7 +34,7 @@
             android:text="@string/sports"
             android:textColor="@color/colorAccent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tv_diet"
+            app:layout_constraintEnd_toStartOf="@id/tv_diet"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -44,9 +44,9 @@
             style="@style/HomeTabItemStyle"
             android:text="@string/diet"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tv_dynamic"
+            app:layout_constraintEnd_toStartOf="@id/tv_dynamic"
             app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toEndOf="@+id/tv_sports"
+            app:layout_constraintStart_toEndOf="@id/tv_sports"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -54,9 +54,9 @@
             style="@style/HomeTabItemStyle"
             android:text="@string/dynamic"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tv_me"
+            app:layout_constraintEnd_toStartOf="@id/tv_me"
             app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toEndOf="@+id/tv_diet"
+            app:layout_constraintStart_toEndOf="@id/tv_diet"
             app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -67,7 +67,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toEndOf="@+id/tv_dynamic"
+            app:layout_constraintStart_toEndOf="@id/tv_dynamic"
             app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
 
@@ -77,6 +77,6 @@
         android:background="@color/color_list_divider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/cl_tab_item_container" />
+        app:layout_constraintTop_toTopOf="@id/cl_tab_item_container" />
 
 </android.support.constraint.ConstraintLayout>

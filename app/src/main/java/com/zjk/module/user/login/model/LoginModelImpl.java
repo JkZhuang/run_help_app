@@ -5,7 +5,9 @@ import com.zjk.logic.LogicHandler;
 import com.zjk.logic.LogicImpl;
 import com.zjk.model.UserInfo;
 import com.zjk.module.user.login.present.ILoginPresenter;
+import com.zjk.param.GetConfigParam;
 import com.zjk.param.LoginParam;
+import com.zjk.result.GetConfigResult;
 import com.zjk.result.LoginResult;
 
 /**
@@ -32,6 +34,23 @@ public class LoginModelImpl extends BaseModel<ILoginPresenter> implements ILogin
                     listener.onLoginSuccess(true, result.userInfo);
                 } else if (onUIThread) {
                     listener.onLoginFail(true, result);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void getConfig(int uId, final OnGetConfigListener listener) {
+        GetConfigParam param = new GetConfigParam();
+        param.page = "/config/getConfig";
+        param.uId = uId;
+        LogicImpl.getInstance().getConfig(param, new LogicHandler<GetConfigResult>() {
+            @Override
+            public void onResult(GetConfigResult result, boolean onUIThread) {
+                if (result.isOk() && onUIThread) {
+                    listener.getConfigSuccess(result);
+                } else if (onUIThread) {
+                    listener.getConfigFail(result);
                 }
             }
         });

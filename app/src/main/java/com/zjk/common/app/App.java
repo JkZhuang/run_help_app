@@ -4,6 +4,9 @@ import android.app.Application;
 import android.content.Context;
 
 import com.zjk.common.util.AppUtils;
+import com.zjk.model.FallThreshold;
+import com.zjk.model.TrainingSuggestData;
+import com.zjk.model.UserConfig;
 import com.zjk.model.UserInfo;
 
 /**
@@ -18,7 +21,7 @@ public class App extends Application {
 
     private static App instance;
 
-    private UserInfo userInfo;
+    private UserConfig userConfig;
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -31,7 +34,15 @@ public class App extends Application {
         super.onCreate();
         AppUtils.init(this);
         instance = this;
-        userInfo = new UserInfo();
+        userConfig = new UserConfig();
+        init();
+    }
+
+    private void init() {
+        userConfig.userInfo = new UserInfo();
+        userConfig.dynamicCount = 0;
+        userConfig.fallThreshold = new FallThreshold();
+        userConfig.trainingSuggestData = new TrainingSuggestData();
     }
 
     public static App instance() {
@@ -39,10 +50,18 @@ public class App extends Application {
     }
 
     public synchronized UserInfo getUserInfo() {
-        return userInfo;
+        return userConfig.userInfo;
     }
 
     public synchronized void setUserInfo(UserInfo userInfo) {
-        this.userInfo = userInfo;
+        this.userConfig.userInfo = userInfo;
+    }
+
+    public synchronized UserConfig getUserConfig() {
+        return userConfig;
+    }
+
+    public synchronized void setUserConfig(UserConfig userConfig) {
+        this.userConfig = userConfig;
     }
 }

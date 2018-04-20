@@ -81,6 +81,7 @@ public class MeFragment extends BaseFragment<IMePresenter> implements IMeView {
                 .placeholder(R.drawable.head_photo_default)
                 .into(mIvHeadPhoto);
         mTvNickName.setText(getUserInfo().getUserName());
+        mTvNickName.setCompoundDrawablesWithIntrinsicBounds(null, null, CommonsUtil.getGenderIcon(getContext(), getUserInfo().getGender()), null);
 //        mTvDynamicCount.setText();
     }
 

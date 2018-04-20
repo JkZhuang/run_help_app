@@ -3,6 +3,8 @@ package com.zjk.util;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 
 import com.zjk.okhttp.DefList;
@@ -15,6 +17,16 @@ public class CommonsUtil {
 
     public static int getCoreNum() {
         return Runtime.getRuntime().availableProcessors();
+    }
+
+    public static Drawable getGenderIcon(Context context, int gender) {
+        if (gender == 0) {
+            return ContextCompat.getDrawable(context, R.drawable.ic_male);
+        } else if (gender == 1) {
+            return ContextCompat.getDrawable(context, R.drawable.ic_female);
+        } else {
+            return ContextCompat.getDrawable(context, R.drawable.ic_secret_gender);
+        }
     }
 
     public static String getGender(Context context, int gender) {

@@ -133,6 +133,9 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
 
     @Override
     public void loginSuccess(boolean onUIThread, UserInfo userInfo) {
+        if (mPresenter != null) {
+            mPresenter.getConfig(userInfo.getuId());
+        }
         if (onUIThread) {
             ToastUtil.shortShow(LoginActivity.this, R.string.login_success);
         }
