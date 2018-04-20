@@ -90,9 +90,28 @@
     </RelativeLayout>
 
     <View
-        android:id="@+id/v_divider"
+        android:id="@+id/divider_ranking_version"
         style="@style/DividerViewStyle"
         app:layout_constraintTop_toBottomOf="@id/rl_sports_achievement"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_ranking_version"
+        style="@style/ItemRelativeStyle"
+        app:layout_constraintTop_toBottomOf="@id/divider_ranking_version">
+
+        <TextView
+            style="@style/ItemTextStyle"
+            android:text="@string/ranking_version" />
+
+        <ImageView
+            style="@style/ItemImageStyle" />
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/v_divider"
+        style="@style/DividerViewStyle"
+        app:layout_constraintTop_toBottomOf="@id/rl_ranking_version"/>
 
     <RelativeLayout
         android:id="@+id/rl_setting"

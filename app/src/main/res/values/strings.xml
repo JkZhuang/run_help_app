@@ -185,6 +185,7 @@
     <string name="feedback_hint">您想吐槽点什么呢？</string>
     <string name="contact">联系方式</string>
     <string name="contact_error">联系人格式有误</string>
+    <string name="ranking_version">排行版</string>
 
     <integer-array name="material_colors">
         <item>@color/material_black</item>

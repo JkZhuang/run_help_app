@@ -35,6 +35,7 @@ public class MeFragment extends BaseFragment<IMePresenter> implements IMeView {
     private TextView mTvNickName;
     private TextView mTvDynamicCount;
     private RelativeLayout mRlSportsAchievement;
+    private RelativeLayout mRlRankingVersion;
     private RelativeLayout mRlSetting;
 
     public static MeFragment newInstance(BaseActivity activity) {
@@ -64,6 +65,7 @@ public class MeFragment extends BaseFragment<IMePresenter> implements IMeView {
         mTvNickName = (TextView) mView.findViewById(R.id.tv_nick_name);
         mTvDynamicCount = (TextView) mView.findViewById(R.id.tv_dynamic_count);
         mRlSportsAchievement = (RelativeLayout) mView.findViewById(R.id.rl_sports_achievement);
+        mRlRankingVersion = (RelativeLayout) mView.findViewById(R.id.rl_ranking_version);
         mRlSetting = (RelativeLayout) mView.findViewById(R.id.rl_setting);
     }
 
@@ -71,6 +73,7 @@ public class MeFragment extends BaseFragment<IMePresenter> implements IMeView {
     protected void setListener() {
         MClInfoContainer.setOnClickListener(this);
         mRlSportsAchievement.setOnClickListener(this);
+        mRlRankingVersion.setOnClickListener(this);
         mRlSetting.setOnClickListener(this);
     }
 
@@ -92,6 +95,9 @@ public class MeFragment extends BaseFragment<IMePresenter> implements IMeView {
                 PersonalActivity.start(getContext());
                 break;
             case R.id.rl_sports_achievement:
+
+                break;
+            case R.id.rl_ranking_version:
 
                 break;
             case R.id.rl_setting:
