@@ -1,5 +1,7 @@
 package com.zjk.model;
 
+import java.util.ArrayList;
+
 /**
  * author : ZhuangJinKun
  * e-mail : zhuangjinkun@bigo.sg
@@ -11,7 +13,7 @@ public class UserConfig {
     public UserInfo userInfo;
     public int dynamicCount;
     public FallThreshold fallThreshold;
-    public TrainingSuggestData trainingSuggestData;
+    public ArrayList<TrainingSuggestData> trainingSuggestDataArrayList;
 
     @Override
     public String toString() {
@@ -19,7 +21,7 @@ public class UserConfig {
                 "userInfo=" + userInfo.toString() +
                 ", dynamicCount=" + dynamicCount +
                 ", fallThreshold=" + fallThreshold.toString() +
-                ", trainingSuggestData=" + trainingSuggestData.toString() +
+                ", trainingSuggestData=" + trainingSuggestDataArrayList.toString() +
                 '}';
     }
 }

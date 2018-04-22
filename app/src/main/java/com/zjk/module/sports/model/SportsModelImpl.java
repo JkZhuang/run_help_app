@@ -23,7 +23,7 @@ public class SportsModelImpl extends BaseModel<ISportsPresenter> implements ISpo
     @Override
     public void uploadSportsData(SportsData sportsData, final UploadSportsDataListener listener) {
         UploadSportsDataParam param = new UploadSportsDataParam();
-        param.page = "/sports_data/uploadSportsData";
+        param.page = "/sports/uploadSportsData";
         param.sportsData = sportsData;
         LogicImpl.getInstance().uploadSportsData(param, new LogicHandler<UpdateFallThresholdResult>() {
             @Override

@@ -101,9 +101,7 @@ public class DynamicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             builder.append(info.getUserName());
             builder.append(",");
         }
-        LikeForumInfo info = lFList.get(i);
-        builder.append(info.getUserName());
-        builder.append(",");
+        LikeForumInfo info = lFList.get(i);        builder.append(info.getUserName());
         return builder.toString();
     }
 

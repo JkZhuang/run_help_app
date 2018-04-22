@@ -27,6 +27,9 @@ import com.zjk.module.sports.UpdateSportsDataListener;
 import com.zjk.module.sports.bean.SportsBean;
 import com.zjk.module.sports.view.SportsActivity;
 import com.zjk.run_help.R;
+import com.zjk.util.CommonsUtil;
+import com.zjk.util.DateUtil;
+import com.zjk.util.DebugUtil;
 
 import java.util.Date;
 
@@ -42,9 +45,6 @@ public class GpsService extends Service implements LocationListener {
 
     private static final int REQUEST_GPS = 0;
     private static final int TIME_GPS_UPDATE = 500;
-    private static final int ONE_MINUTE = 60 * 1000;
-
-    private Handler mHandler = new Handler(Looper.getMainLooper());
 
     private SportsBean bean;
     private UpdateSportsDataListener listener;
@@ -55,18 +55,6 @@ public class GpsService extends Service implements LocationListener {
 
     private double lastLon = 0; // 经度
     private double lastLat = 0; // 纬度
-
-    private Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-            SportsGranularityData data = new SportsGranularityData();
-            data.setType(bean.getSportsData().getType());
-            data.setSpeed(bean.getCurSpeed());
-            data.setLatitude(lastLat);
-            data.setLongitude(lastLon);
-            bean.getSportsData().getrGDList().add(data);
-        }
-    };
 
     @Override
     public void onCreate() {
@@ -140,7 +128,6 @@ public class GpsService extends Service implements LocationListener {
     @Override
     public void onLocationChanged(Location location) {
         if (bean.isRunning() && bean.isCanLocationUsed()) {
-            mHandler.postDelayed(runnable, ONE_MINUTE);
             double currentLat = location.getLatitude();
             double currentLon = location.getLongitude();
 
@@ -170,7 +157,7 @@ public class GpsService extends Service implements LocationListener {
                     new isStillStopped().execute();
                 }
             }
-            listener.update();
+            listener.update(lastLon, lastLat);
             updateNotification(true);
         }
     }

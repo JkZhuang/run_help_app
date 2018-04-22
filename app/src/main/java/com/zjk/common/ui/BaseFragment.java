@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.zjk.common.app.App;
 import com.zjk.common.mvp.presenter.IBasePresenter;
 import com.zjk.model.UserInfo;
 import com.zjk.module.home.sports.base.view.BaseSportsFragment;
@@ -139,15 +140,20 @@ public abstract class BaseFragment<T extends IBasePresenter> extends Fragment im
     }
 
     public UserInfo getUserInfo() {
-        return mActivity.getUserInfo();
+        if (mActivity != null) {
+            return mActivity.getUserInfo();
+        }
+        return App.instance().getUserInfo();
     }
 
     /**
      * resultCode在activity里判断
+     *
      * @param requestCode
      * @param resultCode
      * @param data
      */
+
     protected void onFragmentResult(int requestCode, int resultCode, Intent data) {
 
     }

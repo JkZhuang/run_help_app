@@ -6,7 +6,11 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+import android.widget.Chronometer;
+import android.widget.TextView;
 
+import com.zjk.common.app.App;
+import com.zjk.model.TrainingSuggestData;
 import com.zjk.okhttp.DefList;
 import com.zjk.run_help.R;
 
@@ -76,5 +80,25 @@ public class CommonsUtil {
             e.printStackTrace();
             return context.getString(R.string.default_version);
         }
+    }
+
+    public static long getUseTime(TextView tvTime) {
+        String stringTime = tvTime.getText().toString().trim();
+        DebugUtil.debug("getTime", stringTime);
+        String[] arrayTime = stringTime.split(":");
+        long resultTime = 0;
+        for (String s : arrayTime) {
+            resultTime = resultTime * 60 + Long.valueOf(s);
+        }
+        return resultTime;
+    }
+
+    public static TrainingSuggestData getTrainingSuggestData(int type) {
+        for (TrainingSuggestData data : App.instance().getUserConfig().trainingSuggestDataArrayList) {
+            if (type == data.getType()) {
+                return data;
+            }
+        }
+        return null;
     }
 }

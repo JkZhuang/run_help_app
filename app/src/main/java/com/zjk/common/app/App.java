@@ -9,6 +9,8 @@ import com.zjk.model.TrainingSuggestData;
 import com.zjk.model.UserConfig;
 import com.zjk.model.UserInfo;
 
+import java.util.ArrayList;
+
 /**
  * author : ZhuangJinKun
  * e-mail : zhuangjinkun@bigo.sg
@@ -42,7 +44,7 @@ public class App extends Application {
         userConfig.userInfo = new UserInfo();
         userConfig.dynamicCount = 0;
         userConfig.fallThreshold = new FallThreshold();
-        userConfig.trainingSuggestData = new TrainingSuggestData();
+        userConfig.trainingSuggestDataArrayList = new ArrayList<>();
     }
 
     public static App instance() {

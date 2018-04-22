@@ -3,6 +3,8 @@ package com.zjk.result;
 import com.zjk.model.FallThreshold;
 import com.zjk.model.TrainingSuggestData;
 
+import java.util.ArrayList;
+
 /**
  * author : ZhuangJinKun
  * e-mail : zhuangjinkun@bigo.sg
@@ -13,5 +15,5 @@ public class GetConfigResult extends Result {
 
     public int dynamicCount;
     public FallThreshold fallThreshold;
-    public TrainingSuggestData trainingSuggestData;
+    public ArrayList<TrainingSuggestData> trainingSuggestDataArrayList;
 }

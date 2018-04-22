@@ -55,6 +55,7 @@
     <string name="urgent_phone_tips">为保障您的安全，请输入您的紧急联系人的号码…</string>
     <string name="urgent_phone">紧急联系人</string>
 
+    <string name="gps_can_no_use">手机定位不可用，请手动去设置权限</string>
     <string name="gps_word">GPS定位中…</string>
     <string name="gps_calculate">GPS计算中…</string>
     <string name="gps_no_signal">GPS无信号…</string>
@@ -159,6 +160,10 @@
     <string name="started_time">00:00:00</string>
     <string name="speed_util">小时/公里</string>
     <string name="zero">0</string>
+    <string name="finish_target_distance">您已经完成目标，继续加油哦</string>
+    <string name="alarm">警告</string>
+    <string name="please_slow_down">建议降低速度运动哦</string>
+    <string name="finish_time_suggested">您今天运动的量已经足了呢</string>
 
     <string name="upload_sports_data_ing">上传运动数据中…</string>
     <string name="upload_sports_data_success">上传运动数据成功</string>

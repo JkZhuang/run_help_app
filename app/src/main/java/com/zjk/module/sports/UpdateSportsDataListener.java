@@ -8,5 +8,5 @@ package com.zjk.module.sports;
 
 public interface UpdateSportsDataListener {
 
-    void update();
+    void update(double lon, double lat);
 }

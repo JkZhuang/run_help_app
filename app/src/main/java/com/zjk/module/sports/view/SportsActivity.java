@@ -19,6 +19,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.SystemClock;
+import android.os.Vibrator;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -30,7 +31,10 @@ import android.widget.Chronometer;
 import android.widget.TextView;
 
 import com.zjk.common.data.DefSports;
+import com.zjk.common.data.DefTime;
 import com.zjk.common.ui.BaseActivity;
+import com.zjk.model.SportsGranularityData;
+import com.zjk.model.TrainingSuggestData;
 import com.zjk.module.home.sports.base.view.BaseSportsFragment;
 import com.zjk.module.sports.UpdateSportsDataListener;
 import com.zjk.module.sports.bean.SportsBean;
@@ -39,6 +43,7 @@ import com.zjk.module.sports.presenter.ISportsPresenter;
 import com.zjk.module.sports.presenter.SportsPresenter;
 import com.zjk.result.Result;
 import com.zjk.run_help.R;
+import com.zjk.util.CommonsUtil;
 import com.zjk.util.DebugUtil;
 import com.zjk.util.ToastUtil;
 
@@ -56,6 +61,7 @@ public class SportsActivity extends BaseActivity<ISportsPresenter>
     private static final String TAG = "SportsActivity";
 
     private static final int REQUEST_FOR_ACCESS_FINE_LOCATION = 6;
+    private static final int REQUEST_FOR_VIBRATE = 7;
     private static final int REQUEST_PERMISSION_SETTING = 101;
 
     private TextView mTvTitle;
@@ -70,10 +76,32 @@ public class SportsActivity extends BaseActivity<ISportsPresenter>
     private ServiceConnection mServiceConnection = null;
     private GpsService mGpsService;
     private LocationManager mLocationManager;
+    private Vibrator vibrator;
 
     private SportsPresenter mPresenter;
     private SportsBean mBean;
     private double targetDistance;
+    private double lastLat;
+    private double lastLon;
+
+    private boolean remindTarget = true;
+    private boolean remindSpeed = true;
+    private boolean remindTime = true;
+
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            if (mBean.isRunning() && mBean.isCanLocationUsed()) {
+                SportsGranularityData data = new SportsGranularityData();
+                data.setType(mBean.getSportsData().getType());
+                data.setSpeed(mBean.getCurSpeed());
+                data.setLatitude(lastLat);
+                data.setLongitude(lastLon);
+                mBean.getSportsData().getrGDList().add(data);
+            }
+            mHandler.postDelayed(runnable, DefTime.ONE_MIN);
+        }
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -110,6 +138,7 @@ public class SportsActivity extends BaseActivity<ISportsPresenter>
 
     @Override
     protected void init() {
+        vibrator = (Vibrator) getSystemService(Service.VIBRATOR_SERVICE);
         mPresenter = new SportsPresenter(this);
         mBean = new SportsBean();
         mBean.setRunning(true);
@@ -218,6 +247,11 @@ public class SportsActivity extends BaseActivity<ISportsPresenter>
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     REQUEST_FOR_ACCESS_FINE_LOCATION);
         }
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.VIBRATE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.VIBRATE},
+                    REQUEST_FOR_VIBRATE);
+        }
     }
 
     private void setGpsListener() {
@@ -243,6 +277,7 @@ public class SportsActivity extends BaseActivity<ISportsPresenter>
                         mBean.getSportsData().setStartTime(new Date());
                         mBean.setCanLocationUsed(true);
                         updateUIStatus(true);
+                        mHandler.postDelayed(runnable, DefTime.ONE_MIN);
                     }
                 }
 
@@ -334,7 +369,7 @@ public class SportsActivity extends BaseActivity<ISportsPresenter>
                     .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-
+                            setLocationNoUseUI();
                         }
                     });
             builder.show();
@@ -362,6 +397,13 @@ public class SportsActivity extends BaseActivity<ISportsPresenter>
         }
     }
 
+    private void setLocationNoUseUI() {
+        mTvCalculateType.setText(R.string.gps_can_no_use);
+        mTvPause.setVisibility(View.GONE);
+        mTvCarryOn.setVisibility(View.GONE);
+        mTvEnd.setVisibility(View.GONE);
+    }
+
     private void pause() {
         mBean.setRunning(false);
         updateUI(true);
@@ -379,7 +421,7 @@ public class SportsActivity extends BaseActivity<ISportsPresenter>
             return;
         }
         mBean.getSportsData().setEndTime(new Date());
-        mBean.getSportsData().setUsedTime(Long.valueOf(String.valueOf(mCtUseTime.getContentDescription())));
+        mBean.getSportsData().setUsedTime(mBean.getSportsData().getUsedTime() / (60 * 1000));
         if (mPresenter != null) {
             mPresenter.uploadSportsData(mBean.getSportsData());
         }
@@ -392,9 +434,58 @@ public class SportsActivity extends BaseActivity<ISportsPresenter>
     }
 
     @Override
-    public void update() {
+    public void update(double lon, double lat) {
+        lastLon = lon;
+        lastLat = lat;
         mTvDistance.setText(String.format("%.2f", mBean.getSportsData().getDistance()));
         mTvSpeed.setText(String.format("%.2f", mBean.getCurSpeed()));
+        if (remindTarget && targetDistance > 0 && targetDistance <= mBean.getSportsData().getDistance()) {
+            vibrator.vibrate(DefTime.ONE_SECOND);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(R.string.finish_target_distance);
+            builder.setPositiveButton(R.string.sure, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    remindTarget = false;
+                    dialog.dismiss();
+                }
+            });
+            builder.show();
+        }
+        checkSportsData();
+    }
+
+    private void checkSportsData() {
+        TrainingSuggestData data = CommonsUtil.getTrainingSuggestData(mBean.getSportsData().getType());
+        if (data != null) {
+            if (remindSpeed && data.getMaxSpeed() < mBean.getCurSpeed()) {
+                vibrator.vibrate(DefTime.ONE_SECOND);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage(R.string.please_slow_down);
+                builder.setPositiveButton(R.string.sure, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        remindSpeed = false;
+                        dialog.dismiss();
+                    }
+                });
+                builder.show();
+            }
+
+            if (data.getMaxTime() <= mBean.getSportsData().getUsedTime() / (60 * 1000)) {
+                vibrator.vibrate(DefTime.ONE_SECOND);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage(R.string.finish_time_suggested);
+                builder.setPositiveButton(R.string.sure, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        remindTime = false;
+                        dialog.dismiss();
+                    }
+                });
+                builder.show();
+            }
+        }
     }
 
     @Override
@@ -418,6 +509,7 @@ public class SportsActivity extends BaseActivity<ISportsPresenter>
     public void uploadSportsDataSuccess(boolean bool) {
         if (bool) {
             ToastUtil.shortShow(this, R.string.upload_sports_data_success);
+            finish();
         } else {
             ToastUtil.shortShow(this, R.string.upload_sports_data_fail);
         }

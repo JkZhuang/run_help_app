@@ -67,8 +67,9 @@ public class LoginPresenter extends BasePresenterImpl<ILoginView, ILoginModel>
         if (result.fallThreshold != null) {
             userConfig.fallThreshold = result.fallThreshold;
         }
-        if (result.trainingSuggestData != null) {
-            userConfig.trainingSuggestData = result.trainingSuggestData;
+        if (result.trainingSuggestDataArrayList != null) {
+            userConfig.trainingSuggestDataArrayList.clear();
+            userConfig.trainingSuggestDataArrayList.addAll(result.trainingSuggestDataArrayList);
         }
     }
 
