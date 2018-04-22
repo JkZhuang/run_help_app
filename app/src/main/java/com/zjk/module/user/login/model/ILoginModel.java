@@ -2,6 +2,7 @@ package com.zjk.module.user.login.model;
 
 import com.zjk.common.mvp.mode.IModel;
 import com.zjk.model.UserInfo;
+import com.zjk.result.GetConfigResult;
 import com.zjk.result.Result;
 
 /**
@@ -19,5 +20,13 @@ public interface ILoginModel extends IModel {
         void onLoginSuccess(boolean onUIThread, UserInfo userInfo);
 
         void onLoginFail(boolean onUIThread, Result result);
+    }
+
+    void getConfig(int uId, OnGetConfigListener listener);
+
+    interface OnGetConfigListener {
+        void getConfigSuccess(GetConfigResult result);
+
+        void getConfigFail(GetConfigResult result);
     }
 }

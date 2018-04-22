@@ -12,4 +12,6 @@ import com.zjk.model.UserInfo;
 public interface ILoginPresenter extends IBasePresenter {
 
     void doLogin(UserInfo userInfo);
+
+    void getConfig(int uId);
 }

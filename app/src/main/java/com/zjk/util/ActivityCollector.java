@@ -5,9 +5,6 @@ import com.zjk.common.ui.BaseActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by 攀登者 on 2016/12/24.
- */
 public class ActivityCollector {
 
     private List<BaseActivity> activities = new ArrayList<>();
