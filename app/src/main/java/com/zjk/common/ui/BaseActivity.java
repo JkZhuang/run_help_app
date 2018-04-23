@@ -19,6 +19,7 @@ import android.widget.EditText;
 import com.zjk.common.app.App;
 import com.zjk.common.mvp.presenter.IBasePresenter;
 import com.zjk.common.mvp.view.IBaseView;
+import com.zjk.common.util.DisplayUtils;
 import com.zjk.common.util.Utils;
 import com.zjk.model.UserInfo;
 import com.zjk.module.user.login.view.LoginActivity;
@@ -54,7 +55,7 @@ public abstract class BaseActivity<T extends IBasePresenter> extends AppCompatAc
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setMiUIStatusBar(useDarkMode());
+        DisplayUtils.setStatusBarFontDark(getWindow(), useDarkMode());
         if (mPresenter != null) {
             mPresenter.onCreate();
         }

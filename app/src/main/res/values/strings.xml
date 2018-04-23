@@ -195,6 +195,14 @@
     <string name="get_ranking_fail">获取排行版失败</string>
     <string name="get_ranking_success">获取排行版成功</string>
 
+    <string name="get_sports_data_ing">获取运动数据中…</string>
+    <string name="get_sports_data_fail">获取运功数据失败</string>
+    <string name="get_sports_data_success">获取运动数据成功</string>
+    <string name="sports_a_content">您在 %s %s 了 %s 公里，用时 %s 分钟，最大速度为 %s 公里/小时</string>
+
+    <string name="sports_detail">运动详情</string>
+    <string name="instantaneous_speed">瞬时速度</string>
+
     <integer-array name="material_colors">
         <item>@color/material_black</item>
     </integer-array>

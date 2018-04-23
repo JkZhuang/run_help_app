@@ -119,6 +119,18 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
 
+        <activity android:name="com.zjk.module.sportsachievement.activity.view.SportsAchievementActivity"
+            android:label="@string/sports_achievement"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
+        <activity android:name="com.zjk.module.sportsachievement.detail.view.SportsDetailActivity"
+            android:label="@string/sports_detail"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
         <service android:name="com.zjk.module.sports.gps.service.GpsService" />
 
     </application>

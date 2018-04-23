@@ -18,6 +18,7 @@ import com.zjk.module.home.fragment.me.present.IMePresenter;
 import com.zjk.module.home.fragment.me.present.MePresenter;
 import com.zjk.module.ranking.view.RankingActivity;
 import com.zjk.module.setting.SettingActivity;
+import com.zjk.module.sportsachievement.activity.view.SportsAchievementActivity;
 import com.zjk.module.user.information.view.PersonalActivity;
 import com.zjk.run_help.R;
 import com.zjk.util.CommonsUtil;
@@ -96,7 +97,7 @@ public class MeFragment extends BaseFragment<IMePresenter> implements IMeView {
                 PersonalActivity.start(getContext());
                 break;
             case R.id.rl_sports_achievement:
-
+                SportsAchievementActivity.start(getContext());
                 break;
             case R.id.rl_ranking_version:
                 RankingActivity.start(getContext());
