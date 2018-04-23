@@ -440,13 +440,13 @@ public class SportsActivity extends BaseActivity<ISportsPresenter>
         mTvDistance.setText(String.format("%.2f", mBean.getSportsData().getDistance()));
         mTvSpeed.setText(String.format("%.2f", mBean.getCurSpeed()));
         if (remindTarget && targetDistance > 0 && targetDistance <= mBean.getSportsData().getDistance()) {
+            remindTarget = false;
             vibrator.vibrate(DefTime.ONE_SECOND);
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(R.string.finish_target_distance);
             builder.setPositiveButton(R.string.sure, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    remindTarget = false;
                     dialog.dismiss();
                 }
             });
@@ -459,27 +459,27 @@ public class SportsActivity extends BaseActivity<ISportsPresenter>
         TrainingSuggestData data = CommonsUtil.getTrainingSuggestData(mBean.getSportsData().getType());
         if (data != null) {
             if (remindSpeed && data.getMaxSpeed() < mBean.getCurSpeed()) {
+                remindSpeed = false;
                 vibrator.vibrate(DefTime.ONE_SECOND);
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setMessage(R.string.please_slow_down);
                 builder.setPositiveButton(R.string.sure, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        remindSpeed = false;
                         dialog.dismiss();
                     }
                 });
                 builder.show();
             }
 
-            if (data.getMaxTime() <= mBean.getSportsData().getUsedTime() / (60 * 1000)) {
+            if (remindTime && data.getMaxTime() <= mBean.getSportsData().getUsedTime() / (60 * 1000)) {
+                remindTime = false;
                 vibrator.vibrate(DefTime.ONE_SECOND);
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setMessage(R.string.finish_time_suggested);
                 builder.setPositiveButton(R.string.sure, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        remindTime = false;
                         dialog.dismiss();
                     }
                 });
