@@ -14,10 +14,6 @@ import java.util.List;
 
 public interface IRankingView extends IBaseView {
 
-    void showProgress(int msgId);
-
-    void hideProgress();
-
     void getRankingVersionSuccess(List<RankingVersion> rankingVersions);
 
     void getRankingVersionFail(Result result);

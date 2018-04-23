@@ -193,7 +193,6 @@ public class DynamicActivity extends BaseActivity<IDynamicPresenter> implements 
         if (isOnUIThread) {
             mMrlDynamicContainer.finishRefreshing();
             mAdapter.setData(forumInfos);
-            ToastUtil.shortShow(this, R.string.get_forum_success);
         }
     }
 

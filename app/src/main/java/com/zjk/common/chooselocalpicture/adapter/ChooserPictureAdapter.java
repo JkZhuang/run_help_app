@@ -75,7 +75,6 @@ public class ChooserPictureAdapter extends RecyclerView.Adapter {
             mIvPicture.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(mContext, String.valueOf(position), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent();
                     intent.putExtra(RegisterActivity.KEY_IMAGE, photoFileNameList.get(position));
                     mContext.setResult(Activity.RESULT_OK, intent);

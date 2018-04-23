@@ -107,16 +107,6 @@ public class SportsAchievementActivity extends BaseActivity implements IISportsA
     }
 
     @Override
-    public void showProgress(int msgRes) {
-        showLoadingDialog(msgRes);
-    }
-
-    @Override
-    public void hideProgress() {
-        dismissLoadingDialog();
-    }
-
-    @Override
     public void getUserSportsDataSuccess(List<SportsData> sportsDatas) {
         mMrlContainer.finishRefreshing();
         mAdapter.setData(sportsDatas);

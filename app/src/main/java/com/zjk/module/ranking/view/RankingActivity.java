@@ -106,16 +106,6 @@ public class RankingActivity extends BaseActivity implements IRankingView {
     }
 
     @Override
-    public void showProgress(int msgId) {
-        showLoadingDialog(msgId);
-    }
-
-    @Override
-    public void hideProgress() {
-        dismissLoadingDialog();
-    }
-
-    @Override
     public void getRankingVersionSuccess(List<RankingVersion> rankingVersions) {
         mMrlContainer.finishRefreshing();
         mAdapter.setData(rankingVersions);

@@ -28,9 +28,6 @@ public class RankingPresenter extends BasePresenterImpl<IRankingView, IRankingMo
 
     @Override
     public void getRankingVersion(int uId) {
-        if (mView != null) {
-            mView.showProgress(R.string.get_ranking_ing);
-        }
         if (mModel != null) {
             mModel.getRankingVersion(uId, this);
         }
@@ -39,7 +36,6 @@ public class RankingPresenter extends BasePresenterImpl<IRankingView, IRankingMo
     @Override
     public void getRankingSuccess(List<RankingVersion> rankingVersions) {
         if (mView != null) {
-            mView.hideProgress();
             mView.getRankingVersionSuccess(rankingVersions);
         }
     }
@@ -47,7 +43,6 @@ public class RankingPresenter extends BasePresenterImpl<IRankingView, IRankingMo
     @Override
     public void getRankingFail(Result result) {
         if (mView != null) {
-            mView.hideProgress();
             mView.getRankingVersionFail(result);
         }
     }

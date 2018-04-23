@@ -58,9 +58,6 @@ public class DynamicPresenter extends BasePresenterImpl<IDynamicView, IDynamicMo
 
     @Override
     public void getForum(int uId, int lastFId) {
-        if (mView != null) {
-            mView.showProgress(R.string.get_forum_ing);
-        }
         if (mModel != null) {
             mModel.getForum(uId, lastFId, this);
         }
@@ -91,7 +88,6 @@ public class DynamicPresenter extends BasePresenterImpl<IDynamicView, IDynamicMo
     @Override
     public void getForumSuccess(boolean isOnUIThread, List<ForumInfo> forumInfos) {
         if (mView != null) {
-            mView.hideProgress();
             mView.getForumSuccess(isOnUIThread, forumInfos);
         }
     }
@@ -99,7 +95,6 @@ public class DynamicPresenter extends BasePresenterImpl<IDynamicView, IDynamicMo
     @Override
     public void getForumFail(boolean isOnUIThread, Result result) {
         if (mView != null) {
-            mView.hideProgress();
             mView.getForumFail(isOnUIThread, result);
         }
     }

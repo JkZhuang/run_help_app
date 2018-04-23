@@ -127,20 +127,6 @@ public class SportsPlanningFragment extends BaseFragment<ISportsPlanningPresente
     }
 
     @Override
-    public void showProgress(int msgId) {
-        if (getActivity() instanceof IProgress) {
-            ((IProgress) getActivity()).showLoadingProgress(msgId);
-        }
-    }
-
-    @Override
-    public void hideProgress() {
-        if (getActivity() instanceof IProgress) {
-            ((IProgress) getActivity()).dismissLoadingProgress();
-        }
-    }
-
-    @Override
     public void getSportsSuggestionFail(boolean onUIThread, Result result) {
         if (onUIThread) {
             mMrlListContainer.finishRefreshing();
@@ -155,7 +141,6 @@ public class SportsPlanningFragment extends BaseFragment<ISportsPlanningPresente
             mData.clear();
             mData.addAll(data);
             mAdapter.setData(mData);
-            ToastUtil.shortShow(getContext(), R.string.get_sports_planning_suggestion_success);
         }
     }
 

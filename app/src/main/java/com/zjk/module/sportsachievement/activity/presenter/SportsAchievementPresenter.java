@@ -8,7 +8,6 @@ import com.zjk.module.sportsachievement.activity.model.ISportsAchievementModel;
 import com.zjk.module.sportsachievement.activity.model.SportsAchievementModelImpl;
 import com.zjk.module.sportsachievement.activity.view.IISportsAchievementView;
 import com.zjk.result.Result;
-import com.zjk.run_help.R;
 
 import java.util.List;
 
@@ -28,9 +27,6 @@ public class SportsAchievementPresenter extends BasePresenterImpl<IISportsAchiev
 
     @Override
     public void getUserSportsData(int uId) {
-        if (mView != null) {
-            mView.showProgress(R.string.get_sports_data_ing);
-        }
         if (mModel != null) {
             mModel.getUserSportsData(uId, this);
         }
@@ -39,7 +35,6 @@ public class SportsAchievementPresenter extends BasePresenterImpl<IISportsAchiev
     @Override
     public void getUserSportsDataSuccess(List<SportsData> sportsDatas) {
         if (mView != null) {
-            mView.hideProgress();
             mView.getUserSportsDataSuccess(sportsDatas);
         }
     }
@@ -47,7 +42,6 @@ public class SportsAchievementPresenter extends BasePresenterImpl<IISportsAchiev
     @Override
     public void getUserSportsDataFail(Result result) {
         if (mView != null) {
-            mView.hideProgress();
             mView.getUserSportsDataFail(result);
         }
     }

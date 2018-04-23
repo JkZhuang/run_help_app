@@ -14,10 +14,6 @@ import java.util.List;
 
 public interface IISportsAchievementView extends IBaseView {
 
-    void showProgress(int msgRes);
-
-    void hideProgress();
-
     void getUserSportsDataSuccess(List<SportsData> sportsDatas);
 
     void getUserSportsDataFail(Result result);

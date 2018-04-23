@@ -14,10 +14,6 @@ import java.util.List;
 
 public interface ISportsPlanningView extends IBaseView {
 
-    void showProgress(int msgId);
-
-    void hideProgress();
-
     void getSportsSuggestionFail(boolean onUIThread, Result result);
 
     void getSportsSuggestionSuccess(boolean onUIThread, List<SportsSuggestion> data);

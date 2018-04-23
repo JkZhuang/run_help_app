@@ -28,9 +28,6 @@ public class SportsPlanningPresenter extends BasePresenterImpl<ISportsPlanningVi
 
     @Override
     public void getSportsSuggestion(int uId) {
-        if (mView != null) {
-            mView.showProgress(R.string.get_sports_planning_suggestion_ing);
-        }
         if (mModel != null) {
             mModel.getSportsSuggestion(uId, this);
         }
@@ -39,7 +36,6 @@ public class SportsPlanningPresenter extends BasePresenterImpl<ISportsPlanningVi
     @Override
     public void getSportsSuggestionSuccess(boolean isOnUIThread, List<SportsSuggestion> data) {
         if (mView != null) {
-            mView.hideProgress();
             mView.getSportsSuggestionSuccess(isOnUIThread, data);
         }
     }
@@ -47,7 +43,6 @@ public class SportsPlanningPresenter extends BasePresenterImpl<ISportsPlanningVi
     @Override
     public void getSportsSuggestionFail(boolean isOnUIThread, Result result) {
         if (mView != null) {
-            mView.hideProgress();
             mView.getSportsSuggestionFail(isOnUIThread, result);
         }
     }
