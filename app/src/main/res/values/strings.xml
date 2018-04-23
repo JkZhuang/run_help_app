@@ -191,6 +191,9 @@
     <string name="contact">联系方式</string>
     <string name="contact_error">联系人格式有误</string>
     <string name="ranking_version">排行版</string>
+    <string name="get_ranking_ing">获取排行版中…</string>
+    <string name="get_ranking_fail">获取排行版失败</string>
+    <string name="get_ranking_success">获取排行版成功</string>
 
     <integer-array name="material_colors">
         <item>@color/material_black</item>

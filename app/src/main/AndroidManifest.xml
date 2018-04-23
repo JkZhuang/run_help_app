@@ -113,6 +113,12 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
 
+        <activity android:name="com.zjk.module.ranking.view.RankingActivity"
+            android:label="@string/ranking_version"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
         <service android:name="com.zjk.module.sports.gps.service.GpsService" />
 
     </application>
