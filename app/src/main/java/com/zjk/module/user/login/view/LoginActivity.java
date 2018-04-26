@@ -17,6 +17,7 @@ import com.zjk.common.sp.SpKey;
 import com.zjk.common.ui.BaseActivity;
 import com.zjk.model.UserInfo;
 import com.zjk.module.home.view.HomeActivity;
+import com.zjk.module.setting.lbs.LbsSettingActivity;
 import com.zjk.module.user.login.present.ILoginPresenter;
 import com.zjk.module.user.login.present.LoginPresenter;
 import com.zjk.module.user.register.view.RegisterActivity;
@@ -38,6 +39,7 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
     private EditText mEtPassword;
     private TextView mTvLogin;
     private TextView mTvRegister;
+    private TextView mTvSetLbs;
 
     private LoginPresenter mPresenter;
 
@@ -70,12 +72,14 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         mEtPassword = (EditText) findViewById(R.id.et_password);
         mTvLogin = (TextView) findViewById(R.id.tv_login);
         mTvRegister = (TextView) findViewById(R.id.tv_register);
+        mTvSetLbs = (TextView) findViewById(R.id.tv_set_lbs);
     }
 
     @Override
     protected void setListener() {
         mTvLogin.setOnClickListener(this);
         mTvRegister.setOnClickListener(this);
+        mTvSetLbs.setOnClickListener(this);
     }
 
     @Override
@@ -110,6 +114,9 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
                 break;
             case R.id.tv_register:
                 RegisterActivity.start(LoginActivity.this);
+                break;
+            case R.id.tv_set_lbs:
+                LbsSettingActivity.start(LoginActivity.this);
                 break;
         }
     }

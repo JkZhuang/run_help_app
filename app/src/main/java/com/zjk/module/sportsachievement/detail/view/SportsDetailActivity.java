@@ -20,6 +20,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.zjk.common.data.DefTime;
 import com.zjk.common.ui.BaseChartActivity;
 import com.zjk.model.SportsData;
 import com.zjk.run_help.R;
@@ -92,7 +93,7 @@ public class SportsDetailActivity extends BaseChartActivity implements OnChartVa
         // add data
         initData();
 
-        mChart.animateX(2500);
+        mChart.animateX(DefTime.ONE_SECOND);
 
         // get the legend (only possible after setting data)
         Legend l = mChart.getLegend();

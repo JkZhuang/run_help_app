@@ -95,6 +95,13 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
 
+        <activity
+            android:name="com.zjk.module.setting.lbs.LbsSettingActivity"
+            android:label="@string/set_lbs"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
         <activity android:name="com.zjk.module.setting.feedback.view.FeedbackActivity"
             android:label="@string/feedback"
             android:screenOrientation="portrait"

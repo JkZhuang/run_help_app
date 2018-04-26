@@ -12,6 +12,7 @@ import android.view.View;
 import com.zjk.common.ui.BaseActivity;
 import com.zjk.module.setting.about.view.AboutActivity;
 import com.zjk.module.setting.feedback.view.FeedbackActivity;
+import com.zjk.module.setting.lbs.LbsSettingActivity;
 import com.zjk.module.setting.permission.view.PermissionActivity;
 import com.zjk.run_help.R;
 import com.zjk.util.ActivityCollector;
@@ -52,6 +53,7 @@ public class SettingActivity extends BaseActivity {
     protected void setListener() {
         findViewById(R.id.rl_feedback).setOnClickListener(this);
         findViewById(R.id.rl_permission).setOnClickListener(this);
+        findViewById(R.id.rl_set_lbs).setOnClickListener(this);
         findViewById(R.id.rl_about).setOnClickListener(this);
         findViewById(R.id.tv_sign_out).setOnClickListener(this);
     }
@@ -87,6 +89,9 @@ public class SettingActivity extends BaseActivity {
                 break;
             case R.id.rl_permission:
                 PermissionActivity.start(SettingActivity.this);
+                break;
+            case R.id.rl_set_lbs:
+                LbsSettingActivity.start(SettingActivity.this);
                 break;
             case R.id.rl_about:
                 AboutActivity.start(SettingActivity.this);

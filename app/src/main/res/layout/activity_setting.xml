@@ -46,6 +46,20 @@
 
             </RelativeLayout>
 
+            <View style="@style/DividerViewStyle" />
+
+            <RelativeLayout
+                android:id="@+id/rl_set_lbs"
+                style="@style/ItemRelativeStyle">
+
+                <TextView
+                    style="@style/ItemTextStyle"
+                    android:text="@string/set_lbs" />
+
+                <ImageView style="@style/ItemImageStyle" />
+
+            </RelativeLayout>
+
             <!--<View style="@style/DividerViewStyle" />
 
             <TextView

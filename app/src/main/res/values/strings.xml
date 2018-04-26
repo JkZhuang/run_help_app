@@ -193,6 +193,9 @@
 
     <string name="sports_detail">运动详情</string>
     <string name="instantaneous_speed">瞬时速度</string>
+    <string name="set_lbs">修改IP和端口号</string>
+    <string name="ip">IP</string>
+    <string name="port">PORT</string>
 
     <integer-array name="material_colors">
         <item>@color/material_black</item>
