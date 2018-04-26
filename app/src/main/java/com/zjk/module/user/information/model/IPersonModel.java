@@ -15,16 +15,16 @@ public interface IPersonModel extends IModel {
     void changeInfo(UserInfo userInfo, String path, OnChangeInfoListener listener);
 
     interface OnChangeInfoListener {
-        void changeSuccess(boolean onUIThread, boolean bool);
+        void changeSuccess(boolean bool);
 
-        void changeFail(boolean onUIThread, Result result);
+        void changeFail(Result result);
     }
 
     void getUpdateInfo(UserInfo userInfo, OnGetUpdateInfoListener listener);
 
     interface OnGetUpdateInfoListener {
-        void getUpdateInfoSuccess(boolean onUIThread, UserInfo userInfo);
+        void getUpdateInfoSuccess(UserInfo userInfo);
 
-        void getUpdateInfoFail(boolean onUIThread, Result result);
+        void getUpdateInfoFail(Result result);
     }
 }

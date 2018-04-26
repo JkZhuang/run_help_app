@@ -7,6 +7,8 @@ import com.zjk.module.sportsachievement.activity.presenter.ISportsAchievementPre
 import com.zjk.param.GetUserSportsDataParam;
 import com.zjk.result.GetUserSportsDataResult;
 
+import java.util.ArrayList;
+
 /**
  * author : ZhuangJinKun
  * e-mail : zhuangjinkun@bigo.sg
@@ -28,6 +30,9 @@ public class SportsAchievementModelImpl extends BaseModel<ISportsAchievementPres
             @Override
             public void onResult(GetUserSportsDataResult result, boolean onUIThread) {
                 if (onUIThread && result.isOk()) {
+                    if (result.sportsDatas == null) {
+                        result.sportsDatas = new ArrayList<>();
+                    }
                     listener.getUserSportsDataSuccess(result.sportsDatas);
                 } else if (onUIThread) {
                     listener.getUserSportsDataFail(result);

@@ -94,6 +94,7 @@ public class SportsActivity extends BaseActivity<ISportsPresenter>
             if (mBean.isRunning() && mBean.isCanLocationUsed()) {
                 SportsGranularityData data = new SportsGranularityData();
                 data.setType(mBean.getSportsData().getType());
+                data.setTime(new Date());
                 data.setSpeed(mBean.getCurSpeed());
                 data.setLatitude(lastLat);
                 data.setLongitude(lastLon);

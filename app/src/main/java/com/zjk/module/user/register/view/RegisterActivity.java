@@ -352,19 +352,17 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
     }
 
     @Override
-    public void registerFail(boolean onUIThread, Result result) {
-        if (result.status == 2 && onUIThread) {
+    public void registerFail(Result result) {
+        if (result.status == 2) {
             showHasRegisteredDialog();
-        } else if (onUIThread) {
+        } else {
             ToastUtil.shortShow(RegisterActivity.this, result.errMsg);
         }
     }
 
     @Override
-    public void registerSuccess(boolean onUIThread) {
-        if (onUIThread) {
-            showRegisterSucDialog();
-        }
+    public void registerSuccess() {
+        showRegisterSucDialog();
     }
 
     @Override

@@ -16,7 +16,7 @@ public interface ILoginView extends IBaseView {
 
     void hideProgress();
 
-    void loginFail(boolean onUIThread, Result result);
+    void loginFail(Result result);
 
-    void loginSuccess(boolean onUIThread, UserInfo userInfo);
+    void loginSuccess(UserInfo userInfo);
 }

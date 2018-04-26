@@ -17,8 +17,8 @@ public interface IRegisterModel extends IModel {
 
     interface OnRegisterListener {
 
-        void onRegisterSuccess(boolean onUIThread);
+        void onRegisterSuccess();
 
-        void onRegisterFail(boolean onUIThread, Result result);
+        void onRegisterFail(Result result);
     }
 }

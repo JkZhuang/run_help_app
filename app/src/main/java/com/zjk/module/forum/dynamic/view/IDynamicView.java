@@ -3,6 +3,7 @@ package com.zjk.module.forum.dynamic.view;
 import com.zjk.common.mvp.view.IBaseView;
 import com.zjk.model.CommentForumInfo;
 import com.zjk.model.ForumInfo;
+import com.zjk.model.LikeForumInfo;
 import com.zjk.result.Result;
 
 import java.util.List;
@@ -19,21 +20,17 @@ public interface IDynamicView extends IBaseView {
 
     void hideProgress();
 
-    void publishForumSuccess(boolean isOnUIThread, boolean bool);
+    void commentForumSuccess(boolean bool, CommentForumInfo commentForumInfo);
 
-    void publishForumFail(boolean isOnUIThread, Result result);
+    void commentForumFail(Result result);
 
-    void commentForumSuccess(boolean isOnUIThread, boolean bool);
+    void likeForumSuccess(boolean bool, LikeForumInfo likeForumInfo);
 
-    void commentForumFail(boolean isOnUIThread, Result result);
+    void likeForumFail( Result result);
 
-    void likeForumSuccess(boolean isOnUIThread, boolean bool);
+    void getForumSuccess(List<ForumInfo> forumInfos, boolean loadMore);
 
-    void likeForumFail(boolean isOnUIThread, Result result);
-
-    void getForumSuccess(boolean isOnUIThread, List<ForumInfo> forumInfos);
-
-    void getForumFail(boolean isOnUIThread, Result result);
+    void getForumFail(Result result);
 
     void showCommentWidget(ForumInfo forumInfo, CommentForumInfo commentForumInfo);
 

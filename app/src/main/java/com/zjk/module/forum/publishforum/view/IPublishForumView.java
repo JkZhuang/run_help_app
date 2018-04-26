@@ -15,7 +15,7 @@ public interface IPublishForumView extends IBaseView {
 
     void hideProgress();
 
-    void publishForumSuccess(boolean isOnUIThread, boolean bool);
+    void publishForumSuccess(boolean bool);
 
-    void publishForumFail(boolean isOnUIThread, Result result);
+    void publishForumFail(Result result);
 }

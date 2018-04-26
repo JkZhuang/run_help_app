@@ -15,7 +15,7 @@ public interface IRegisterView extends IBaseView {
 
     void hideProgress();
 
-    void registerFail(boolean onUIThread, Result result);
+    void registerFail(Result result);
 
-    void registerSuccess(boolean onUIThread);
+    void registerSuccess();
 }

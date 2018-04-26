@@ -29,9 +29,9 @@ public class PublishForumModelImpl extends BaseModel<IPublishForumPresenter> imp
             @Override
             public void onResult(PublishForumResult result, boolean onUIThread) {
                 if (onUIThread && result.isOk()) {
-                    listener.publishForumSuccess(onUIThread, result.bool);
+                    listener.publishForumSuccess(result.bool);
                 } else if (onUIThread) {
-                    listener.publishForumFail(onUIThread, result);
+                    listener.publishForumFail(result);
                 }
             }
         });

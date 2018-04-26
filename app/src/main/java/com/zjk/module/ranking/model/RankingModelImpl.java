@@ -8,6 +8,8 @@ import com.zjk.param.GetConfigParam;
 import com.zjk.param.GetRankingVersionParam;
 import com.zjk.result.GetRankingVersionResult;
 
+import java.util.ArrayList;
+
 /**
  * author : ZhuangJinKun
  * e-mail : zhuangjinkun@bigo.sg
@@ -29,6 +31,9 @@ public class RankingModelImpl extends BaseModel<IRankingPresenter> implements IR
             @Override
             public void onResult(GetRankingVersionResult result, boolean onUIThread) {
                 if (result.isOk() && onUIThread) {
+                    if (result.rankingVersions == null) {
+                        result.rankingVersions = new ArrayList<>();
+                    }
                     listener.getRankingSuccess(result.rankingVersions);
                 } else if (onUIThread) {
                     listener.getRankingFail(result);

@@ -34,18 +34,18 @@ public class RegisterPresenter extends BasePresenterImpl<IRegisterView, IRegiste
     }
 
     @Override
-    public void onRegisterSuccess(boolean onUIThread) {
+    public void onRegisterSuccess() {
         if (mView != null) {
             mView.hideProgress();
-            mView.registerSuccess(onUIThread);
+            mView.registerSuccess();
         }
     }
 
     @Override
-    public void onRegisterFail(boolean onUIThread, Result result) {
+    public void onRegisterFail(Result result) {
         if (mView != null) {
             mView.hideProgress();
-            mView.registerFail(onUIThread, result);
+            mView.registerFail(result);
         }
     }
 }

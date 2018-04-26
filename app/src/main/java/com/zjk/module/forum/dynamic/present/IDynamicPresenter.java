@@ -13,13 +13,11 @@ import com.zjk.model.LikeForumInfo;
 
 public interface IDynamicPresenter extends IBasePresenter {
 
-    void publishForum(ForumInfo forumInfo);
-
     void commentForum(CommentForumInfo commentForumInfo);
 
     void likeForum(LikeForumInfo likeForumInfo);
 
-    void getForum(int uId, int lastFId);
+    void getForum(int uId, int lastFId, boolean loadMore);
 
     void showCommentWidget(ForumInfo forumInfo, CommentForumInfo commentForumInfo);
 

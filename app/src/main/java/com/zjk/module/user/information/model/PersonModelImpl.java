@@ -35,9 +35,9 @@ public class PersonModelImpl extends BaseModel<IPersonPresenter> implements IPer
                 @Override
                 public void onResult(ChangeUserInfoResult result, boolean onUIThread) {
                     if (result.isOk() && onUIThread) {
-                        listener.changeSuccess(true, result.bool);
+                        listener.changeSuccess(result.bool);
                     } else if (onUIThread) {
-                        listener.changeFail(true, result);
+                        listener.changeFail(result);
                     }
                 }
             });
@@ -47,9 +47,9 @@ public class PersonModelImpl extends BaseModel<IPersonPresenter> implements IPer
                 @Override
                 public void onResult(ChangeUserInfoResult result, boolean onUIThread) {
                     if (result.isOk() && onUIThread) {
-                        listener.changeSuccess(true, result.bool);
+                        listener.changeSuccess(result.bool);
                     } else if (onUIThread) {
-                        listener.changeFail(true, result);
+                        listener.changeFail(result);
                     }
                 }
             });
@@ -65,9 +65,9 @@ public class PersonModelImpl extends BaseModel<IPersonPresenter> implements IPer
             @Override
             public void onResult(LoginResult result, boolean onUIThread) {
                 if (result.isOk() && onUIThread) {
-                    listener.getUpdateInfoSuccess(true, result.userInfo);
+                    listener.getUpdateInfoSuccess(result.userInfo);
                 } else if (onUIThread) {
-                    listener.getUpdateInfoFail(true, result);
+                    listener.getUpdateInfoFail(result);
                 }
             }
         });

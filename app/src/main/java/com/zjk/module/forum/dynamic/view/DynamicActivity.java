@@ -21,6 +21,7 @@ import com.zjk.common.ui.refresh.MaterialRefreshLayout;
 import com.zjk.common.ui.refresh.MaterialRefreshListener;
 import com.zjk.model.CommentForumInfo;
 import com.zjk.model.ForumInfo;
+import com.zjk.model.LikeForumInfo;
 import com.zjk.module.forum.dynamic.adapter.DynamicAdapter;
 import com.zjk.module.forum.dynamic.model.DynamicModelImpl;
 import com.zjk.module.forum.dynamic.present.DynamicPresenter;
@@ -31,6 +32,7 @@ import com.zjk.run_help.R;
 import com.zjk.util.DebugUtil;
 import com.zjk.util.ToastUtil;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -56,6 +58,7 @@ public class DynamicActivity extends BaseActivity<IDynamicPresenter> implements 
     private DynamicAdapter mAdapter;
     private DynamicPresenter mPresenter;
 
+    private List<ForumInfo> data = new ArrayList<>();
     // 评论时保存引用
     private ForumInfo mForumInfo;
     private CommentForumInfo mCommentForumInfo;
@@ -112,19 +115,21 @@ public class DynamicActivity extends BaseActivity<IDynamicPresenter> implements 
                 mMrlDynamicContainer.autoRefresh();
             }
         }, 100);
+        mMrlDynamicContainer.setLoadMore(true);
         mMrlDynamicContainer.setMaterialRefreshListener(new MaterialRefreshListener() {
             @Override
             public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
                 if (mPresenter != null) {
                     DebugUtil.debug(TAG, "onRefresh");
-                    mPresenter.getForum(getUserInfo().getuId(), 0);
+                    mPresenter.getForum(getUserInfo().getuId(), 0, false);
                 }
             }
 
             @Override
             public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
                 if (mPresenter != null) {
-
+                    DebugUtil.debug(TAG, "onRefreshLoadMore");
+                    mPresenter.getForum(getUserInfo().getuId(), data.get(data.size() - 1).getfId(), true);
                 }
             }
         });
@@ -153,55 +158,52 @@ public class DynamicActivity extends BaseActivity<IDynamicPresenter> implements 
     }
 
     @Override
-    public void publishForumSuccess(boolean isOnUIThread, boolean bool) {
-
-    }
-
-    @Override
-    public void publishForumFail(boolean isOnUIThread, Result result) {
-
-    }
-
-    @Override
-    public void commentForumSuccess(boolean isOnUIThread, boolean bool) {
-        if (isOnUIThread && bool) {
-            mPresenter.getForum(getUserInfo().getuId(), 0);
+    public void commentForumSuccess(boolean bool, CommentForumInfo commentForumInfo) {
+        if (bool) {
+            mPresenter.getForum(getUserInfo().getuId(), 0, false);
         }
     }
 
     @Override
-    public void commentForumFail(boolean isOnUIThread, Result result) {
-        if (isOnUIThread) {
-            ToastUtil.shortShow(this, result.errMsg);
+    public void commentForumFail(Result result) {
+        ToastUtil.shortShow(this, result.errMsg);
+    }
+
+    @Override
+    public void likeForumSuccess(boolean bool, LikeForumInfo likeForumInfo) {
+        if (bool) {
+            mPresenter.getForum(getUserInfo().getuId(), 0, false);
         }
     }
 
     @Override
-    public void likeForumSuccess(boolean isOnUIThread, boolean bool) {
-        if (isOnUIThread && bool) {
-            mPresenter.getForum(getUserInfo().getuId(), 0);
-        }
-    }
-
-    @Override
-    public void likeForumFail(boolean isOnUIThread, Result result) {
+    public void likeForumFail(Result result) {
 
     }
 
     @Override
-    public void getForumSuccess(boolean isOnUIThread, List<ForumInfo> forumInfos) {
-        if (isOnUIThread) {
-            mMrlDynamicContainer.finishRefreshing();
-            mAdapter.setData(forumInfos);
+    public void getForumSuccess(List<ForumInfo> forumInfos, boolean loadMore) {
+        if (!loadMore) {
+            data.clear();
+        }
+        data.addAll(forumInfos);
+        mMrlDynamicContainer.finishRefreshing();
+        mMrlDynamicContainer.finishRefreshLoadMore();
+        if (loadMore) {
+            mAdapter.setData(data, data.size() - forumInfos.size() - 1, forumInfos.size());
+        } else {
+            mAdapter.setData(data);
+        }
+        if (forumInfos.size() == 0) {
+            mMrlDynamicContainer.setLoadMore(false);
         }
     }
 
     @Override
-    public void getForumFail(boolean isOnUIThread, Result result) {
-        if (isOnUIThread) {
-            mMrlDynamicContainer.finishRefreshing();
-            ToastUtil.shortShow(this, result.errMsg);
-        }
+    public void getForumFail(Result result) {
+        mMrlDynamicContainer.finishRefreshing();
+        mMrlDynamicContainer.finishRefreshLoadMore();
+        ToastUtil.shortShow(this, result.errMsg);
     }
 
     @Override

@@ -45,34 +45,34 @@ public class PersonPresenter extends BasePresenterImpl<IPersonView, IPersonModel
     }
 
     @Override
-    public void changeSuccess(boolean onUIThread, boolean bool) {
+    public void changeSuccess(boolean bool) {
         if (mView != null) {
             mView.hideProgress();
-            mView.changeInfoSuccess(onUIThread, bool);
+            mView.changeInfoSuccess(bool);
         }
     }
 
     @Override
-    public void changeFail(boolean onUIThread, Result result) {
+    public void changeFail(Result result) {
         if (mView != null) {
             mView.hideProgress();
-            mView.changeInfoFail(onUIThread, result);
+            mView.changeInfoFail(result);
         }
     }
 
     @Override
-    public void getUpdateInfoSuccess(boolean onUIThread, UserInfo userInfo) {
+    public void getUpdateInfoSuccess(UserInfo userInfo) {
         if (mView != null) {
             mView.hideProgress();
-            mView.getUpdateInfoSuccess(onUIThread, userInfo);
+            mView.getUpdateInfoSuccess(userInfo);
         }
     }
 
     @Override
-    public void getUpdateInfoFail(boolean onUIThread, Result result) {
+    public void getUpdateInfoFail(Result result) {
         if (mView != null) {
             mView.hideProgress();
-            mView.getUpdateInfoFail(onUIThread, result);
+            mView.getUpdateInfoFail(result);
         }
     }
 }

@@ -45,18 +45,18 @@ public class LoginPresenter extends BasePresenterImpl<ILoginView, ILoginModel>
     }
 
     @Override
-    public void onLoginSuccess(boolean onUIThread, UserInfo userInfo) {
+    public void onLoginSuccess(UserInfo userInfo) {
         if (mView != null) {
             mView.hideProgress();
-            mView.loginSuccess(onUIThread, userInfo);
+            mView.loginSuccess(userInfo);
         }
     }
 
     @Override
-    public void onLoginFail(boolean onUIThread, Result result) {
+    public void onLoginFail(Result result) {
         if (mView != null) {
             mView.hideProgress();
-            mView.loginFail(onUIThread, result);
+            mView.loginFail(result);
         }
     }
 

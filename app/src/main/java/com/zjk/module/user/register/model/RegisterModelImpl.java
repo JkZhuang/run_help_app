@@ -29,9 +29,9 @@ public class RegisterModelImpl extends BaseModel<IRegisterPresenter> implements 
             @Override
             public void onResult(RegisteredResult result, boolean onUIThread) {
                 if (result.isOk() && result.bool) {
-                    listener.onRegisterSuccess(onUIThread);
+                    listener.onRegisterSuccess();
                 } else {
-                    listener.onRegisterFail(onUIThread, result);
+                    listener.onRegisterFail(result);
                 }
             }
         });

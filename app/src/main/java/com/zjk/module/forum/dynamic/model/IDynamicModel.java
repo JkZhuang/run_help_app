@@ -16,39 +16,30 @@ import java.util.List;
 
 public interface IDynamicModel extends IModel {
 
-    void publishForum(ForumInfo forumInfo, PublishForumListener listener);
-
-    interface PublishForumListener {
-
-        void publishForumSuccess(boolean isOnUIThread, boolean bool);
-
-        void publishForumFail(boolean isOnUIThread, Result result);
-    }
-
     void commentForum(CommentForumInfo commentForumInfo, CommentForumListener listener);
 
     interface CommentForumListener {
 
-        void commentForumSuccess(boolean isOnUIThread, boolean bool);
+        void commentForumSuccess(boolean bool, CommentForumInfo commentForumInfo);
 
-        void commentForumFail(boolean isOnUIThread, Result result);
+        void commentForumFail(Result result);
     }
 
     void likeForum(LikeForumInfo likeForumInfo, LikeForumListener listener);
 
     interface LikeForumListener {
 
-        void likeForumSuccess(boolean isOnUIThread, boolean bool);
+        void likeForumSuccess(boolean bool, LikeForumInfo likeForumInfo);
 
-        void likeForumFail(boolean isOnUIThread, Result result);
+        void likeForumFail(Result result);
     }
 
-    void getForum(int uId, int lastFId, GetForumListener listener);
+    void getForum(int uId, int lastFId, GetForumListener listener, boolean loadMore);
 
     interface GetForumListener {
 
-        void getForumSuccess(boolean isOnUIThread, List<ForumInfo> forumInfos);
+        void getForumSuccess(List<ForumInfo> forumInfos, boolean loadMore);
 
-        void getForumFail(boolean isOnUIThread, Result result);
+        void getForumFail(Result result);
     }
 }

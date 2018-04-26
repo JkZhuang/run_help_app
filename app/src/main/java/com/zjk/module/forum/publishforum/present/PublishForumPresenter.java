@@ -25,18 +25,18 @@ public class PublishForumPresenter extends BasePresenterImpl<IPublishForumView, 
     }
 
     @Override
-    public void publishForumSuccess(boolean isOnUIThread, boolean bool) {
+    public void publishForumSuccess(boolean bool) {
         if (mView != null) {
             mView.hideProgress();
-            mView.publishForumSuccess(isOnUIThread, bool);
+            mView.publishForumSuccess(bool);
         }
     }
 
     @Override
-    public void publishForumFail(boolean isOnUIThread, Result result) {
+    public void publishForumFail(Result result) {
         if (mView != null) {
             mView.hideProgress();
-            mView.publishForumFail(isOnUIThread, result);
+            mView.publishForumFail(result);
         }
     }
 

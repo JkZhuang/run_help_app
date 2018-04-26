@@ -17,9 +17,9 @@ public interface ILoginModel extends IModel {
 
     interface OnLoginListener {
 
-        void onLoginSuccess(boolean onUIThread, UserInfo userInfo);
+        void onLoginSuccess(UserInfo userInfo);
 
-        void onLoginFail(boolean onUIThread, Result result);
+        void onLoginFail(Result result);
     }
 
     void getConfig(int uId, OnGetConfigListener listener);

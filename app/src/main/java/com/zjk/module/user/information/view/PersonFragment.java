@@ -315,38 +315,32 @@ public class PersonFragment extends BaseFragment<IPersonPresenter> implements IP
     }
 
     @Override
-    public void changeInfoFail(boolean onUIThread, Result result) {
-        if (onUIThread) {
-            ToastUtil.shortShow(getContext(), result.errMsg);
-        }
+    public void changeInfoFail(Result result) {
+        ToastUtil.shortShow(getContext(), result.errMsg);
     }
 
     @Override
-    public void changeInfoSuccess(boolean onUIThread, boolean bool) {
-        if (onUIThread && bool) {
+    public void changeInfoSuccess(boolean bool) {
+        if (bool) {
             SpEditor.putAndApply(SpFileName.SP_USER, SpKey.USER_PHONE, userInfo.getPhone());
             SpEditor.putAndApply(SpFileName.SP_USER, SpKey.USER_PASSWORD, userInfo.getPassword());
             changeEditTextState();
             ToastUtil.shortShow(getContext(), R.string.change_info_success);
             mPresenter.getUpdateInfo(userInfo);
-        } else if (onUIThread) {
+        } else {
             ToastUtil.shortShow(getContext(), R.string.change_info_fail);
         }
     }
 
     @Override
-    public void getUpdateInfoFail(boolean onUIThread, Result result) {
-        if (onUIThread) {
-            ToastUtil.shortShow(getContext(), result.errMsg);
-        }
+    public void getUpdateInfoFail(Result result) {
+        ToastUtil.shortShow(getContext(), result.errMsg);
     }
 
     @Override
-    public void getUpdateInfoSuccess(boolean onUIThread, UserInfo userInfo) {
-        if (onUIThread) {
-            App.instance().setUserInfo(userInfo);
-            ToastUtil.shortShow(getContext(), R.string.get_update_info_success);
-        }
+    public void getUpdateInfoSuccess(UserInfo userInfo) {
+        App.instance().setUserInfo(userInfo);
+        ToastUtil.shortShow(getContext(), R.string.get_update_info_success);
     }
 
     @Override

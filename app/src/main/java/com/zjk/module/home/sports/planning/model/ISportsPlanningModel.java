@@ -17,8 +17,8 @@ public interface ISportsPlanningModel extends IModel {
     void getSportsSuggestion(int uId, GetSportsSuggestionListener listener);
 
     interface GetSportsSuggestionListener {
-        void getSportsSuggestionSuccess(boolean isOnUIThread, List<SportsSuggestion> data);
+        void getSportsSuggestionSuccess(List<SportsSuggestion> data);
 
-        void getSportsSuggestionFail(boolean isOnUIThread, Result result);
+        void getSportsSuggestionFail(Result result);
     }
 }

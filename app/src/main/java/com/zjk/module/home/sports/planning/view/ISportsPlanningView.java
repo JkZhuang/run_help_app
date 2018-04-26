@@ -14,7 +14,7 @@ import java.util.List;
 
 public interface ISportsPlanningView extends IBaseView {
 
-    void getSportsSuggestionFail(boolean onUIThread, Result result);
+    void getSportsSuggestionFail(Result result);
 
-    void getSportsSuggestionSuccess(boolean onUIThread, List<SportsSuggestion> data);
+    void getSportsSuggestionSuccess(List<SportsSuggestion> data);
 }

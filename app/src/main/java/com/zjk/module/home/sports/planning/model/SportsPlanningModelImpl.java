@@ -7,6 +7,8 @@ import com.zjk.module.home.sports.planning.present.ISportsPlanningPresenter;
 import com.zjk.param.GetSportsSuggestionParam;
 import com.zjk.result.GetSportsSuggestionResult;
 
+import java.util.ArrayList;
+
 /**
  * author : ZhuangJinKun
  * e-mail : zhuangjinkun@bigo.sg
@@ -28,9 +30,12 @@ public class SportsPlanningModelImpl extends BaseModel<ISportsPlanningPresenter>
             @Override
             public void onResult(GetSportsSuggestionResult result, boolean onUIThread) {
                 if (onUIThread && result.isOk()) {
-                    listener.getSportsSuggestionSuccess(onUIThread, result.sportsSuggestions);
+                    if (result.sportsSuggestions == null) {
+                        result.sportsSuggestions = new ArrayList<>();
+                    }
+                    listener.getSportsSuggestionSuccess(result.sportsSuggestions);
                 } else if (onUIThread) {
-                    listener.getSportsSuggestionFail(onUIThread, result);
+                    listener.getSportsSuggestionFail(result);
                 }
             }
         });

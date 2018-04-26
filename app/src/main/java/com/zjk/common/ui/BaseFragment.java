@@ -3,6 +3,8 @@ package com.zjk.common.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -25,12 +27,17 @@ public abstract class BaseFragment<T extends IBasePresenter> extends Fragment im
 
     protected static final String TAG = "BaseFragment";
     protected BaseActivity mActivity;
+    protected Handler mHandler = new Handler(Looper.getMainLooper());
 
     @Nullable
     protected T mPresenter;
 
     public BaseFragment() {
 
+    }
+
+    public Handler getHandler() {
+        return mHandler;
     }
 
     protected void setActivity(BaseActivity activity) {

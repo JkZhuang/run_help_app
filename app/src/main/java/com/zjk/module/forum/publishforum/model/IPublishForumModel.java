@@ -15,8 +15,8 @@ public interface IPublishForumModel extends IModel {
     void publish(ForumInfo forumInfo, PublishForumListener listener);
 
     interface PublishForumListener {
-        void publishForumSuccess(boolean isOnUIThread, boolean bool);
+        void publishForumSuccess(boolean bool);
 
-        void publishForumFail(boolean isOnUIThread, Result result);
+        void publishForumFail(Result result);
     }
 }

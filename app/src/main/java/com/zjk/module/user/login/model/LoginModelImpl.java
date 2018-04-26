@@ -31,9 +31,9 @@ public class LoginModelImpl extends BaseModel<ILoginPresenter> implements ILogin
             @Override
             public void onResult(LoginResult result, boolean onUIThread) {
                 if (result.isOk() && onUIThread) {
-                    listener.onLoginSuccess(true, result.userInfo);
+                    listener.onLoginSuccess(result.userInfo);
                 } else if (onUIThread) {
-                    listener.onLoginFail(true, result);
+                    listener.onLoginFail(result);
                 }
             }
         });

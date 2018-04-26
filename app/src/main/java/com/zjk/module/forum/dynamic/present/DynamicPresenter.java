@@ -22,21 +22,11 @@ import java.util.List;
  */
 
 public class DynamicPresenter extends BasePresenterImpl<IDynamicView, IDynamicModel> implements IDynamicPresenter, IDynamicModel.GetForumListener,
-        IDynamicModel.PublishForumListener, IDynamicModel.CommentForumListener, IDynamicModel.LikeForumListener {
+        IDynamicModel.CommentForumListener, IDynamicModel.LikeForumListener {
 
     public DynamicPresenter(@Nullable IDynamicView view) {
         super(view);
         mModel = new DynamicModelImpl(this);
-    }
-
-    @Override
-    public void publishForum(ForumInfo forumInfo) {
-        if (mView != null) {
-            mView.showProgress(R.string.publish_forum_ing);
-        }
-        if (mModel != null) {
-            mModel.publishForum(forumInfo, this);
-        }
     }
 
     @Override
@@ -57,9 +47,9 @@ public class DynamicPresenter extends BasePresenterImpl<IDynamicView, IDynamicMo
     }
 
     @Override
-    public void getForum(int uId, int lastFId) {
+    public void getForum(int uId, int lastFId, boolean loadMore) {
         if (mModel != null) {
-            mModel.getForum(uId, lastFId, this);
+            mModel.getForum(uId, lastFId, this, loadMore);
         }
     }
 
@@ -86,62 +76,46 @@ public class DynamicPresenter extends BasePresenterImpl<IDynamicView, IDynamicMo
     }
 
     @Override
-    public void getForumSuccess(boolean isOnUIThread, List<ForumInfo> forumInfos) {
+    public void getForumSuccess(List<ForumInfo> forumInfos, boolean loadMore) {
         if (mView != null) {
-            mView.getForumSuccess(isOnUIThread, forumInfos);
+            mView.getForumSuccess(forumInfos, loadMore);
         }
     }
 
     @Override
-    public void getForumFail(boolean isOnUIThread, Result result) {
+    public void getForumFail(Result result) {
         if (mView != null) {
-            mView.getForumFail(isOnUIThread, result);
+            mView.getForumFail(result);
         }
     }
 
     @Override
-    public void publishForumSuccess(boolean isOnUIThread, boolean bool) {
+    public void commentForumSuccess(boolean bool, CommentForumInfo commentForumInfo) {
         if (mView != null) {
             mView.hideProgress();
-            mView.publishForumSuccess(isOnUIThread, bool);
+            mView.commentForumSuccess(bool, commentForumInfo);
         }
     }
 
     @Override
-    public void publishForumFail(boolean isOnUIThread, Result result) {
+    public void commentForumFail(Result result) {
         if (mView != null) {
             mView.hideProgress();
-            mView.publishForumFail(isOnUIThread, result);
+            mView.commentForumFail(result);
         }
     }
 
     @Override
-    public void commentForumSuccess(boolean isOnUIThread, boolean bool) {
+    public void likeForumSuccess(boolean bool, LikeForumInfo likeForumInfo) {
         if (mView != null) {
-            mView.hideProgress();
-            mView.commentForumSuccess(isOnUIThread, bool);
+            mView.likeForumSuccess(bool, likeForumInfo);
         }
     }
 
     @Override
-    public void commentForumFail(boolean isOnUIThread, Result result) {
+    public void likeForumFail(Result result) {
         if (mView != null) {
-            mView.hideProgress();
-            mView.commentForumFail(isOnUIThread, result);
-        }
-    }
-
-    @Override
-    public void likeForumSuccess(boolean isOnUIThread, boolean bool) {
-        if (mView != null) {
-            mView.likeForumSuccess(isOnUIThread, bool);
-        }
-    }
-
-    @Override
-    public void likeForumFail(boolean isOnUIThread, Result result) {
-        if (mView != null) {
-            mView.likeForumFail(isOnUIThread, result);
+            mView.likeForumFail(result);
         }
     }
 }

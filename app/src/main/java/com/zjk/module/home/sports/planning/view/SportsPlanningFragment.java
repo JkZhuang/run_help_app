@@ -94,7 +94,7 @@ public class SportsPlanningFragment extends BaseFragment<ISportsPlanningPresente
                 (int) DeviceUtils.dipToPixels(10), 0, (int) DeviceUtils.dipToPixels(10), 0));
         mRvSportsPlanning.setAdapter(mAdapter);
 
-        mActivity.getHandler().postDelayed(new Runnable() {
+        getHandler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 mMrlListContainer.autoRefresh();
@@ -127,21 +127,17 @@ public class SportsPlanningFragment extends BaseFragment<ISportsPlanningPresente
     }
 
     @Override
-    public void getSportsSuggestionFail(boolean onUIThread, Result result) {
-        if (onUIThread) {
-            mMrlListContainer.finishRefreshing();
-            ToastUtil.shortShow(getContext(), R.string.get_sports_planning_suggestion_fail);
-        }
+    public void getSportsSuggestionFail(Result result) {
+        mMrlListContainer.finishRefreshing();
+        ToastUtil.shortShow(getContext(), R.string.get_sports_planning_suggestion_fail);
     }
 
     @Override
-    public void getSportsSuggestionSuccess(boolean onUIThread, List<SportsSuggestion> data) {
-        if (onUIThread) {
-            mMrlListContainer.finishRefreshing();
-            mData.clear();
-            mData.addAll(data);
-            mAdapter.setData(mData);
-        }
+    public void getSportsSuggestionSuccess(List<SportsSuggestion> data) {
+        mMrlListContainer.finishRefreshing();
+        mData.clear();
+        mData.addAll(data);
+        mAdapter.setData(mData);
     }
 
     @Override

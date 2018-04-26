@@ -125,20 +125,16 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
     }
 
     @Override
-    public void loginFail(boolean onUIThread, Result result) {
-        if (onUIThread) {
-            ToastUtil.shortShow(LoginActivity.this, result.errMsg);
-        }
+    public void loginFail(Result result) {
+        ToastUtil.shortShow(LoginActivity.this, result.errMsg);
     }
 
     @Override
-    public void loginSuccess(boolean onUIThread, UserInfo userInfo) {
+    public void loginSuccess(UserInfo userInfo) {
         if (mPresenter != null) {
             mPresenter.getConfig(userInfo.getuId());
         }
-        if (onUIThread) {
-            ToastUtil.shortShow(LoginActivity.this, R.string.login_success);
-        }
+        ToastUtil.shortShow(LoginActivity.this, R.string.login_success);
         App.instance().setUserInfo(userInfo);
         SpEditor.putAndApply(SpFileName.SP_USER, SpKey.USER_PHONE, userInfo.getPhone());
         SpEditor.putAndApply(SpFileName.SP_USER, SpKey.USER_PASSWORD, userInfo.getPassword());

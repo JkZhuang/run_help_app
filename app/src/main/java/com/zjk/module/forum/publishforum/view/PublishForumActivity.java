@@ -127,21 +127,19 @@ public class PublishForumActivity extends BaseActivity<IPublishForumPresenter> i
     }
 
     @Override
-    public void publishForumSuccess(boolean isOnUIThread, boolean bool) {
-        if (isOnUIThread && bool) {
+    public void publishForumSuccess(boolean bool) {
+        if (bool) {
             ToastUtil.shortShow(this, R.string.publish_forum_success);
             setResult(RESULT_OK);
             finish();
-        } else if (isOnUIThread) {
+        } else {
             ToastUtil.shortShow(this, R.string.publish_forum_fail);
         }
     }
 
     @Override
-    public void publishForumFail(boolean isOnUIThread, Result result) {
-        if (isOnUIThread) {
-            ToastUtil.shortShow(this, result.errMsg);
-        }
+    public void publishForumFail(Result result) {
+        ToastUtil.shortShow(this, result.errMsg);
     }
 
     @Override

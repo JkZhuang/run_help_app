@@ -16,6 +16,8 @@ import com.zjk.result.GetForumResult;
 import com.zjk.result.LikeForumResult;
 import com.zjk.result.PublishForumResult;
 
+import java.util.ArrayList;
+
 /**
  * author : ZhuangJinKun
  * e-mail : zhuangjinkun@bigo.sg
@@ -29,24 +31,7 @@ public class DynamicModelImpl extends BaseModel<IDynamicPresenter> implements ID
     }
 
     @Override
-    public void publishForum(ForumInfo forumInfo, final PublishForumListener listener) {
-        PublishForumParam param = new PublishForumParam();
-        param.page = "/forum/publishForum";
-        param.forumInfo = forumInfo;
-        LogicImpl.getInstance().publishForum(param, new LogicHandler<PublishForumResult>() {
-            @Override
-            public void onResult(PublishForumResult result, boolean onUIThread) {
-                if (result.isOk() && onUIThread) {
-                    listener.publishForumSuccess(onUIThread, result.bool);
-                } else if (onUIThread) {
-                    listener.publishForumFail(onUIThread, result);
-                }
-            }
-        });
-    }
-
-    @Override
-    public void commentForum(CommentForumInfo commentForumInfo, final CommentForumListener listener) {
+    public void commentForum(final CommentForumInfo commentForumInfo, final CommentForumListener listener) {
         CommentForumParam param = new CommentForumParam();
         param.page = "/forum/commentForum";
         param.commentForumInfo = commentForumInfo;
@@ -54,16 +39,16 @@ public class DynamicModelImpl extends BaseModel<IDynamicPresenter> implements ID
             @Override
             public void onResult(CommentForumResult result, boolean onUIThread) {
                 if (result.isOk() && onUIThread) {
-                    listener.commentForumSuccess(onUIThread, result.bool);
+                    listener.commentForumSuccess(result.bool, commentForumInfo);
                 } else if (onUIThread) {
-                    listener.commentForumFail(onUIThread, result);
+                    listener.commentForumFail(result);
                 }
             }
         });
     }
 
     @Override
-    public void likeForum(LikeForumInfo likeForumInfo, final LikeForumListener listener) {
+    public void likeForum(final LikeForumInfo likeForumInfo, final LikeForumListener listener) {
         LikeForumParam param = new LikeForumParam();
         param.page = "/forum/likeForum";
         param.likeForumInfo = likeForumInfo;
@@ -71,16 +56,16 @@ public class DynamicModelImpl extends BaseModel<IDynamicPresenter> implements ID
             @Override
             public void onResult(LikeForumResult result, boolean onUIThread) {
                 if (result.isOk() && onUIThread) {
-                    listener.likeForumSuccess(onUIThread, result.bool);
+                    listener.likeForumSuccess(result.bool, likeForumInfo);
                 } else if (onUIThread) {
-                    listener.likeForumFail(onUIThread, result);
+                    listener.likeForumFail(result);
                 }
             }
         });
     }
 
     @Override
-    public void getForum(int uId, int lastFId, final GetForumListener listener) {
+    public void getForum(int uId, int lastFId, final GetForumListener listener, final boolean loadMore) {
         GetForumParam param = new GetForumParam();
         param.page = "/forum/getForum";
         param.uId = uId;
@@ -89,9 +74,12 @@ public class DynamicModelImpl extends BaseModel<IDynamicPresenter> implements ID
             @Override
             public void onResult(GetForumResult result, boolean onUIThread) {
                 if (result.isOk() && onUIThread) {
-                    listener.getForumSuccess(onUIThread, result.forumInfos);
+                    if (result.forumInfos == null) {
+                        result.forumInfos = new ArrayList<>();
+                    }
+                    listener.getForumSuccess(result.forumInfos, loadMore);
                 } else if (onUIThread) {
-                    listener.getForumFail(onUIThread, result);
+                    listener.getForumFail(result);
                 }
             }
         });

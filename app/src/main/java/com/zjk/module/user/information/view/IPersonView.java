@@ -16,11 +16,11 @@ public interface IPersonView extends IBaseView {
 
     void hideProgress();
 
-    void changeInfoFail(boolean onUIThread, Result result);
+    void changeInfoFail(Result result);
 
-    void changeInfoSuccess(boolean onUIThread, boolean bool);
+    void changeInfoSuccess(boolean bool);
 
-    void getUpdateInfoFail(boolean onUIThread, Result result);
+    void getUpdateInfoFail(Result result);
 
-    void getUpdateInfoSuccess(boolean onUIThread, UserInfo userInfo);
+    void getUpdateInfoSuccess(UserInfo userInfo);
 }

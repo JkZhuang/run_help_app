@@ -79,24 +79,24 @@ public class BaseSportsFragment extends BaseFragment {
         }
         switch (mSportsType) {
             case DefSports.WALK:
-                mTvSportsType.setText(mActivity.getString(R.string.walking));
-                mTvBegin.setText(mActivity.getString(R.string.start_walk));
+                mTvSportsType.setText(getContext().getString(R.string.walking));
+                mTvBegin.setText(getContext().getString(R.string.start_walk));
                 break;
             case DefSports.RUNNING:
-                mTvSportsType.setText(mActivity.getString(R.string.running));
-                mTvBegin.setText(mActivity.getString(R.string.start_run));
+                mTvSportsType.setText(getContext().getString(R.string.running));
+                mTvBegin.setText(getContext().getString(R.string.start_run));
                 break;
             case DefSports.RIDING:
-                mTvSportsType.setText(mActivity.getString(R.string.ridding));
-                mTvBegin.setText(mActivity.getString(R.string.start_ride));
+                mTvSportsType.setText(getContext().getString(R.string.ridding));
+                mTvBegin.setText(getContext().getString(R.string.start_ride));
                 break;
             case DefSports.ROLLER_SKATING:
-                mTvSportsType.setText(mActivity.getString(R.string.roller_skating_));
-                mTvBegin.setText(mActivity.getString(R.string.start_skating));
+                mTvSportsType.setText(getContext().getString(R.string.roller_skating_));
+                mTvBegin.setText(getContext().getString(R.string.start_skating));
                 break;
             default:
-                mTvSportsType.setText(mActivity.getString(R.string.walking));
-                mTvBegin.setText(mActivity.getString(R.string.start_walk));
+                mTvSportsType.setText(getContext().getString(R.string.walking));
+                mTvBegin.setText(getContext().getString(R.string.start_walk));
                 break;
         }
     }
@@ -145,9 +145,9 @@ public class BaseSportsFragment extends BaseFragment {
         Bundle args = new Bundle();
         args.putInt(BaseSportsFragment.KEY_SPORTS_TYPE, mSportsType);
         args.putDouble(BaseSportsFragment.KEY_DISTANCE, targetDistance);
-        Intent intent = new Intent(mActivity, SportsActivity.class);
+        Intent intent = new Intent(getContext(), SportsActivity.class);
         intent.putExtras(args);
-        mActivity.startActivity(intent);
+        getContext().startActivity(intent);
     }
 
     @Override

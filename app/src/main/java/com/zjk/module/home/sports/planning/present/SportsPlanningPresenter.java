@@ -34,16 +34,16 @@ public class SportsPlanningPresenter extends BasePresenterImpl<ISportsPlanningVi
     }
 
     @Override
-    public void getSportsSuggestionSuccess(boolean isOnUIThread, List<SportsSuggestion> data) {
+    public void getSportsSuggestionSuccess(List<SportsSuggestion> data) {
         if (mView != null) {
-            mView.getSportsSuggestionSuccess(isOnUIThread, data);
+            mView.getSportsSuggestionSuccess(data);
         }
     }
 
     @Override
-    public void getSportsSuggestionFail(boolean isOnUIThread, Result result) {
+    public void getSportsSuggestionFail(Result result) {
         if (mView != null) {
-            mView.getSportsSuggestionFail(isOnUIThread, result);
+            mView.getSportsSuggestionFail(result);
         }
     }
 }

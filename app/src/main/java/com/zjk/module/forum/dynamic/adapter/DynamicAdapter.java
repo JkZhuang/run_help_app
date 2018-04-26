@@ -46,9 +46,28 @@ public class DynamicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         data = new ArrayList<>();
     }
 
+    /**
+     * 设置数据并全部更新
+     */
     public void setData(List<ForumInfo> data) {
         this.data = data;
         notifyDataSetChanged();
+    }
+
+    /**
+     * 设置数据并更新部分数据
+     */
+    public void setData(List<ForumInfo> data, int positionStart, int itemCount) {
+        this.data = data;
+        notifyItemRangeChanged(positionStart, itemCount);
+    }
+
+    /**
+     * 设置数据并更新某条数据
+     */
+    public void updateItem(List<ForumInfo> data, int position) {
+        this.data = data;
+        notifyItemChanged(position);
     }
 
     public List<ForumInfo> getData() {
