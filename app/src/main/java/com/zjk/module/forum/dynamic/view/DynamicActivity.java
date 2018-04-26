@@ -185,6 +185,7 @@ public class DynamicActivity extends BaseActivity<IDynamicPresenter> implements 
     public void getForumSuccess(List<ForumInfo> forumInfos, boolean loadMore) {
         if (!loadMore) {
             data.clear();
+            mMrlDynamicContainer.setLoadMore(true);
         }
         data.addAll(forumInfos);
         mMrlDynamicContainer.finishRefreshing();
