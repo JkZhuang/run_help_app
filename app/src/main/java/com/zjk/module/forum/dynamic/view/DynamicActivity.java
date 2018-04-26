@@ -23,7 +23,6 @@ import com.zjk.model.CommentForumInfo;
 import com.zjk.model.ForumInfo;
 import com.zjk.model.LikeForumInfo;
 import com.zjk.module.forum.dynamic.adapter.DynamicAdapter;
-import com.zjk.module.forum.dynamic.model.DynamicModelImpl;
 import com.zjk.module.forum.dynamic.present.DynamicPresenter;
 import com.zjk.module.forum.dynamic.present.IDynamicPresenter;
 import com.zjk.module.forum.publishforum.view.PublishForumActivity;
@@ -34,6 +33,7 @@ import com.zjk.util.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -45,6 +45,12 @@ public class DynamicActivity extends BaseActivity<IDynamicPresenter> implements 
     private static final String TAG = "DynamicActivity";
 
     private static final int REQUEST_PUBLISH_FORUM = 3;
+
+    // 操作
+    private static final int OPERA_REFRESH = 0;
+    private static final int OPERA_LOAD_MORE = 1;
+    private static final int OPERA_COMMENT = 2;
+    private static final int OPERA_LIKE = 3;
 
     private Toolbar mToolbar;
     private MaterialRefreshLayout mMrlDynamicContainer;
@@ -121,7 +127,7 @@ public class DynamicActivity extends BaseActivity<IDynamicPresenter> implements 
             public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
                 if (mPresenter != null) {
                     DebugUtil.debug(TAG, "onRefresh");
-                    mPresenter.getForum(getUserInfo().getuId(), 0, false);
+                    mPresenter.getForum(getUserInfo().getuId(), 0, OPERA_REFRESH);
                 }
             }
 
@@ -129,7 +135,7 @@ public class DynamicActivity extends BaseActivity<IDynamicPresenter> implements 
             public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
                 if (mPresenter != null) {
                     DebugUtil.debug(TAG, "onRefreshLoadMore");
-                    mPresenter.getForum(getUserInfo().getuId(), data.get(data.size() - 1).getfId(), true);
+                    mPresenter.getForum(getUserInfo().getuId(), data.get(data.size() - 1).getfId(), OPERA_LOAD_MORE);
                 }
             }
         });
@@ -158,9 +164,18 @@ public class DynamicActivity extends BaseActivity<IDynamicPresenter> implements 
     }
 
     @Override
-    public void commentForumSuccess(boolean bool, CommentForumInfo commentForumInfo) {
-        if (bool) {
-            mPresenter.getForum(getUserInfo().getuId(), 0, false);
+    public void commentForumSuccess(CommentForumInfo commentForumInfo) {
+        int index = -1;
+        for (int i = 0; i < data.size(); i++) {
+            ForumInfo forumInfo = data.get(i);
+            if (forumInfo.getfId() == commentForumInfo.getfId()) {
+                index = i;
+                forumInfo.getcFList().add(commentForumInfo);
+                break;
+            }
+        }
+        if (index != -1) {
+            mAdapter.updateItem(data, index);
         }
     }
 
@@ -170,9 +185,30 @@ public class DynamicActivity extends BaseActivity<IDynamicPresenter> implements 
     }
 
     @Override
-    public void likeForumSuccess(boolean bool, LikeForumInfo likeForumInfo) {
-        if (bool) {
-            mPresenter.getForum(getUserInfo().getuId(), 0, false);
+    public void likeForumSuccess(LikeForumInfo likeForumInfo) {
+        int index = -1;
+        boolean likeStatus = false;
+        for (int i = 0; i < data.size(); i++) {
+            ForumInfo forumInfo = data.get(i);
+            if (forumInfo.getfId() == likeForumInfo.getfId()) {
+                index = i;
+                Iterator<LikeForumInfo> iterable = forumInfo.getlFList().iterator();
+                while (iterable.hasNext()) {
+                    LikeForumInfo lInfo = iterable.next();
+                    if (lInfo.getfId() == likeForumInfo.getfId() && lInfo.getuId() == likeForumInfo.getuId()) {
+                        iterable.remove();
+                        likeStatus = true;
+                        break;
+                    }
+                }
+                if (!likeStatus) {
+                    forumInfo.getlFList().add(likeForumInfo);
+                }
+                break;
+            }
+        }
+        if (index != -1) {
+            mAdapter.updateItem(data, index);
         }
     }
 
@@ -182,26 +218,35 @@ public class DynamicActivity extends BaseActivity<IDynamicPresenter> implements 
     }
 
     @Override
-    public void getForumSuccess(List<ForumInfo> forumInfos, boolean loadMore) {
-        if (!loadMore) {
-            data.clear();
-            mMrlDynamicContainer.setLoadMore(true);
+    public void getForumSuccess(List<ForumInfo> forumInfos, int opera) {
+        switch (opera) {
+            case OPERA_REFRESH:
+                data.clear();
+                data.addAll(forumInfos);
+                mAdapter.setData(data);
+                mMrlDynamicContainer.setLoadMore(true);
+                break;
+            case OPERA_LOAD_MORE:
+                data.addAll(forumInfos);
+                mAdapter.setData(data, data.size() - forumInfos.size() - 1, forumInfos.size());
+                if (forumInfos.size() == 0) {
+                    mMrlDynamicContainer.setLoadMore(false);
+                }
+                break;
+            case OPERA_COMMENT:
+
+                break;
+            case OPERA_LIKE:
+
+                break;
         }
-        data.addAll(forumInfos);
+
         mMrlDynamicContainer.finishRefreshing();
         mMrlDynamicContainer.finishRefreshLoadMore();
-        if (loadMore) {
-            mAdapter.setData(data, data.size() - forumInfos.size() - 1, forumInfos.size());
-        } else {
-            mAdapter.setData(data);
-        }
-        if (forumInfos.size() == 0) {
-            mMrlDynamicContainer.setLoadMore(false);
-        }
     }
 
     @Override
-    public void getForumFail(Result result) {
+    public void getForumFail(Result result, int opera) {
         mMrlDynamicContainer.finishRefreshing();
         mMrlDynamicContainer.finishRefreshLoadMore();
         ToastUtil.shortShow(this, result.errMsg);

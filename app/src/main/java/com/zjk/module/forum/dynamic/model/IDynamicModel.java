@@ -20,7 +20,7 @@ public interface IDynamicModel extends IModel {
 
     interface CommentForumListener {
 
-        void commentForumSuccess(boolean bool, CommentForumInfo commentForumInfo);
+        void commentForumSuccess(CommentForumInfo commentForumInfo);
 
         void commentForumFail(Result result);
     }
@@ -29,17 +29,17 @@ public interface IDynamicModel extends IModel {
 
     interface LikeForumListener {
 
-        void likeForumSuccess(boolean bool, LikeForumInfo likeForumInfo);
+        void likeForumSuccess(LikeForumInfo likeForumInfo);
 
         void likeForumFail(Result result);
     }
 
-    void getForum(int uId, int lastFId, GetForumListener listener, boolean loadMore);
+    void getForum(int uId, int lastFId, GetForumListener listener, int opera);
 
     interface GetForumListener {
 
-        void getForumSuccess(List<ForumInfo> forumInfos, boolean loadMore);
+        void getForumSuccess(List<ForumInfo> forumInfos, int opera);
 
-        void getForumFail(Result result);
+        void getForumFail(Result result, int opera);
     }
 }

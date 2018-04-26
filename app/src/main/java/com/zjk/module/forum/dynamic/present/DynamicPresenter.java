@@ -47,9 +47,9 @@ public class DynamicPresenter extends BasePresenterImpl<IDynamicView, IDynamicMo
     }
 
     @Override
-    public void getForum(int uId, int lastFId, boolean loadMore) {
+    public void getForum(int uId, int lastFId, int opera) {
         if (mModel != null) {
-            mModel.getForum(uId, lastFId, this, loadMore);
+            mModel.getForum(uId, lastFId, this, opera);
         }
     }
 
@@ -76,24 +76,24 @@ public class DynamicPresenter extends BasePresenterImpl<IDynamicView, IDynamicMo
     }
 
     @Override
-    public void getForumSuccess(List<ForumInfo> forumInfos, boolean loadMore) {
+    public void getForumSuccess(List<ForumInfo> forumInfos, int opera) {
         if (mView != null) {
-            mView.getForumSuccess(forumInfos, loadMore);
+            mView.getForumSuccess(forumInfos, opera);
         }
     }
 
     @Override
-    public void getForumFail(Result result) {
+    public void getForumFail(Result result, int opera) {
         if (mView != null) {
-            mView.getForumFail(result);
+            mView.getForumFail(result, opera);
         }
     }
 
     @Override
-    public void commentForumSuccess(boolean bool, CommentForumInfo commentForumInfo) {
+    public void commentForumSuccess(CommentForumInfo commentForumInfo) {
         if (mView != null) {
             mView.hideProgress();
-            mView.commentForumSuccess(bool, commentForumInfo);
+            mView.commentForumSuccess(commentForumInfo);
         }
     }
 
@@ -106,9 +106,9 @@ public class DynamicPresenter extends BasePresenterImpl<IDynamicView, IDynamicMo
     }
 
     @Override
-    public void likeForumSuccess(boolean bool, LikeForumInfo likeForumInfo) {
+    public void likeForumSuccess(LikeForumInfo likeForumInfo) {
         if (mView != null) {
-            mView.likeForumSuccess(bool, likeForumInfo);
+            mView.likeForumSuccess(likeForumInfo);
         }
     }
 

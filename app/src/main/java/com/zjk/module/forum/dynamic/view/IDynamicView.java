@@ -20,17 +20,17 @@ public interface IDynamicView extends IBaseView {
 
     void hideProgress();
 
-    void commentForumSuccess(boolean bool, CommentForumInfo commentForumInfo);
+    void commentForumSuccess(CommentForumInfo commentForumInfo);
 
     void commentForumFail(Result result);
 
-    void likeForumSuccess(boolean bool, LikeForumInfo likeForumInfo);
+    void likeForumSuccess(LikeForumInfo likeForumInfo);
 
-    void likeForumFail( Result result);
+    void likeForumFail(Result result);
 
-    void getForumSuccess(List<ForumInfo> forumInfos, boolean loadMore);
+    void getForumSuccess(List<ForumInfo> forumInfos, int opera);
 
-    void getForumFail(Result result);
+    void getForumFail(Result result, int opera);
 
     void showCommentWidget(ForumInfo forumInfo, CommentForumInfo commentForumInfo);
 

@@ -38,8 +38,8 @@ public class DynamicModelImpl extends BaseModel<IDynamicPresenter> implements ID
         LogicImpl.getInstance().commentForum(param, new LogicHandler<CommentForumResult>() {
             @Override
             public void onResult(CommentForumResult result, boolean onUIThread) {
-                if (result.isOk() && onUIThread) {
-                    listener.commentForumSuccess(result.bool, commentForumInfo);
+                if (result.isOk() && onUIThread && result.bool) {
+                    listener.commentForumSuccess(commentForumInfo);
                 } else if (onUIThread) {
                     listener.commentForumFail(result);
                 }
@@ -55,8 +55,8 @@ public class DynamicModelImpl extends BaseModel<IDynamicPresenter> implements ID
         LogicImpl.getInstance().likeForum(param, new LogicHandler<LikeForumResult>() {
             @Override
             public void onResult(LikeForumResult result, boolean onUIThread) {
-                if (result.isOk() && onUIThread) {
-                    listener.likeForumSuccess(result.bool, likeForumInfo);
+                if (result.isOk() && onUIThread && result.bool) {
+                    listener.likeForumSuccess(likeForumInfo);
                 } else if (onUIThread) {
                     listener.likeForumFail(result);
                 }
@@ -65,7 +65,7 @@ public class DynamicModelImpl extends BaseModel<IDynamicPresenter> implements ID
     }
 
     @Override
-    public void getForum(int uId, int lastFId, final GetForumListener listener, final boolean loadMore) {
+    public void getForum(int uId, int lastFId, final GetForumListener listener, final int opera) {
         GetForumParam param = new GetForumParam();
         param.page = "/forum/getForum";
         param.uId = uId;
@@ -77,9 +77,9 @@ public class DynamicModelImpl extends BaseModel<IDynamicPresenter> implements ID
                     if (result.forumInfos == null) {
                         result.forumInfos = new ArrayList<>();
                     }
-                    listener.getForumSuccess(result.forumInfos, loadMore);
+                    listener.getForumSuccess(result.forumInfos, opera);
                 } else if (onUIThread) {
-                    listener.getForumFail(result);
+                    listener.getForumFail(result, opera);
                 }
             }
         });

@@ -17,7 +17,7 @@ public interface IDynamicPresenter extends IBasePresenter {
 
     void likeForum(LikeForumInfo likeForumInfo);
 
-    void getForum(int uId, int lastFId, boolean loadMore);
+    void getForum(int uId, int lastFId, int opera);
 
     void showCommentWidget(ForumInfo forumInfo, CommentForumInfo commentForumInfo);
 
