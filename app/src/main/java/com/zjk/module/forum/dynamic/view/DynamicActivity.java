@@ -30,6 +30,7 @@ import com.zjk.result.Result;
 import com.zjk.run_help.R;
 import com.zjk.util.DebugUtil;
 import com.zjk.util.ToastUtil;
+import com.zjk.util.ViewUtil;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -137,6 +138,19 @@ public class DynamicActivity extends BaseActivity<IDynamicPresenter> implements 
                     DebugUtil.debug(TAG, "onRefreshLoadMore");
                     mPresenter.getForum(getUserInfo().getuId(), data.get(data.size() - 1).getfId(), OPERA_LOAD_MORE);
                 }
+            }
+        });
+        mRvDynamic.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                ViewUtil.setViewVisible(mRlCommentContainer, View.GONE);
+                hideKeyboard(mEtComment);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
             }
         });
     }
