@@ -12,8 +12,6 @@ import com.zjk.model.ForumInfo;
 import com.zjk.module.forum.dynamic.present.DynamicPresenter;
 import com.zjk.run_help.R;
 
-import java.util.List;
-
 /**
  * author : ZhuangJinKun
  * e-mail : zhuangjinkun@bigo.sg
@@ -26,18 +24,12 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     private Context mContext;
     private ForumInfo mForumInfo;
-    private List<CommentForumInfo> data;
     private DynamicPresenter mPresenter;
 
     public CommentAdapter(Context context, ForumInfo forumInfo, DynamicPresenter presenter) {
         this.mContext = context;
         this.mForumInfo = forumInfo;
         this.mPresenter = presenter;
-    }
-
-    public void setData(List<CommentForumInfo> data) {
-        this.data = data;
-        notifyDataSetChanged();
     }
 
     @Override
@@ -53,7 +45,7 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return mForumInfo.getcFList().size();
     }
 
     class CommentViewHolder extends RecyclerView.ViewHolder {
@@ -66,7 +58,7 @@ public class CommentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
 
         public void bindData(int position) {
-            final CommentForumInfo info = data.get(position);
+            final CommentForumInfo info = mForumInfo.getcFList().get(position);
             String text = info.getUserName() + mContext.getResources().getString(R.string.reply) +
                     info.gettUserName() + ": " + info.getContent();
             mTvComment.setText(text);

@@ -21,6 +21,7 @@ import com.zjk.module.forum.dynamic.present.DynamicPresenter;
 import com.zjk.run_help.R;
 import com.zjk.util.CommonsUtil;
 import com.zjk.util.DateUtil;
+import com.zjk.util.DebugUtil;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -234,8 +235,8 @@ public class DynamicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             if (info.getcFList() == null || info.getcFList().size() == 0) {
                 mRvComment.setVisibility(View.GONE);
             } else {
+                mRvComment.setVisibility(View.VISIBLE);
                 mCommentAdapter = new CommentAdapter(mContext, info, mPresenter);
-                mCommentAdapter.setData(info.getcFList());
                 mRvComment.setLayoutManager(new LinearLayoutManager(mContext));
                 mRvComment.setAdapter(mCommentAdapter);
             }
