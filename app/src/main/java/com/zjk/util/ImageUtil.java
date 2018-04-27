@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.provider.MediaStore;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by pandengzhe on 2018/4/6.
@@ -45,6 +46,7 @@ public class ImageUtil {
             byte[] data = cursor.getBlob(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
             imageFileNameList.add(new String(data, 0, data.length - 1));
         }
+        Collections.reverse(imageFileNameList);
         return imageFileNameList;
     }
 
