@@ -28,9 +28,9 @@ public class RegisterModelImpl extends BaseModel<IRegisterPresenter> implements 
         LogicImpl.getInstance().register(param, new LogicHandler<RegisteredResult>() {
             @Override
             public void onResult(RegisteredResult result, boolean onUIThread) {
-                if (result.isOk() && result.bool) {
+                if (result.isOk() && result.bool && onUIThread) {
                     listener.onRegisterSuccess();
-                } else {
+                } else if (onUIThread){
                     listener.onRegisterFail(result);
                 }
             }
