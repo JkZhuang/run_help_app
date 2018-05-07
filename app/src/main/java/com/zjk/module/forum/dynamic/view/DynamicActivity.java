@@ -232,18 +232,23 @@ public class DynamicActivity extends BaseActivity<IDynamicPresenter> implements 
     }
 
     @Override
-    public void getForumSuccess(List<ForumInfo> forumInfos, int opera) {
+    public void getForumSuccess(List<ForumInfo> forumInfos, int opera, boolean isLastPage) {
         switch (opera) {
             case OPERA_REFRESH:
                 data.clear();
+                mAdapter.notifyDataSetChanged();
                 data.addAll(forumInfos);
                 mAdapter.setData(data);
-                mMrlDynamicContainer.setLoadMore(true);
+                if (isLastPage) {
+                    mMrlDynamicContainer.setLoadMore(false);
+                } else {
+                    mMrlDynamicContainer.setLoadMore(true);
+                }
                 break;
             case OPERA_LOAD_MORE:
                 data.addAll(forumInfos);
                 mAdapter.setData(data, data.size() - forumInfos.size() - 1, forumInfos.size());
-                if (forumInfos.size() == 0) {
+                if (isLastPage) {
                     mMrlDynamicContainer.setLoadMore(false);
                 }
                 break;

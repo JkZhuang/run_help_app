@@ -28,7 +28,7 @@ public interface IDynamicView extends IBaseView {
 
     void likeForumFail(Result result);
 
-    void getForumSuccess(List<ForumInfo> forumInfos, int opera);
+    void getForumSuccess(List<ForumInfo> forumInfos, int opera, boolean isLastPage);
 
     void getForumFail(Result result, int opera);
 

@@ -12,7 +12,7 @@
         android:layout_marginStart="@dimen/common_margin"
         android:layout_marginTop="@dimen/common_margin"
         android:src="@drawable/camera"
-        android:scaleType="fitXY"/>
+        android:scaleType="centerCrop"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

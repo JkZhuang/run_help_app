@@ -76,9 +76,9 @@ public class DynamicPresenter extends BasePresenterImpl<IDynamicView, IDynamicMo
     }
 
     @Override
-    public void getForumSuccess(List<ForumInfo> forumInfos, int opera) {
+    public void getForumSuccess(List<ForumInfo> forumInfos, int opera, boolean isLastPage) {
         if (mView != null) {
-            mView.getForumSuccess(forumInfos, opera);
+            mView.getForumSuccess(forumInfos, opera, isLastPage);
         }
     }
 

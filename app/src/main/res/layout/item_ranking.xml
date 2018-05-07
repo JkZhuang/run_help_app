@@ -17,7 +17,7 @@
         android:id="@+id/iv_head_photo"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@id/tv_ranking"
         android:layout_toEndOf="@id/tv_ranking"

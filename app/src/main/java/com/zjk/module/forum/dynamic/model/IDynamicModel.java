@@ -38,7 +38,7 @@ public interface IDynamicModel extends IModel {
 
     interface GetForumListener {
 
-        void getForumSuccess(List<ForumInfo> forumInfos, int opera);
+        void getForumSuccess(List<ForumInfo> forumInfos, int opera, boolean isLastPage);
 
         void getForumFail(Result result, int opera);
     }

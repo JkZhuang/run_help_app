@@ -77,7 +77,7 @@ public class DynamicModelImpl extends BaseModel<IDynamicPresenter> implements ID
                     if (result.forumInfos == null) {
                         result.forumInfos = new ArrayList<>();
                     }
-                    listener.getForumSuccess(result.forumInfos, opera);
+                    listener.getForumSuccess(result.forumInfos, opera, result.isLastPage);
                 } else if (onUIThread) {
                     listener.getForumFail(result, opera);
                 }
