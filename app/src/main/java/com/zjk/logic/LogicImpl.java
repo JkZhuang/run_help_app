@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import com.zjk.okhttp.HttpHelper;
 import com.zjk.param.ChangeUserInfoParam;
 import com.zjk.param.CommentForumParam;
+import com.zjk.param.DelSportsSuggestionParam;
 import com.zjk.param.GetConfigParam;
 import com.zjk.param.GetFeedbackParam;
 import com.zjk.param.GetForumParam;
@@ -23,6 +24,7 @@ import com.zjk.param.UploadImageParam;
 import com.zjk.param.UploadSportsDataParam;
 import com.zjk.result.ChangeUserInfoResult;
 import com.zjk.result.CommentForumResult;
+import com.zjk.result.DelSportsSuggestionResult;
 import com.zjk.result.GetConfigResult;
 import com.zjk.result.GetFeedbackResult;
 import com.zjk.result.GetForumResult;
@@ -179,6 +181,11 @@ public class LogicImpl implements Logic {
     @Override
     public void getConfig(GetConfigParam param, LogicHandler<GetConfigResult> handler) {
         getResult(param, handler, GetConfigResult.class);
+    }
+
+    @Override
+    public void delSportsSuggestion(DelSportsSuggestionParam param, LogicHandler<DelSportsSuggestionResult> handler) {
+        getResult(param, handler, DelSportsSuggestionResult.class);
     }
 
     private <P extends Param, R extends Result> void getUploadResult(final P param, final LogicHandler<R> handler, final Class<R> clazz, final String path) {

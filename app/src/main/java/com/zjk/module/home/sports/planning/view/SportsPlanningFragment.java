@@ -148,6 +148,7 @@ public class SportsPlanningFragment extends BaseFragment<ISportsPlanningPresente
         SportsSuggestion suggestion = mData.get(position);
         Bundle args = new Bundle();
         args.putDouble(BaseSportsFragment.KEY_DISTANCE, suggestion.getDistance());
+        args.putInt(BaseSportsFragment.KEY_SPORTS_SUGGESTION_ID, suggestion.getsSId());
         if (listener != null) {
             listener.switchFragment(suggestion.getType() + 1, args);
         }

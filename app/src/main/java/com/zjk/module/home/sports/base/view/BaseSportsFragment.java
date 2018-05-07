@@ -13,6 +13,8 @@ import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.zjk.common.data.DefSports;
 import com.zjk.common.ui.BaseFragment;
+import com.zjk.module.home.sports.base.present.BaseSportsPresenter;
+import com.zjk.module.home.sports.base.present.IBaseSportsPresenter;
 import com.zjk.module.sports.view.SportsActivity;
 import com.zjk.run_help.R;
 
@@ -23,7 +25,7 @@ import java.util.List;
  * Created by pandengzhe on 2018/3/31.
  */
 
-public class BaseSportsFragment extends BaseFragment {
+public class BaseSportsFragment extends BaseFragment<IBaseSportsPresenter> implements IBaseSportsView {
 
     private static final String TAG = "BaseSportsFragment";
 
@@ -31,6 +33,7 @@ public class BaseSportsFragment extends BaseFragment {
 
     public static final String KEY_SPORTS_TYPE = "sports_type";
     public static final String KEY_DISTANCE = "distance";
+    public static final String KEY_SPORTS_SUGGESTION_ID = "sports_suggestion_id";
 
     public static final int SPORTS_TYPE_WALK = 0;
     public static final int SPORTS_TYPE_RUN = 1;
@@ -45,6 +48,7 @@ public class BaseSportsFragment extends BaseFragment {
 
     protected int mSportsType;
     protected double targetDistance = 0d;
+    protected int sSId = -1;
     private List<Integer> distanceList;
 
     @Nullable
@@ -54,6 +58,7 @@ public class BaseSportsFragment extends BaseFragment {
         findWidget();
         setListener();
         init();
+        mPresenter = new BaseSportsPresenter(this);
         return mView;
     }
 
@@ -138,6 +143,7 @@ public class BaseSportsFragment extends BaseFragment {
     @Override
     public void setArgs(Bundle args) {
         targetDistance = args.getDouble(BaseSportsFragment.KEY_DISTANCE, targetDistance);
+        sSId = args.getInt(BaseSportsFragment.KEY_SPORTS_SUGGESTION_ID, sSId);
         mTvTotalKilometers.setText(String.format("%.2f", targetDistance));
     }
 
@@ -148,6 +154,9 @@ public class BaseSportsFragment extends BaseFragment {
         Intent intent = new Intent(getContext(), SportsActivity.class);
         intent.putExtras(args);
         getContext().startActivity(intent);
+        if (sSId > 0 && mPresenter != null) {
+            mPresenter.delSportsSuggestion(sSId);
+        }
     }
 
     @Override
