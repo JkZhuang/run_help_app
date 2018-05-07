@@ -2,12 +2,17 @@ package com.zjk.common.app;
 
 import android.app.Application;
 import android.content.Context;
+import android.text.TextUtils;
 
+import com.zjk.common.sp.SpEditor;
+import com.zjk.common.sp.SpFileName;
+import com.zjk.common.sp.SpKey;
 import com.zjk.common.util.AppUtils;
 import com.zjk.model.FallThreshold;
 import com.zjk.model.TrainingSuggestData;
 import com.zjk.model.UserConfig;
 import com.zjk.model.UserInfo;
+import com.zjk.okhttp.DefList;
 
 import java.util.ArrayList;
 
@@ -41,6 +46,10 @@ public class App extends Application {
     }
 
     private void init() {
+        String url = SpEditor.get(SpFileName.SP_SETTING, SpKey.KEY_LBS, "");
+        if (!TextUtils.isEmpty(url)) {
+            DefList.url = url;
+        }
         userConfig.userInfo = new UserInfo();
         userConfig.dynamicCount = 0;
         userConfig.fallThreshold = new FallThreshold();

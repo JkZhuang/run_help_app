@@ -27,7 +27,6 @@ import com.zjk.common.sp.SpKey;
 import com.zjk.common.ui.BaseActivity;
 import com.zjk.common.ui.BaseFragment;
 import com.zjk.model.UserInfo;
-import com.zjk.module.user.information.model.PersonModelImpl;
 import com.zjk.module.user.information.present.IPersonPresenter;
 import com.zjk.module.user.information.present.PersonPresenter;
 import com.zjk.okhttp.DefList;
@@ -322,8 +321,8 @@ public class PersonFragment extends BaseFragment<IPersonPresenter> implements IP
     @Override
     public void changeInfoSuccess(boolean bool) {
         if (bool) {
-            SpEditor.putAndApply(SpFileName.SP_USER, SpKey.USER_PHONE, userInfo.getPhone());
-            SpEditor.putAndApply(SpFileName.SP_USER, SpKey.USER_PASSWORD, userInfo.getPassword());
+            SpEditor.putAndApply(SpFileName.SP_USER, SpKey.KEY_USER_PHONE, userInfo.getPhone());
+            SpEditor.putAndApply(SpFileName.SP_USER, SpKey.KEY_USER_PASSWORD, userInfo.getPassword());
             changeEditTextState();
             ToastUtil.shortShow(getContext(), R.string.change_info_success);
             mPresenter.getUpdateInfo(userInfo);

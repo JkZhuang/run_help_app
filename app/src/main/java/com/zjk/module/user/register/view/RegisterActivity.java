@@ -32,7 +32,6 @@ import com.zjk.common.ui.NoScrollViewPager;
 import com.zjk.common.ui.ShapedImageView;
 import com.zjk.model.UserInfo;
 import com.zjk.module.user.login.view.LoginActivity;
-import com.zjk.module.user.register.model.RegisterModelImpl;
 import com.zjk.module.user.register.present.IRegisterPresenter;
 import com.zjk.module.user.register.present.RegisterPresenter;
 import com.zjk.okhttp.DefList;
@@ -279,8 +278,8 @@ public class RegisterActivity extends BaseActivity<IRegisterPresenter> implement
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-                        SpEditor.putAndApply(SpFileName.SP_USER, SpKey.USER_PHONE, mEtPhone.getText().toString().trim());
-                        SpEditor.putAndApply(SpFileName.SP_USER, SpKey.USER_PASSWORD, mEtPassword.getText().toString().trim());
+                        SpEditor.putAndApply(SpFileName.SP_USER, SpKey.KEY_USER_PHONE, mEtPhone.getText().toString().trim());
+                        SpEditor.putAndApply(SpFileName.SP_USER, SpKey.KEY_USER_PASSWORD, mEtPassword.getText().toString().trim());
                         finish();
                     }
                 })

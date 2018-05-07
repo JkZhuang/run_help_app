@@ -85,9 +85,9 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
     @Override
     protected void init() {
         setupActionBar(mToolbar);
-        if (!TextUtils.isEmpty(SpEditor.get(SpFileName.SP_USER, SpKey.USER_PHONE, ""))) {
-            mTvPhone.setText(SpEditor.get(SpFileName.SP_USER, SpKey.USER_PHONE, ""));
-            mEtPassword.setText(SpEditor.get(SpFileName.SP_USER, SpKey.USER_PASSWORD, ""));
+        if (!TextUtils.isEmpty(SpEditor.get(SpFileName.SP_USER, SpKey.KEY_USER_PHONE, ""))) {
+            mTvPhone.setText(SpEditor.get(SpFileName.SP_USER, SpKey.KEY_USER_PHONE, ""));
+            mEtPassword.setText(SpEditor.get(SpFileName.SP_USER, SpKey.KEY_USER_PASSWORD, ""));
         }
     }
 
@@ -143,8 +143,8 @@ public class LoginActivity extends BaseActivity<ILoginPresenter> implements ILog
         }
         ToastUtil.shortShow(LoginActivity.this, R.string.login_success);
         App.instance().setUserInfo(userInfo);
-        SpEditor.putAndApply(SpFileName.SP_USER, SpKey.USER_PHONE, userInfo.getPhone());
-        SpEditor.putAndApply(SpFileName.SP_USER, SpKey.USER_PASSWORD, userInfo.getPassword());
+        SpEditor.putAndApply(SpFileName.SP_USER, SpKey.KEY_USER_PHONE, userInfo.getPhone());
+        SpEditor.putAndApply(SpFileName.SP_USER, SpKey.KEY_USER_PASSWORD, userInfo.getPassword());
         HomeActivity.start(LoginActivity.this);
     }
 

@@ -9,6 +9,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 
+import com.zjk.common.sp.SpEditor;
+import com.zjk.common.sp.SpFileName;
+import com.zjk.common.sp.SpKey;
 import com.zjk.common.ui.BaseActivity;
 import com.zjk.okhttp.DefList;
 import com.zjk.run_help.R;
@@ -70,6 +73,7 @@ public class LbsSettingActivity extends BaseActivity {
                 DefList.ip = mEtIp.getText().toString().trim();
                 DefList.port = Integer.valueOf(mEtPort.getText().toString().trim());
                 DefList.url = "http://" + DefList.ip + ":" + String.valueOf(DefList.port);
+                SpEditor.putAndApply(SpFileName.SP_SETTING, SpKey.KEY_LBS, DefList.url);
                 hideKeyboard(mEtIp);
                 finish();
                 break;
