@@ -18,6 +18,7 @@ import com.zjk.common.ui.BaseActivity;
 import com.zjk.model.ForumInfo;
 import com.zjk.model.LikeForumInfo;
 import com.zjk.module.forum.dynamic.present.DynamicPresenter;
+import com.zjk.module.seelargerimage.view.SeeLargerImageActivity;
 import com.zjk.run_help.R;
 import com.zjk.util.CommonsUtil;
 import com.zjk.util.DateUtil;
@@ -198,6 +199,12 @@ public class DynamicAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             } else {
                 mIvContent.setVisibility(View.GONE);
             }
+            mIvContent.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SeeLargerImageActivity.start(mContext, info.getPhotoUrl());
+                }
+            });
             mTvTime.setText(DateUtil.dateToString(info.getTime()));
 
             if (checkHasLike(info.getlFList(), mContext.getUserInfo().getuId())) {

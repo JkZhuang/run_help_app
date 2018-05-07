@@ -197,6 +197,8 @@
     <string name="ip">IP</string>
     <string name="port">PORT</string>
 
+    <string name="see_larger_image">查看大图</string>
+
     <integer-array name="material_colors">
         <item>@color/material_black</item>
     </integer-array>

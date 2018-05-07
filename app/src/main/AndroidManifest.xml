@@ -138,6 +138,12 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
 
+        <activity android:name="com.zjk.module.seelargerimage.view.SeeLargerImageActivity"
+            android:label="@string/see_larger_image"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+
         <service android:name="com.zjk.module.sports.gps.service.GpsService" />
 
     </application>
