@@ -83,8 +83,8 @@ public class TrackSurfaceView extends SurfaceView implements SurfaceHolder.Callb
         super.onLayout(changed, left, top, right, bottom);
         width = this.getWidth();
         height = this.getHeight();
-        perW = (float) width * 111.0f / 6.0f;
-        perH = (float) height * 111.0f / 6.0f;
+        perW = (float) width * 111.0f / 8.0f;
+        perH = (float) height * 111.0f / 8.0f;
         startX = (float) width / 3.0f;
         startY = (float) height / 3.0f;
         mX = startX;
