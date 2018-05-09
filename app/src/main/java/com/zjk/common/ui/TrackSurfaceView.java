@@ -36,6 +36,12 @@ public class TrackSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     private float startX = 0f;
     private float startY = 120f;
 
+    private int width;
+    private int height;
+
+    private float perW;
+    private float perH;
+
     public TrackSurfaceView(Context context) {
         super(context);
         init(context);
@@ -75,8 +81,12 @@ public class TrackSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
-        startX = (float) this.getWidth() / 3.0f;
-        startY = (float) this.getWidth() / 3.0f;
+        width = this.getWidth();
+        height = this.getHeight();
+        perW = (float) width * 111.0f / 6.0f;
+        perH = (float) height * 111.0f / 6.0f;
+        startX = (float) width / 3.0f;
+        startY = (float) height / 3.0f;
         mX = startX;
         mY = startY;
         if (mPath != null) {
@@ -85,8 +95,8 @@ public class TrackSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     }
 
     public void setCoordinate(float x, float y) {
-        this.mX = x + startX;
-        this.mY = y + startY;
+        this.mX = x * perW + startX;
+        this.mY = y * perH + startY;
     }
 
     @Override
