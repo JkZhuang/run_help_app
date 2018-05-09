@@ -24,8 +24,6 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.text.SpannableString;
-import android.text.style.RelativeSizeSpan;
 import android.view.View;
 import android.widget.Chronometer;
 import android.widget.TextView;
@@ -33,6 +31,7 @@ import android.widget.TextView;
 import com.zjk.common.data.DefSports;
 import com.zjk.common.data.DefTime;
 import com.zjk.common.ui.BaseActivity;
+import com.zjk.common.ui.TrackSurfaceView;
 import com.zjk.model.SportsGranularityData;
 import com.zjk.model.TrainingSuggestData;
 import com.zjk.module.home.sports.base.view.BaseSportsFragment;
@@ -72,6 +71,7 @@ public class SportsActivity extends BaseActivity<ISportsPresenter>
     private TextView mTvPause;
     private TextView mTvCarryOn;
     private TextView mTvEnd;
+    private TrackSurfaceView mTrackSurfaceView;
 
     private ServiceConnection mServiceConnection = null;
     private GpsService mGpsService;
@@ -83,6 +83,8 @@ public class SportsActivity extends BaseActivity<ISportsPresenter>
     private double targetDistance;
     private double lastLat;
     private double lastLon;
+    private float mTrackX = 0.0f;
+    private float mTrackY = 0.0f;
 
     private boolean remindTarget = true;
     private boolean remindSpeed = true;
@@ -128,6 +130,7 @@ public class SportsActivity extends BaseActivity<ISportsPresenter>
         mTvPause = (TextView) findViewById(R.id.tv_pause);
         mTvCarryOn = (TextView) findViewById(R.id.tv_keep);
         mTvEnd = (TextView) findViewById(R.id.tv_end);
+        mTrackSurfaceView = (TrackSurfaceView) findViewById(R.id.sv_track);
     }
 
     @Override
@@ -400,9 +403,9 @@ public class SportsActivity extends BaseActivity<ISportsPresenter>
 
     private void setLocationNoUseUI() {
         mTvCalculateType.setText(R.string.gps_can_no_use);
-        mTvPause.setVisibility(View.GONE);
-        mTvCarryOn.setVisibility(View.GONE);
-        mTvEnd.setVisibility(View.GONE);
+        mTvPause.setVisibility(View.INVISIBLE);
+        mTvCarryOn.setVisibility(View.INVISIBLE);
+        mTvEnd.setVisibility(View.INVISIBLE);
     }
 
     private void pause() {
@@ -429,13 +432,20 @@ public class SportsActivity extends BaseActivity<ISportsPresenter>
     }
 
     private void updateUI(boolean isPause) {
-        mTvPause.setVisibility(isPause ? View.GONE : View.VISIBLE);
-        mTvCarryOn.setVisibility(isPause ? View.VISIBLE : View.GONE);
-        mTvEnd.setVisibility(isPause ? View.VISIBLE : View.GONE);
+        mTvPause.setVisibility(isPause ? View.INVISIBLE : View.VISIBLE);
+        mTvCarryOn.setVisibility(isPause ? View.VISIBLE : View.INVISIBLE);
+        mTvEnd.setVisibility(isPause ? View.VISIBLE : View.INVISIBLE);
     }
 
     @Override
     public void update(double lon, double lat) {
+        if (mTrackX == 0f && mTrackY == 0f) {
+            mTrackX = (float) lon;
+            mTrackY = (float) lat;
+        }
+        if (mTrackSurfaceView != null) {
+            mTrackSurfaceView.setCoordinate((float) lon - mTrackX, (float) lat - mTrackY);
+        }
         lastLon = lon;
         lastLat = lat;
         mTvDistance.setText(String.format("%.2f", mBean.getSportsData().getDistance()));

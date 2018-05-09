@@ -27,7 +27,7 @@
         android:id="@+id/tv_distance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/big_margin"
+        android:layout_marginTop="@dimen/small_margin"
         android:text="@string/zero"
         android:textColor="@color/black"
         android:textSize="60sp"
@@ -50,7 +50,7 @@
         android:id="@+id/rl_way_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/big_margin"
+        android:layout_marginTop="@dimen/small_margin"
         app:layout_constraintTop_toBottomOf="@id/tv_distance">
 
         <View
@@ -94,7 +94,7 @@
         android:id="@+id/rl_speed_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/big_margin"
+        android:layout_marginTop="@dimen/common_margin"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/rl_time_container"
@@ -126,7 +126,7 @@
         android:id="@+id/rl_time_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/big_margin"
+        android:layout_marginTop="@dimen/common_margin"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintLeft_toRightOf="@id/rl_speed_container"
         app:layout_constraintRight_toRightOf="parent"
@@ -160,14 +160,15 @@
         android:layout_height="0.5dp"
         android:layout_marginLeft="@dimen/big_margin"
         android:layout_marginRight="@dimen/big_margin"
-        android:layout_marginTop="@dimen/big_margin"
+        android:layout_marginTop="@dimen/common_margin"
         android:background="@color/colorPrimary"
         app:layout_constraintTop_toBottomOf="@id/rl_time_container" />
 
     <TextView
         android:id="@+id/tv_keep"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="@dimen/big_margin"
         android:background="@drawable/bg_btn_keep"
         android:gravity="center"
         android:text="@string/carry_on"
@@ -177,13 +178,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="parent"
         app:layout_constraintRight_toLeftOf="@id/tv_end"
-        app:layout_constraintTop_toBottomOf="@id/view_divider_bottom"
         tools:visibility="visible" />
 
     <TextView
         android:id="@+id/tv_end"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="@dimen/big_margin"
         android:background="@drawable/bg_btn_end"
         android:gravity="center"
         android:text="@string/end"
@@ -193,13 +194,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/tv_keep"
         app:layout_constraintRight_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view_divider_bottom"
         tools:visibility="visible" />
 
     <TextView
         android:id="@+id/tv_pause"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="@dimen/big_margin"
         android:background="@drawable/bg_btn_pause"
         android:gravity="center"
         android:text="@string/pause"
@@ -207,7 +208,29 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view_divider_bottom" />
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <View
+        android:id="@+id/view_divider_bottom_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginBottom="@dimen/common_margin"
+        android:layout_marginLeft="@dimen/big_margin"
+        android:layout_marginRight="@dimen/big_margin"
+        android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toTopOf="@id/tv_pause" />
+
+    <com.zjk.common.ui.TrackSurfaceView
+        android:id="@+id/sv_track"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/small_margin"
+        android:layout_marginLeft="@dimen/big_margin"
+        android:layout_marginRight="@dimen/big_margin"
+        android:layout_marginTop="@dimen/small_margin"
+        android:background="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/view_divider_bottom_bottom"
+        app:layout_constraintTop_toBottomOf="@id/view_divider_bottom"
+        app:layout_constraintVertical_weight="1" />
 
 </android.support.constraint.ConstraintLayout>
