@@ -26,7 +26,7 @@ public class ShapedImageView extends ImageView {
     public static final int SHAPE_MODE_ROUND_RECT = 1;
     public static final int SHAPE_MODE_CIRCLE = 2;
 
-    private static final int LAYER_FLAGS = Canvas.MATRIX_SAVE_FLAG | Canvas.CLIP_SAVE_FLAG | Canvas.HAS_ALPHA_LAYER_SAVE_FLAG | Canvas.FULL_COLOR_LAYER_SAVE_FLAG | Canvas.CLIP_TO_LAYER_SAVE_FLAG;
+    private static final int LAYER_FLAGS = Canvas.ALL_SAVE_FLAG;
 
     private int mShapeMode = 0;
     private float mRadius = 0;

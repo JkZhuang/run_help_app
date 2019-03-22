@@ -1027,7 +1027,7 @@ public class Utils {
         Bitmap bitmap = Bitmap.createBitmap((int) Math.ceil(width), (int) Math.ceil(height), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         canvas.drawText(text, 0, Math.abs(fontMetrics.top), textPaint);
-        canvas.save(Canvas.ALL_SAVE_FLAG);
+        canvas.save();
 
         Log.i(TAG, "textAsBitmap, " + String.format("bitmap[width=%d, height=%d]", bitmap.getWidth(), bitmap.getHeight()));
         return bitmap;
